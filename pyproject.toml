@@ -28,6 +28,10 @@ classifiers = [
 dependencies = [
     "pydantic>=2.0,<3",
     "typer>=0.12",
+    # Typer 0.15+ dropped click from its required deps, but a1_validator.cli
+    # imports click directly (custom TyperGroup subclass uses click.Context).
+    # Pin click as an explicit dep so sdist installs pull it in.
+    "click>=8.0",
 ]
 
 [project.optional-dependencies]
