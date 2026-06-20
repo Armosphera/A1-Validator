@@ -1,0 +1,47 @@
+Armosphera Proprietary License
+
+Copyright © 2026 Armosphera LLC. All rights reserved.
+
+This software and associated documentation files (the "Software") are the
+proprietary and confidential property of Armosphera LLC. The Software is
+licensed, not sold.
+
+1. GRANT OF LICENSE
+   Subject to the terms of this License, Armosphera LLC grants you a
+   non-exclusive, non-transferable, revocable license to use the Software
+   solely for internal evaluation, integration testing, and development of
+   products that interoperate with Armosphera LLC software.
+
+2. RESTRICTIONS
+   You may NOT:
+   - Redistribute the Software, in whole or in part, in any form.
+   - Modify, reverse-engineer, decompile, or disassemble the Software
+     except to the extent expressly permitted by applicable law.
+   - Use the Software to build a competing product or service.
+   - Remove or alter any proprietary notices or labels.
+
+3. OWNERSHIP
+   Armosphera LLC retains all right, title, and interest in and to the
+   Software, including all intellectual property rights.
+
+4. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT.
+
+5. LIMITATION OF LIABILITY
+   IN NO EVENT SHALL ARMOSPHERA LLC BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+   OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE,
+   ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+   OTHER DEALINGS IN THE SOFTWARE.
+
+6. TERMINATION
+   This License is effective until terminated. It will terminate
+   automatically if you fail to comply with any term. Upon termination you
+   must destroy all copies of the Software in your possession.
+
+7. GOVERNING LAW
+   This License shall be governed by the laws of the Republic of Armenia.
+
+For commercial licensing, redistribution rights, or open-source terms,
+contact: ops@a1-suite.local
