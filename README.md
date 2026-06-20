@@ -36,6 +36,55 @@ a1_validator.validate("inn",  {"id": "7707083893"})
 Every validator returns a plain dict (and a matching Pydantic v2 result model is
 exposed — `a1_validator.HHVHResult`, `a1_validator.INNResult`, …).
 
+## CLI usage
+
+Installing the package also installs an `a1-validate` console script:
+
+```bash
+# Validate a single value — result is printed as JSON to stdout.
+# Exit 0 if ok=true, exit 1 if ok=false (or the kind is unknown).
+a1-validate hhvh 00123456
+# → {"ok": true, "normalized": "00123456", "error": null}
+a1-validate hhvh 99999999   # all-same-digit HHVH is invalid
+# → {"ok": false, "normalized": "99999999", "error": "ՀՎՀՀ-ն անվավեր է"}
+
+# List all 23 validators with a one-line description each.
+a1-validate list
+# → a1-validator 0.1.0 — 23 SBOSS validators:
+#     hhvh       Armenian taxpayer ID (8 digits, HHVH / ՀՎՀՀ)
+#     inn        Russian INN / OGRN / OGRNIP / SNILS / KPP dispatcher ...
+#     ...
+
+# Batch-run a vendored eval-set file (array of {input, expected} cases).
+# Exit 0 if every case matches, exit 1 if any case fails.
+a1-validate batch hhvh tests/_eval_sets/hhvh.json
+# → {"kind": "hhvh", "total": 20, "ok": 20, "fail": 0, "failures": []}
+
+# Print the package version and exit.
+a1-validate --version
+# → a1-validator 0.1.0
+```
+
+For multi-input validators (e.g. `vat_return`, `chat_client`), pass the input
+as a JSON object on the command line:
+
+```bash
+a1-validate vat_return '{"net": 100000, "outputVat": 20000, "inputVat": 5000}'
+# → {"net": 100000, "outputVat": 20000, "inputVat": 5000, "payable": 15000, ...}
+```
+
+Single-string validators (the 11 kinds whose vendored `validate()` reads
+exactly one field) accept a plain value and auto-wrap it under the
+canonical input key — so `a1-validate hhvh 00123456` is sugar for
+`a1-validate hhvh '{"hvhh": "00123456"}'`.
+
+Pipe the JSON output straight into `jq`:
+
+```bash
+a1-validate hhvh 00123456 | jq -r .normalized
+# → 00123456
+```
+
 ## The 23 validators
 
 | Name | What it validates |
