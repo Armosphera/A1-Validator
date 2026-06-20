@@ -27,6 +27,7 @@ classifiers = [
 ]
 dependencies = [
     "pydantic>=2.0,<3",
+    "typer>=0.12",
 ]
 
 [project.optional-dependencies]
@@ -51,6 +52,9 @@ all = [
 # Top-level CLI entry point — see `a1_validator.cli`. Note: the cli task
 # in this plan adds other subcommands (`list`, `batch`, …) to the same
 # Typer `app` object; the merge in `packaging-and-deploy` combines them.
+a1-validate = "a1_validator.cli:app"
+
+[project.scripts]
 a1-validate = "a1_validator.cli:app"
 
 [project.urls]
