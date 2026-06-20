@@ -1,0 +1,705 @@
+[
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": true,
+      "error_count": 0,
+      "error_codes": []
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Ivan Petrov IP",
+          "inn": "500100732259",
+          "address": "Yerevan"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": true,
+      "error_count": 0,
+      "error_codes": []
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Export goods",
+            "quantity": 100,
+            "netAmount": 50000.0,
+            "vatRate": 0,
+            "vatAmount": 0.0,
+            "lineTotal": 50000.0
+          },
+          {
+            "description": "Food",
+            "quantity": 50,
+            "netAmount": 10000.0,
+            "vatRate": 10,
+            "vatAmount": 1000.0,
+            "lineTotal": 11000.0
+          },
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 20000.0,
+            "vatRate": 22,
+            "vatAmount": 4400.0,
+            "lineTotal": 24400.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": true,
+      "error_count": 0,
+      "error_codes": []
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_NUMBER"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "15.03.2026",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_DATE"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-02-30",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_DATE"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_SELLER_NAME"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "1234567890",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_SELLER_INN"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "ABC12345",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_SELLER_KPP"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_BUYER_NAME"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "1234567890",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_BUYER_INN"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": []
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "NO_LINES"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "",
+            "quantity": 1,
+            "netAmount": 1000,
+            "vatRate": 22,
+            "vatAmount": 220,
+            "lineTotal": 1220
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_DESCRIPTION"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "X",
+            "quantity": 0,
+            "netAmount": 1000,
+            "vatRate": 22,
+            "vatAmount": 220,
+            "lineTotal": 1220
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_QUANTITY"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "X",
+            "quantity": 1,
+            "netAmount": -100,
+            "vatRate": 22,
+            "vatAmount": -22,
+            "lineTotal": -122
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_NET"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "X",
+            "quantity": 1,
+            "netAmount": 1000,
+            "vatRate": 18,
+            "vatAmount": 180,
+            "lineTotal": 1180
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_VAT_RATE"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "RUB",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "X",
+            "quantity": 1,
+            "netAmount": 10000,
+            "vatRate": 22,
+            "vatAmount": 2100,
+            "lineTotal": 12100
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "LINE_VAT_MISMATCH"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "validate",
+      "invoice": {
+        "number": "SF-2026-001",
+        "date": "2026-03-15",
+        "currency": "USD",
+        "seller": {
+          "name": "Sberbank",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "Moscow"
+        },
+        "buyer": {
+          "name": "Acme LLC",
+          "inn": "7707083893",
+          "kpp": "770701001",
+          "address": "SPb"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 10000.0,
+            "vatRate": 22,
+            "vatAmount": 2200.0,
+            "lineTotal": 12200.0
+          }
+        ],
+        "currencyCode": ""
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_CURRENCY_CODE"
+      ]
+    }
+  }
+]

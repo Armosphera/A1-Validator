@@ -1,0 +1,318 @@
+[
+  {
+    "input": {
+      "raw": []
+    },
+    "expected": {
+      "count": 0,
+      "titles": [],
+      "excerpts": [],
+      "sourceUrls": [],
+      "scores": [],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "title": "Doc A",
+          "text": "Excerpt A",
+          "sourceUrl": "https://a.com",
+          "score": 0.9
+        }
+      ]
+    },
+    "expected": {
+      "count": 1,
+      "titles": [
+        "Doc A"
+      ],
+      "excerpts": [
+        "Excerpt A"
+      ],
+      "sourceUrls": [
+        "https://a.com"
+      ],
+      "scores": [
+        0.9
+      ],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "title": "A",
+          "text": "excerpt A",
+          "sourceUrl": "https://a",
+          "score": 0.5
+        },
+        {
+          "title": "B",
+          "text": "excerpt B",
+          "sourceUrl": "https://b",
+          "score": 0.9
+        },
+        {
+          "title": "C",
+          "text": "excerpt C",
+          "sourceUrl": "https://c",
+          "score": 0.7
+        }
+      ]
+    },
+    "expected": {
+      "count": 3,
+      "titles": [
+        "B",
+        "C",
+        "A"
+      ],
+      "excerpts": [
+        "excerpt B",
+        "excerpt C",
+        "excerpt A"
+      ],
+      "sourceUrls": [
+        "https://b",
+        "https://c",
+        "https://a"
+      ],
+      "scores": [
+        0.9,
+        0.7,
+        0.5
+      ],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "text": "just text"
+        }
+      ]
+    },
+    "expected": {
+      "count": 1,
+      "titles": [
+        "Open Notebook"
+      ],
+      "excerpts": [
+        "just text"
+      ],
+      "sourceUrls": [
+        ""
+      ],
+      "scores": [
+        0
+      ],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "title": "A1",
+          "text": "ex1",
+          "sourceUrl": "https://x",
+          "score": 0.5
+        },
+        {
+          "title": "A2",
+          "text": "ex2",
+          "sourceUrl": "https://x",
+          "score": 0.9
+        }
+      ]
+    },
+    "expected": {
+      "count": 1,
+      "titles": [
+        "A2"
+      ],
+      "excerpts": [
+        "ex2"
+      ],
+      "sourceUrls": [
+        "https://x"
+      ],
+      "scores": [
+        0.9
+      ],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "title": "Hello",
+          "text": "ex1",
+          "score": 0.3
+        },
+        {
+          "title": "HELLO",
+          "text": "ex2",
+          "score": 0.7
+        }
+      ]
+    },
+    "expected": {
+      "count": 1,
+      "titles": [
+        "HELLO"
+      ],
+      "excerpts": [
+        "ex2"
+      ],
+      "sourceUrls": [
+        ""
+      ],
+      "scores": [
+        0.7
+      ],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "title": "A",
+          "text": "ex1",
+          "sourceUrl": "https://a",
+          "score": 0.5
+        },
+        {
+          "title": "B",
+          "text": "ex2",
+          "sourceUrl": "https://b",
+          "score": 0.9
+        },
+        {
+          "title": "C",
+          "text": "ex3",
+          "sourceUrl": "https://c",
+          "score": 0.7
+        }
+      ],
+      "max": 2
+    },
+    "expected": {
+      "count": 2,
+      "titles": [
+        "B",
+        "C"
+      ],
+      "excerpts": [
+        "ex2",
+        "ex3"
+      ],
+      "sourceUrls": [
+        "https://b",
+        "https://c"
+      ],
+      "scores": [
+        0.9,
+        0.7
+      ],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "title": "Long",
+          "text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "score": 0.5
+        }
+      ]
+    },
+    "expected": {
+      "count": 1,
+      "titles": [
+        "Long"
+      ],
+      "excerpts": [
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "sourceUrls": [
+        ""
+      ],
+      "scores": [
+        0.5
+      ],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "title": "  Hello   World  ",
+          "text": "  multiple   spaces   here  ",
+          "score": 0.5
+        }
+      ]
+    },
+    "expected": {
+      "count": 1,
+      "titles": [
+        "Hello World"
+      ],
+      "excerpts": [
+        "multiple spaces here"
+      ],
+      "sourceUrls": [
+        ""
+      ],
+      "scores": [
+        0.5
+      ],
+      "allAdvisory": true
+    }
+  },
+  {
+    "input": {
+      "raw": [
+        {
+          "title": "Good",
+          "text": "valid excerpt",
+          "score": 0.5
+        },
+        {
+          "title": "Empty",
+          "text": "",
+          "score": 0.9
+        },
+        {
+          "title": "Whitespace",
+          "text": "   ",
+          "score": 0.9
+        }
+      ]
+    },
+    "expected": {
+      "count": 1,
+      "titles": [
+        "Good"
+      ],
+      "excerpts": [
+        "valid excerpt"
+      ],
+      "sourceUrls": [
+        ""
+      ],
+      "scores": [
+        0.5
+      ],
+      "allAdvisory": true
+    }
+  }
+]

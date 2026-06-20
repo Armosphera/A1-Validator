@@ -1,0 +1,627 @@
+[
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-test-001",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [
+          {
+            "message": {
+              "role": "assistant",
+              "content": "Hello there."
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 3,
+          "total_tokens": 13
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callModel",
+      "kwargs": {
+        "instructions": "You are helpful.",
+        "input": "Hi",
+        "apiKey": "sk-test-123"
+      }
+    },
+    "expected": {
+      "ok": true,
+      "text": "Hello there.",
+      "model": "anthropic/claude-3.5-sonnet",
+      "responseId": "chatcmpl-test-001",
+      "provider": "openrouter",
+      "last_request.method": "POST",
+      "last_request.body": {
+        "max_tokens": 1200,
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are helpful."
+          },
+          {
+            "role": "user",
+            "content": "Hi"
+          }
+        ]
+      },
+      "last_request.headers": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "",
+        "X-Title": "",
+        "Authorization": "Bearer sk-test-123"
+      }
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-test-001",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [
+          {
+            "message": {
+              "role": "assistant",
+              "content": "Hello there."
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 3,
+          "total_tokens": 13
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callModel",
+      "kwargs": {
+        "instructions": "sys",
+        "input": "user",
+        "model": "openai/gpt-4o",
+        "apiKey": "sk-test-123"
+      }
+    },
+    "expected": {
+      "ok": true,
+      "text": "Hello there.",
+      "model": "anthropic/claude-3.5-sonnet",
+      "responseId": "chatcmpl-test-001",
+      "provider": "openrouter",
+      "last_request.method": "POST",
+      "last_request.body": {
+        "model": "openai/gpt-4o",
+        "max_tokens": 1200,
+        "messages": [
+          {
+            "role": "system",
+            "content": "sys"
+          },
+          {
+            "role": "user",
+            "content": "user"
+          }
+        ]
+      },
+      "last_request.headers": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "",
+        "X-Title": "",
+        "Authorization": "Bearer sk-test-123"
+      }
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-test-001",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [
+          {
+            "message": {
+              "role": "assistant",
+              "content": "Hello there."
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 3,
+          "total_tokens": 13
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1",
+        "referer": "https://a1suite.app",
+        "title": "A1 Suite"
+      },
+      "operation": "callModel",
+      "kwargs": {
+        "instructions": "s",
+        "input": "u",
+        "apiKey": "k"
+      }
+    },
+    "expected": {
+      "ok": true,
+      "text": "Hello there.",
+      "model": "anthropic/claude-3.5-sonnet",
+      "responseId": "chatcmpl-test-001",
+      "provider": "openrouter",
+      "last_request.method": "POST",
+      "last_request.body": {
+        "max_tokens": 1200,
+        "messages": [
+          {
+            "role": "system",
+            "content": "s"
+          },
+          {
+            "role": "user",
+            "content": "u"
+          }
+        ]
+      },
+      "last_request.headers": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://a1suite.app",
+        "X-Title": "A1 Suite",
+        "Authorization": "Bearer k"
+      }
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-test-001",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [
+          {
+            "message": {
+              "role": "assistant",
+              "content": "Hello there."
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 3,
+          "total_tokens": 13
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callModel",
+      "kwargs": {
+        "instructions": "s",
+        "input": "u",
+        "apiKey": "k",
+        "maxTokens": 500
+      }
+    },
+    "expected": {
+      "ok": true,
+      "text": "Hello there.",
+      "model": "anthropic/claude-3.5-sonnet",
+      "responseId": "chatcmpl-test-001",
+      "provider": "openrouter",
+      "last_request.method": "POST",
+      "last_request.body": {
+        "max_tokens": 500,
+        "messages": [
+          {
+            "role": "system",
+            "content": "s"
+          },
+          {
+            "role": "user",
+            "content": "u"
+          }
+        ]
+      },
+      "last_request.headers": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "",
+        "X-Title": "",
+        "Authorization": "Bearer k"
+      }
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": null,
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callModel",
+      "kwargs": {
+        "instructions": "s",
+        "input": "u"
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_code": "AI_NOT_CONFIGURED",
+      "error_status": 503,
+      "last_request.method": null,
+      "last_request.body": null
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "error": {
+          "code": "ECONNRESET",
+          "message": "Connection reset"
+        }
+      },
+      "safeFetch_status": 500,
+      "safeFetch_ok": false,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callModel",
+      "kwargs": {
+        "instructions": "s",
+        "input": "u",
+        "apiKey": "k"
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_code": "ECONNRESET",
+      "error_status": 500
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": null,
+      "safeFetch_status": 502,
+      "safeFetch_ok": false,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callModel",
+      "kwargs": {
+        "instructions": "s",
+        "input": "u",
+        "apiKey": "k"
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_code": "OPENROUTER_ERROR",
+      "error_status": 502
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-empty",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [],
+        "usage": {
+          "total_tokens": 0
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callModel",
+      "kwargs": {
+        "instructions": "s",
+        "input": "u",
+        "apiKey": "k"
+      }
+    },
+    "expected": {
+      "ok": true,
+      "text": "",
+      "model": "anthropic/claude-3.5-sonnet",
+      "responseId": "chatcmpl-empty",
+      "provider": "openrouter"
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-test-001",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [
+          {
+            "message": {
+              "role": "assistant",
+              "content": "Hello there."
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 3,
+          "total_tokens": 13
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callVision",
+      "kwargs": {
+        "instructions": "describe",
+        "input": "what is this?",
+        "imageBase64": "AAAAGGZ0eXB",
+        "apiKey": "k"
+      }
+    },
+    "expected": {
+      "ok": true,
+      "text": "Hello there.",
+      "model": "anthropic/claude-3.5-sonnet",
+      "responseId": "chatcmpl-test-001",
+      "provider": "openrouter",
+      "last_request.method": "POST",
+      "last_request.body": {
+        "max_tokens": 1200,
+        "messages": [
+          {
+            "role": "system",
+            "content": "describe"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "what is this?"
+              },
+              {
+                "type": "image_url",
+                "image_url": {
+                  "url": "data:image/jpeg;base64,AAAAGGZ0eXB"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "last_request.headers": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "",
+        "X-Title": "",
+        "Authorization": "Bearer k"
+      }
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-test-001",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [
+          {
+            "message": {
+              "role": "assistant",
+              "content": "Hello there."
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 3,
+          "total_tokens": 13
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callVision",
+      "kwargs": {
+        "instructions": "describe",
+        "input": "?",
+        "imageBase64": "AAAA",
+        "mimeType": "image/png",
+        "apiKey": "k"
+      }
+    },
+    "expected": {
+      "ok": true,
+      "text": "Hello there.",
+      "model": "anthropic/claude-3.5-sonnet",
+      "responseId": "chatcmpl-test-001",
+      "provider": "openrouter",
+      "last_request.method": "POST",
+      "last_request.body": {
+        "max_tokens": 1200,
+        "messages": [
+          {
+            "role": "system",
+            "content": "describe"
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": "?"
+              },
+              {
+                "type": "image_url",
+                "image_url": {
+                  "url": "data:image/png;base64,AAAA"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "last_request.headers": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "",
+        "X-Title": "",
+        "Authorization": "Bearer k"
+      }
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-struct",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [
+          {
+            "message": {
+              "content": "{\"name\": \"Acme\", \"age\": 30}"
+            }
+          }
+        ],
+        "usage": {
+          "total_tokens": 50
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callStructured",
+      "kwargs": {
+        "instructions": "extract",
+        "input": "Acme is 30",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "age": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "name",
+            "age"
+          ]
+        },
+        "apiKey": "k"
+      }
+    },
+    "expected": {
+      "ok": true,
+      "text": "{\"name\": \"Acme\", \"age\": 30}",
+      "model": "anthropic/claude-3.5-sonnet",
+      "responseId": "chatcmpl-struct",
+      "provider": "openrouter",
+      "last_request.method": "POST",
+      "last_request.body": {
+        "max_tokens": 1200,
+        "messages": [
+          {
+            "role": "system",
+            "content": "extract"
+          },
+          {
+            "role": "user",
+            "content": "Acme is 30"
+          }
+        ],
+        "response_format": {
+          "type": "json_schema",
+          "json_schema": {
+            "name": "result",
+            "strict": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "age": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "name",
+                "age"
+              ]
+            }
+          }
+        }
+      },
+      "last_request.headers": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "",
+        "X-Title": "",
+        "Authorization": "Bearer k"
+      }
+    }
+  },
+  {
+    "input": {
+      "safeFetch_response": {
+        "id": "chatcmpl-bad",
+        "model": "anthropic/claude-3.5-sonnet",
+        "choices": [
+          {
+            "message": {
+              "content": "not valid json {"
+            }
+          }
+        ],
+        "usage": {
+          "total_tokens": 5
+        }
+      },
+      "safeFetch_status": 200,
+      "safeFetch_ok": true,
+      "openrouter": {
+        "baseUrl": "https://openrouter.ai/api/v1"
+      },
+      "operation": "callStructured",
+      "kwargs": {
+        "instructions": "x",
+        "input": "y",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "age": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "name",
+            "age"
+          ]
+        },
+        "apiKey": "k"
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_code": "AI_BAD_JSON",
+      "error_status": 502
+    }
+  }
+]

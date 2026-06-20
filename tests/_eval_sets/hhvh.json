@@ -1,0 +1,22 @@
+[
+  { "input": { "hvhh": "00123456" }, "expected": { "ok": true,  "normalized": "00123456", "error": null } },
+  { "input": { "hvhh": "12345678" }, "expected": { "ok": true,  "normalized": "12345678", "error": null } },
+  { "input": { "hvhh": "00000001" }, "expected": { "ok": true,  "normalized": "00000001", "error": null } },
+  { "input": { "hvhh": "99999998" }, "expected": { "ok": true,  "normalized": "99999998", "error": null } },
+  { "input": { "hvhh": "001 234 56" }, "expected": { "ok": true, "normalized": "00123456", "error": null } },
+  { "input": { "hvhh": "001-234-56" }, "expected": { "ok": true, "normalized": "00123456", "error": null } },
+  { "input": { "hvhh": "001.234.56" }, "expected": { "ok": true, "normalized": "00123456", "error": null } },
+  { "input": { "hvhh": "  00123456  " }, "expected": { "ok": true, "normalized": "00123456", "error": null } },
+  { "input": { "hvhh": "" },          "expected": { "ok": false, "normalized": "",         "error": "ՀՎՀՀ-ն պարտադիր է" } },
+  { "input": { "hvhh": "   " },       "expected": { "ok": false, "normalized": "",         "error": "ՀՎՀՀ-ն պարտադիր է" } },
+  { "input": { "hvhh": "1234567" },   "expected": { "ok": false, "normalized": "1234567",  "error": "ՀՎՀՀ-ն պետք է լինի 8 նիշ" } },
+  { "input": { "hvhh": "123456789" }, "expected": { "ok": false, "normalized": "123456789","error": "ՀՎՀՀ-ն պետք է լինի 8 նիշ" } },
+  { "input": { "hvhh": "00123-456" }, "expected": { "ok": false, "normalized": "00123456", "error": "ՀՎՀՀ-ն պետք է լինի 8 նիշ" } },
+  { "input": { "hvhh": "00000000" },  "expected": { "ok": false, "normalized": "00000000", "error": "ՀՎՀՀ-ն անվավեր է" } },
+  { "input": { "hvhh": "11111111" },  "expected": { "ok": false, "normalized": "11111111", "error": "ՀՎՀՀ-ն անվավեր է" } },
+  { "input": { "hvhh": "22222222" },  "expected": { "ok": false, "normalized": "22222222", "error": "ՀՎՀՀ-ն անվավեր է" } },
+  { "input": { "hvhh": "99999999" },  "expected": { "ok": false, "normalized": "99999999", "error": "ՀՎՀՀ-ն անվավեր է" } },
+  { "input": { "hvhh": "0012345A" },  "expected": { "ok": false, "normalized": "0012345A", "error": "ՀՎՀՀ-ն պետք է պարունակի միայն թվանշաններ" } },
+  { "input": { "hvhh": "ABCDEFGH" },  "expected": { "ok": false, "normalized": "ABCDEFGH", "error": "ՀՎՀՀ-ն պետք է պարունակի միայն թվանշաններ" } },
+  { "input": { "hvhh": "001.2345A" }, "expected": { "ok": false, "normalized": "0012345A", "error": "ՀՎՀՀ-ն պետք է պարունակի միայն թվանշաններ" } }
+]

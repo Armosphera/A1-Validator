@@ -1,0 +1,478 @@
+[
+  {
+    "input": {
+      "operation": "isEnabled",
+      "settings": null
+    },
+    "expected": {
+      "enabled": false
+    }
+  },
+  {
+    "input": {
+      "operation": "isEnabled",
+      "settings": {}
+    },
+    "expected": {
+      "enabled": false
+    }
+  },
+  {
+    "input": {
+      "operation": "isEnabled",
+      "settings": {
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": "https://nb"
+        }
+      }
+    },
+    "expected": {
+      "enabled": true
+    }
+  },
+  {
+    "input": {
+      "operation": "isEnabled",
+      "settings": {
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": ""
+        }
+      }
+    },
+    "expected": {
+      "enabled": false
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeResults",
+      "raw": [
+        {
+          "title": "Doc 1",
+          "text": "text 1",
+          "score": 0.9,
+          "url": "https://1"
+        },
+        {
+          "title": "Doc 2",
+          "text": "text 2",
+          "score": 0.7,
+          "url": "https://2"
+        }
+      ]
+    },
+    "expected": {
+      "count": 2,
+      "titles": [
+        "Doc 1",
+        "Doc 2"
+      ],
+      "texts": [
+        "text 1",
+        "text 2"
+      ],
+      "scores": [
+        0.9,
+        0.7
+      ],
+      "origins": [
+        "open-notebook",
+        "open-notebook"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeResults",
+      "raw": {
+        "results": [
+          {
+            "title": "Doc 1",
+            "text": "text 1",
+            "score": 0.9,
+            "url": "https://1"
+          },
+          {
+            "title": "Doc 2",
+            "text": "text 2",
+            "score": 0.7,
+            "url": "https://2"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "count": 2,
+      "titles": [
+        "Doc 1",
+        "Doc 2"
+      ],
+      "texts": [
+        "text 1",
+        "text 2"
+      ],
+      "scores": [
+        0.9,
+        0.7
+      ],
+      "origins": [
+        "open-notebook",
+        "open-notebook"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeResults",
+      "raw": {
+        "sources": [
+          {
+            "title": "Doc 1",
+            "text": "text 1",
+            "score": 0.9,
+            "url": "https://1"
+          },
+          {
+            "title": "Doc 2",
+            "text": "text 2",
+            "score": 0.7,
+            "url": "https://2"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "count": 2,
+      "titles": [
+        "Doc 1",
+        "Doc 2"
+      ],
+      "texts": [
+        "text 1",
+        "text 2"
+      ],
+      "scores": [
+        0.9,
+        0.7
+      ],
+      "origins": [
+        "open-notebook",
+        "open-notebook"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeResults",
+      "raw": {
+        "data": [
+          {
+            "title": "Doc 1",
+            "text": "text 1",
+            "score": 0.9,
+            "url": "https://1"
+          },
+          {
+            "title": "Doc 2",
+            "text": "text 2",
+            "score": 0.7,
+            "url": "https://2"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "count": 2,
+      "titles": [
+        "Doc 1",
+        "Doc 2"
+      ],
+      "texts": [
+        "text 1",
+        "text 2"
+      ],
+      "scores": [
+        0.9,
+        0.7
+      ],
+      "origins": [
+        "open-notebook",
+        "open-notebook"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeResults",
+      "raw": [
+        {
+          "title": "With text",
+          "text": "yes",
+          "score": 0.9
+        },
+        {
+          "title": "No text",
+          "text": "",
+          "score": 0.5
+        },
+        {
+          "title": "Text via content",
+          "content": "content-y",
+          "score": 0.6
+        }
+      ]
+    },
+    "expected": {
+      "count": 2,
+      "titles": [
+        "With text",
+        "Text via content"
+      ],
+      "texts": [
+        "yes",
+        "content-y"
+      ],
+      "scores": [
+        0.9,
+        0.6
+      ],
+      "origins": [
+        "open-notebook",
+        "open-notebook"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeResults",
+      "raw": [
+        {
+          "title": "Doc 1",
+          "text": "text 1",
+          "score": 0.9,
+          "url": "https://1"
+        },
+        {
+          "title": "Doc 2",
+          "text": "text 2",
+          "score": 0.7,
+          "url": "https://2"
+        },
+        {
+          "title": "Third",
+          "text": "t3",
+          "score": 0.5
+        }
+      ],
+      "k": 2
+    },
+    "expected": {
+      "count": 2,
+      "titles": [
+        "Doc 1",
+        "Doc 2"
+      ],
+      "texts": [
+        "text 1",
+        "text 2"
+      ],
+      "scores": [
+        0.9,
+        0.7
+      ],
+      "origins": [
+        "open-notebook",
+        "open-notebook"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "search",
+      "settings": {
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "https://x"
+        }
+      },
+      "query": "q",
+      "safeFetchResponse": {
+        "results": [
+          {
+            "title": "R1",
+            "text": "found something",
+            "score": 0.9,
+            "url": "https://r1"
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true
+    },
+    "expected": {
+      "count": 0,
+      "results": []
+    }
+  },
+  {
+    "input": {
+      "operation": "search",
+      "settings": {
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": "https://nb.example.com",
+          "apiKey": "k-1"
+        }
+      },
+      "query": "",
+      "safeFetchResponse": {
+        "results": [
+          {
+            "title": "R1",
+            "text": "found something",
+            "score": 0.9,
+            "url": "https://r1"
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true
+    },
+    "expected": {
+      "count": 0,
+      "results": []
+    }
+  },
+  {
+    "input": {
+      "operation": "search",
+      "settings": {
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": "https://nb.example.com",
+          "apiKey": "k-1"
+        }
+      },
+      "query": "test",
+      "safeFetchResponse": {
+        "results": [
+          {
+            "title": "R1",
+            "text": "found something",
+            "score": 0.9,
+            "url": "https://r1"
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true
+    },
+    "expected": {
+      "count": 1,
+      "results": [
+        {
+          "title": "R1",
+          "text": "found something",
+          "score": 0.9,
+          "sourceUrl": "https://r1",
+          "origin": "open-notebook"
+        }
+      ],
+      "lastRequestUrl": "https://nb.example.com/api/search",
+      "lastRequestMethod": "POST",
+      "lastRequestHeaders": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer k-1"
+      },
+      "lastRequestBody": {
+        "query": "test",
+        "limit": 6
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "search",
+      "settings": {
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": "https://nb.example.com",
+          "apiKey": "k-1"
+        }
+      },
+      "query": "test",
+      "safeFetchResponse": null,
+      "safeFetchStatus": 500,
+      "safeFetchOk": false
+    },
+    "expected": {
+      "count": 0,
+      "results": []
+    }
+  },
+  {
+    "input": {
+      "operation": "search",
+      "settings": {
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": "https://nb.example.com",
+          "apiKey": "k-1"
+        }
+      },
+      "query": "test",
+      "safeFetchThrows": true
+    },
+    "expected": {
+      "count": 0,
+      "results": []
+    }
+  },
+  {
+    "input": {
+      "operation": "search",
+      "settings": {
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": "https://nb.example.com",
+          "searchPath": "/v2/query",
+          "apiKey": "k2"
+        }
+      },
+      "query": "hello",
+      "safeFetchResponse": {
+        "results": [
+          {
+            "title": "R1",
+            "text": "found something",
+            "score": 0.9,
+            "url": "https://r1"
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true,
+      "k": 3
+    },
+    "expected": {
+      "count": 1,
+      "results": [
+        {
+          "title": "R1",
+          "text": "found something",
+          "score": 0.9,
+          "sourceUrl": "https://r1",
+          "origin": "open-notebook"
+        }
+      ],
+      "lastRequestUrl": "https://nb.example.com/v2/query",
+      "lastRequestMethod": "POST",
+      "lastRequestBody": {
+        "query": "hello",
+        "limit": 3
+      }
+    }
+  }
+]

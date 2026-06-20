@@ -1,0 +1,61 @@
+[
+  { "input": {"sales": [{"netAmount": 1000000, "vatRate": 20}], "purchases": [{"netAmount": 400000, "vatRate": 20}]},
+    "expected": {"outputVat": 200000, "inputVat": 80000, "taxableSales": 1000000, "taxablePurchases": 400000, "net": 120000, "payable": 120000, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 100000, "vatRate": 20}], "purchases": [{"netAmount": 500000, "vatRate": 20}]},
+    "expected": {"outputVat": 20000, "inputVat": 100000, "taxableSales": 100000, "taxablePurchases": 500000, "net": -80000, "payable": 0, "creditCarried": 80000} },
+
+  { "input": {"sales": [], "purchases": [{"netAmount": 100000, "vatRate": 20, "recoverable": true}, {"netAmount": 100000, "vatRate": 20, "recoverable": false}]},
+    "expected": {"outputVat": 0, "inputVat": 20000, "taxableSales": 0, "taxablePurchases": 200000, "net": -20000, "payable": 0, "creditCarried": 20000} },
+
+  { "input": {"sales": [{"netAmount": 100000, "vatRate": 20}, {"netAmount": 50000, "vatRate": 0}], "purchases": []},
+    "expected": {"outputVat": 20000, "inputVat": 0, "taxableSales": 150000, "taxablePurchases": 0, "net": 20000, "payable": 20000, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 100000, "vatRate": 20, "vatAmount": 0}], "purchases": []},
+    "expected": {"outputVat": 0, "inputVat": 0, "taxableSales": 100000, "taxablePurchases": 0, "net": 0, "payable": 0, "creditCarried": 0} },
+
+  { "input": {"sales": [], "purchases": []},
+    "expected": {"outputVat": 0, "inputVat": 0, "taxableSales": 0, "taxablePurchases": 0, "net": 0, "payable": 0, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 1000000, "vatRate": 20}, {"netAmount": 500000, "vatRate": 16.67}, {"netAmount": 200000, "vatRate": 0}, {"netAmount": 100000, "category": "exempt"}], "purchases": [{"netAmount": 300000, "vatRate": 20}, {"netAmount": 50000, "vatRate": 20, "recoverable": false}, {"netAmount": 100000, "vatRate": 20, "source": "import"}]},
+    "expected": {"outputVat": 283350, "inputVat": 80000, "taxableSales": 1800000, "taxablePurchases": 450000, "net": 203350, "payable": 203350, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 750000, "vatRate": 20}], "purchases": [{"netAmount": 750000, "vatRate": 20}]},
+    "expected": {"outputVat": 150000, "inputVat": 150000, "taxableSales": 750000, "taxablePurchases": 750000, "net": 0, "payable": 0, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 50000, "vatRate": 20}, {"netAmount": 50000, "vatRate": 20}, {"netAmount": 50000, "vatRate": 20}], "purchases": [{"netAmount": 100000, "vatRate": 20}]},
+    "expected": {"outputVat": 30000, "inputVat": 20000, "taxableSales": 150000, "taxablePurchases": 100000, "net": 10000, "payable": 10000, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 1000000, "vatRate": 20}], "purchases": [{"netAmount": 0, "vatRate": 20}]},
+    "expected": {"outputVat": 200000, "inputVat": 0, "taxableSales": 1000000, "taxablePurchases": 0, "net": 200000, "payable": 200000, "creditCarried": 0} },
+
+  { "input": {"sales": [], "purchases": [{"netAmount": 100000, "vatRate": 20, "source": "import"}, {"netAmount": 50000, "vatRate": 20, "source": "domestic"}]},
+    "expected": {"outputVat": 0, "inputVat": 30000, "taxableSales": 0, "taxablePurchases": 150000, "net": -30000, "payable": 0, "creditCarried": 30000} },
+
+  { "input": {"sales": [{"netAmount": 100000, "vatRate": 20, "vatAmount": 19500}], "purchases": []},
+    "expected": {"outputVat": 19500, "inputVat": 0, "taxableSales": 100000, "taxablePurchases": 0, "net": 19500, "payable": 19500, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 100000, "vatRate": 20}, {"netAmount": 50000, "vatRate": 16.67}, {"netAmount": 50000, "vatRate": 16.67}], "purchases": [{"netAmount": 200000, "vatRate": 20}]},
+    "expected": {"outputVat": 36670, "inputVat": 40000, "taxableSales": 200000, "taxablePurchases": 200000, "net": -3330, "payable": 0, "creditCarried": 3330} },
+
+  { "input": {"sales": [{"netAmount": 1000000, "vatRate": 20}], "purchases": [{"netAmount": 100000, "vatRate": 20, "recoverable": false}, {"netAmount": 100000, "vatRate": 20, "recoverable": false}]},
+    "expected": {"outputVat": 200000, "inputVat": 0, "taxableSales": 1000000, "taxablePurchases": 200000, "net": 200000, "payable": 200000, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 200000, "vatRate": 20}], "purchases": [{"netAmount": 150000, "vatRate": 20}]},
+    "expected": {"outputVat": 40000, "inputVat": 30000, "taxableSales": 200000, "taxablePurchases": 150000, "net": 10000, "payable": 10000, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 100000, "vatRate": 16.67}], "purchases": []},
+    "expected": {"outputVat": 16670, "inputVat": 0, "taxableSales": 100000, "taxablePurchases": 0, "net": 16670, "payable": 16670, "creditCarried": 0} },
+
+  { "input": {"sales": [{"netAmount": 100000, "vatRate": 16.67, "vatAmount": 16670}], "purchases": []},
+    "expected": {"outputVat": 16670, "inputVat": 0, "taxableSales": 100000, "taxablePurchases": 0, "net": 16670, "payable": 16670, "creditCarried": 0} },
+
+  { "input": {"sales": [], "purchases": [{"netAmount": 100000, "vatRate": 20}, {"netAmount": 100000, "vatRate": 16.67}, {"netAmount": 100000, "vatRate": 20, "recoverable": false}]},
+    "expected": {"outputVat": 0, "inputVat": 36670, "taxableSales": 0, "taxablePurchases": 300000, "net": -36670, "payable": 0, "creditCarried": 36670} },
+
+  { "input": {"sales": [{"netAmount": 100000, "vatRate": 20}, {"netAmount": 100000, "vatRate": 20}, {"netAmount": 100000, "vatRate": 20}], "purchases": [{"netAmount": 200000, "vatRate": 20}, {"netAmount": 200000, "vatRate": 20}]},
+    "expected": {"outputVat": 60000, "inputVat": 80000, "taxableSales": 300000, "taxablePurchases": 400000, "net": -20000, "payable": 0, "creditCarried": 20000} },
+
+  { "input": {"sales": [{"netAmount": 5000000, "vatRate": 20}], "purchases": [{"netAmount": 3000000, "vatRate": 20}, {"netAmount": 500000, "vatRate": 20, "recoverable": false}]},
+    "expected": {"outputVat": 1000000, "inputVat": 600000, "taxableSales": 5000000, "taxablePurchases": 3500000, "net": 400000, "payable": 400000, "creditCarried": 0} }
+]

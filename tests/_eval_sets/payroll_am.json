@@ -1,0 +1,61 @@
+[
+  { "input": {"gross": 0},
+    "expected": {"gross": 0, "incomeTax": 0, "pension": 0, "stampDuty": 0, "healthInsurance": 0, "totalWithholdings": 0, "net": 0} },
+
+  { "input": {"gross": 50000},
+    "expected": {"gross": 50000, "incomeTax": 10000, "pension": 2500, "stampDuty": 1000, "healthInsurance": 0, "totalWithholdings": 13500, "net": 36500} },
+
+  { "input": {"gross": 75000},
+    "expected": {"gross": 75000, "incomeTax": 15000, "pension": 3750, "stampDuty": 1000, "healthInsurance": 0, "totalWithholdings": 19750, "net": 55250} },
+
+  { "input": {"gross": 100000},
+    "expected": {"gross": 100000, "incomeTax": 20000, "pension": 5000, "stampDuty": 1000, "healthInsurance": 0, "totalWithholdings": 26000, "net": 74000} },
+
+  { "input": {"gross": 150000},
+    "expected": {"gross": 150000, "incomeTax": 30000, "pension": 7500, "stampDuty": 1000, "healthInsurance": 0, "totalWithholdings": 38500, "net": 111500} },
+
+  { "input": {"gross": 200000},
+    "expected": {"gross": 200000, "incomeTax": 40000, "pension": 10000, "stampDuty": 1000, "healthInsurance": 0, "totalWithholdings": 51000, "net": 149000} },
+
+  { "input": {"gross": 200001},
+    "expected": {"gross": 200001, "incomeTax": 40000, "pension": 10000, "stampDuty": 1000, "healthInsurance": 4800, "totalWithholdings": 55800, "net": 144201} },
+
+  { "input": {"gross": 300000},
+    "expected": {"gross": 300000, "incomeTax": 60000, "pension": 15000, "stampDuty": 1000, "healthInsurance": 4800, "totalWithholdings": 80800, "net": 219200} },
+
+  { "input": {"gross": 400000},
+    "expected": {"gross": 400000, "incomeTax": 80000, "pension": 20000, "stampDuty": 1000, "healthInsurance": 4800, "totalWithholdings": 105800, "net": 294200} },
+
+  { "input": {"gross": 500000},
+    "expected": {"gross": 500000, "incomeTax": 100000, "pension": 25000, "stampDuty": 1000, "healthInsurance": 4800, "totalWithholdings": 130800, "net": 369200} },
+
+  { "input": {"gross": 500001},
+    "expected": {"gross": 500001, "incomeTax": 100000, "pension": 25000, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 136800, "net": 363201} },
+
+  { "input": {"gross": 600000},
+    "expected": {"gross": 600000, "incomeTax": 120000, "pension": 35000, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 166800, "net": 433200} },
+
+  { "input": {"gross": 800000},
+    "expected": {"gross": 800000, "incomeTax": 160000, "pension": 55000, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 226800, "net": 573200} },
+
+  { "input": {"gross": 1000000},
+    "expected": {"gross": 1000000, "incomeTax": 200000, "pension": 75000, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 286800, "net": 713200} },
+
+  { "input": {"gross": 1125000},
+    "expected": {"gross": 1125000, "incomeTax": 225000, "pension": 87500, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 324300, "net": 800700} },
+
+  { "input": {"gross": 1125001},
+    "expected": {"gross": 1125001, "incomeTax": 225000, "pension": 87500, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 324300, "net": 800701} },
+
+  { "input": {"gross": 1200000},
+    "expected": {"gross": 1200000, "incomeTax": 240000, "pension": 87500, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 339300, "net": 860700} },
+
+  { "input": {"gross": 2000000},
+    "expected": {"gross": 2000000, "incomeTax": 400000, "pension": 87500, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 499300, "net": 1500700} },
+
+  { "input": {"gross": 5000000},
+    "expected": {"gross": 5000000, "incomeTax": 1000000, "pension": 87500, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 1099300, "net": 3900700} },
+
+  { "input": {"gross": 10000000},
+    "expected": {"gross": 10000000, "incomeTax": 2000000, "pension": 87500, "stampDuty": 1000, "healthInsurance": 10800, "totalWithholdings": 2099300, "net": 7900700} }
+]

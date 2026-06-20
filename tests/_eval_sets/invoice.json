@@ -1,0 +1,242 @@
+[
+  {
+    "input": {
+      "document": "ACME Corporation LLC\n1234 Industrial Way\nSpringfield, IL 62701\n\nINVOICE\nNumber: INV-2025-0142\nDate: 2025-03-15\nDue Date: 2025-04-15\n\nDescription                          Qty    Unit Price    Amount\nProfessional Services               40     $125.00       $5,000.00\nSoftware License (Annual)            1     $2,500.00     $2,500.00\n\nSubtotal: $7,500.00\nTax (8.25%): $618.75\nTotal: $8,118.75 USD\n\nTax ID: 12-3456789\nPayable to: ACME Corporation LLC"
+    },
+    "expected": {
+      "vendor_name": "ACME Corporation LLC",
+      "invoice_date": "2025-03-15",
+      "total_amount": 8118.75,
+      "currency": "USD",
+      "tax_id": "12-3456789"
+    }
+  },
+  {
+    "input": {
+      "document": "Globex Industries\nInvoice #GLX-9921\nIssued: 15/03/2025\nAmount Due: EUR 4,250.00\nVAT: DE123456789\nPayment Terms: Net 30"
+    },
+    "expected": {
+      "vendor_name": "Globex Industries",
+      "invoice_date": "2025-03-15",
+      "total_amount": 4250.00,
+      "currency": "EUR",
+      "tax_id": "DE123456789"
+    }
+  },
+  {
+    "input": {
+      "document": "ООО «ТехноСтрой»\nИНН: 7701234567\nКПП: 770101001\nСчёт № 2025/0315\nот 15 марта 2025 г.\nИтого к оплате: 125 430,50 руб.\nВ том числе НДС 20%: 20 905,08 руб."
+    },
+    "expected": {
+      "vendor_name": "ООО «ТехноСтрой»",
+      "invoice_date": "2025-03-15",
+      "total_amount": 125430.50,
+      "currency": "RUB",
+      "tax_id": "7701234567"
+    }
+  },
+  {
+    "input": {
+      "document": "Արմեն Ստեփանյան ԱՁ\nՀՎՀՀ: 01234567\nԱպառիկ № Ա-2025-0315\nԱմսաթիվ: 15.03.2025\nԸնդամենը վճարման ենթարկվող: 485 000 դրամ\nՆերառյալ ԱԱՀ 20%: 80 833.33 դրամ"
+    },
+    "expected": {
+      "vendor_name": "Արմեն Ստեփանյան ԱՁ",
+      "invoice_date": "2025-03-15",
+      "total_amount": 485000,
+      "currency": "AMD",
+      "tax_id": "01234567"
+    }
+  },
+  {
+    "input": {
+      "document": "Initech Software, Inc.\nInvoice 8843\nDate: April 2, 2025\nTotal Due: $12,847.50\nFederal Tax ID: 47-8899001\nMake checks payable to Initech Software, Inc."
+    },
+    "expected": {
+      "vendor_name": "Initech Software, Inc.",
+      "invoice_date": "2025-04-02",
+      "total_amount": 12847.50,
+      "currency": "USD",
+      "tax_id": "47-8899001"
+    }
+  },
+  {
+    "input": {
+      "document": "Wayne Enterprises\nBill To: Gotham City Police Dept.\nInvoice# WE-2025-0042\nIssued: 2025-01-30\nTotal: USD 89,250.00\nTax ID: 88-7766554"
+    },
+    "expected": {
+      "vendor_name": "Wayne Enterprises",
+      "invoice_date": "2025-01-30",
+      "total_amount": 89250.00,
+      "currency": "USD",
+      "tax_id": "88-7766554"
+    }
+  },
+  {
+    "input": {
+      "document": "Soylent Corp\nMonthly Subscription\nCharge Date: 02/28/2025\nAmount: $99.00 USD\nTax ID: 99-1234567"
+    },
+    "expected": {
+      "vendor_name": "Soylent Corp",
+      "invoice_date": "2025-02-28",
+      "total_amount": 99.00,
+      "currency": "USD",
+      "tax_id": "99-1234567"
+    }
+  },
+  {
+    "input": {
+      "document": "Pied Piper Compression\nInvoice PPC-25-0199\nDate: 2025-05-10\nTotal Due: 2,500.00 USD\nEIN: 12-3456789"
+    },
+    "expected": {
+      "vendor_name": "Pied Piper Compression",
+      "invoice_date": "2025-05-10",
+      "total_amount": 2500.00,
+      "currency": "USD",
+      "tax_id": "12-3456789"
+    }
+  },
+  {
+    "input": {
+      "document": "ЗАО «ФинансГрупп»\nИНН/КПП: 7723456789/772301001\nСчёт № Ф-2025-0078\nДата: 10.06.2025\nСумма: 58 200,00 руб.\nНДС не облагается"
+    },
+    "expected": {
+      "vendor_name": "ЗАО «ФинансГрупп»",
+      "invoice_date": "2025-06-10",
+      "total_amount": 58200.00,
+      "currency": "RUB",
+      "tax_id": "7723456789"
+    }
+  },
+  {
+    "input": {
+      "document": "Massive Dynamic\nInvoice MD-2025-666\nIssue Date: 20/07/2025\nTotal: $44,000.00\nTax ID: 66-6666666\nNet 45"
+    },
+    "expected": {
+      "vendor_name": "Massive Dynamic",
+      "invoice_date": "2025-07-20",
+      "total_amount": 44000.00,
+      "currency": "USD",
+      "tax_id": "66-6666666"
+    }
+  },
+  {
+    "input": {
+      "document": "ՀայՀաշվապահ ՓԲԸ\nՀՎՀՀ: 01289012\nՀաշիվ H-2025-0099\nԱմսաթիվ: 12.08.2025\nԸնդամենը: 1 250 000 դրամ\nՆերառյալ ԱԱՀ: 208 333.33 դրամ"
+    },
+    "expected": {
+      "vendor_name": "ՀայՀաշվապահ ՓԲԸ",
+      "invoice_date": "2025-08-12",
+      "total_amount": 1250000,
+      "currency": "AMD",
+      "tax_id": "01289012"
+    }
+  },
+  {
+    "input": {
+      "document": "Stark Industries\nInv# SI-2025-100\nDated: 2025-09-01\nAmount: USD 175,000.00\nTax ID: 11-1111111\nProject: ARC REACTOR"
+    },
+    "expected": {
+      "vendor_name": "Stark Industries",
+      "invoice_date": "2025-09-01",
+      "total_amount": 175000.00,
+      "currency": "USD",
+      "tax_id": "11-1111111"
+    }
+  },
+  {
+    "input": {
+      "document": "Cyberdyne Systems\nInvoice CS-25-088\nDate: 10/15/2025\nTotal Due: 25,500.00 USD\nTax ID: 55-5555555\nMake checks payable to Cyberdyne Systems Corp."
+    },
+    "expected": {
+      "vendor_name": "Cyberdyne Systems",
+      "invoice_date": "2025-10-15",
+      "total_amount": 25500.00,
+      "currency": "USD",
+      "tax_id": "55-5555555"
+    }
+  },
+  {
+    "input": {
+      "document": "Umbrella Corp\nINVOICE\nNo. UC-2025-0420\nDate: 2025-04-20\nTotal: 99,999.99 USD\nVAT ID: 99-9999999"
+    },
+    "expected": {
+      "vendor_name": "Umbrella Corp",
+      "invoice_date": "2025-04-20",
+      "total_amount": 99999.99,
+      "currency": "USD",
+      "tax_id": "99-9999999"
+    }
+  },
+  {
+    "input": {
+      "document": "Tyrell Corporation\nINVOICE #TR-2025-1010\nIssued: October 10, 2025\nAmount Due: USD 1,010,101.01\nTax ID: 10-1010101"
+    },
+    "expected": {
+      "vendor_name": "Tyrell Corporation",
+      "invoice_date": "2025-10-10",
+      "total_amount": 1010101.01,
+      "currency": "USD",
+      "tax_id": "10-1010101"
+    }
+  },
+  {
+    "input": {
+      "document": "Aperture Science\nInv: AS-2025-007\nDate: 2025-11-11\nSubtotal: $7,777.77\nTax (10%): $777.78\nTotal: $8,555.55\nTax ID: 77-7777777"
+    },
+    "expected": {
+      "vendor_name": "Aperture Science",
+      "invoice_date": "2025-11-11",
+      "total_amount": 8555.55,
+      "currency": "USD",
+      "tax_id": "77-7777777"
+    }
+  },
+  {
+    "input": {
+      "document": "Black Mesa Research\nINVOICE\n#BM-2025-1212\nDated: December 12, 2025\nTotal Due: $12,120.00 USD\nFederal Tax ID: 12-1212121"
+    },
+    "expected": {
+      "vendor_name": "Black Mesa Research",
+      "invoice_date": "2025-12-12",
+      "total_amount": 12120.00,
+      "currency": "USD",
+      "tax_id": "12-1212121"
+    }
+  },
+  {
+    "input": {
+      "document": "ООО Рога и Копыта\nСчёт № РК-2025-001\nот 05.05.2025\nК оплате: 33 333,33 руб.\nИНН: 7705432100"
+    },
+    "expected": {
+      "vendor_name": "ООО Рога и Копыта",
+      "invoice_date": "2025-05-05",
+      "total_amount": 33333.33,
+      "currency": "RUB",
+      "tax_id": "7705432100"
+    }
+  },
+  {
+    "input": {
+      "document": "Վարդան Ադամյան ԱՁ\nՀՎՀՀ 010203045\nԱպառիկ № Վ-2025-0505\nԱմսաթիվ: 05.05.2025\nԸնդամենը: 750 000 դրամ\nՆերառյալ ԱԱՀ: 125 000 դրամ"
+    },
+    "expected": {
+      "vendor_name": "Վարդան Ադամյան ԱՁ",
+      "invoice_date": "2025-05-05",
+      "total_amount": 750000,
+      "currency": "AMD",
+      "tax_id": "010203045"
+    }
+  },
+  {
+    "input": {
+      "document": "Hooli Inc.\nInvoice H-25-0228\nDate: 2025-02-28\nTotal: 2,500,000.00 USD\nTax ID: 22-2222222"
+    },
+    "expected": {
+      "vendor_name": "Hooli Inc.",
+      "invoice_date": "2025-02-28",
+      "total_amount": 2500000.00,
+      "currency": "USD",
+      "tax_id": "22-2222222"
+    }
+  }
+]

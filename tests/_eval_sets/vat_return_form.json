@@ -1,0 +1,247 @@
+[
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": true, "error_count": 0, "error_codes": []} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 100000, "vat": 20000},
+      "9":  {"base": 0, "vat": 0},
+      "12": {"base": 0},
+      "13": {"base": 0},
+      "16": {"base": 100000, "vat": 20000},
+      "17": {"base": 0, "vat": 0},
+      "18": {"base": 900000, "vat": 180000},
+      "21": {"vat": 180000},
+      "23": {"payable": 0, "recoverable": 160000}
+    }}},
+    "expected": {"ok": true, "error_count": 0, "error_codes": []} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 0, "vat": 0},
+      "9":  {"base": 0, "vat": 0},
+      "12": {"base": 0},
+      "13": {"base": 0},
+      "16": {"base": 0, "vat": 0},
+      "17": {"base": 0, "vat": 0},
+      "18": {"base": 0, "vat": 0},
+      "21": {"vat": 0},
+      "23": {"payable": 0, "recoverable": 0}
+    }}},
+    "expected": {"ok": true, "error_count": 0, "error_codes": []} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 500000, "vat": 100000},
+      "9":  {"base": 0, "vat": 0},
+      "12": {"base": 0},
+      "13": {"base": 0},
+      "16": {"base": 500000, "vat": 100000},
+      "17": {"base": 0, "vat": 0},
+      "18": {"base": 200000, "vat": 40000},
+      "21": {"vat": 40000},
+      "23": {"payable": 60000, "recoverable": 0}
+    }}},
+    "expected": {"ok": true, "error_count": 0, "error_codes": []} },
+
+  { "input": {"form": {"lines": {}}},
+    "expected": {"ok": false, "error_count": 9, "error_codes": ["FORM_MISSING_LINE"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 1, "error_codes": ["FORM_MISSING_LINE"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 199999.5},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300019.5},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 160019.5, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 3, "error_codes": ["FORM_NON_INTEGER_AMOUNT"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": -1, "vat": 0},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1849999, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 3, "error_codes": ["FORM_16_BASE_MISMATCH", "FORM_16_VAT_MISMATCH", "FORM_NEGATIVE_AMOUNT"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": "80000"},
+      "21": {"vat": 140000},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 2, "error_codes": ["FORM_21_VAT_MISMATCH", "FORM_NON_NUMERIC_AMOUNT"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850001, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 1, "error_codes": ["FORM_16_BASE_MISMATCH"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300120},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 2, "error_codes": ["FORM_16_VAT_MISMATCH", "FORM_23_NET_MISMATCH"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140050},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 2, "error_codes": ["FORM_21_VAT_MISMATCH", "FORM_23_NET_MISMATCH"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 161020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 1, "error_codes": ["FORM_23_NET_MISMATCH"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 100},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 100120},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 0, "recoverable": 39880}
+    }}},
+    "expected": {"ok": false, "error_count": 1, "error_codes": ["FORM_7_RATE_MISMATCH"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "9":  {"base": 600000,  "vat": 999999},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 1099999},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 959999, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 2, "error_codes": ["FORM_16_VAT_MISMATCH", "FORM_9_RATE_MISMATCH"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1700000, "vat": 200000},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 60000, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 1, "error_codes": ["FORM_MISSING_LINE"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 200000},
+      "9":  {"base": 600000,  "vat": 100020},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 1, "error_codes": ["FORM_MISSING_LINE"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": -500, "vat": 100000},
+      "9":  {"base": 600000,  "vat": 100020},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1849500, "vat": 300020},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 3, "error_codes": ["FORM_16_BASE_MISMATCH", "FORM_16_VAT_MISMATCH", "FORM_NEGATIVE_AMOUNT"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 100},
+      "9":  {"base": 600000,  "vat": 999999},
+      "12": {"base": 200000},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 1000099},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000, "vat": 80000},
+      "21": {"vat": 140000},
+      "23": {"payable": 860099, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 2, "error_codes": ["FORM_7_RATE_MISMATCH", "FORM_9_RATE_MISMATCH"]} },
+
+  { "input": {"form": {"lines": {
+      "7":  {"base": 1000000, "vat": 199999.5},
+      "9":  {"base": 600000,  "vat": 100020},
+      "13": {"base": 50000},
+      "16": {"base": 1850000, "vat": 300019.5},
+      "17": {"base": 300000, "vat": 60000},
+      "18": {"base": 400000,  "vat": "80000"},
+      "21": {"vat": 140050},
+      "23": {"payable": 160020, "recoverable": 0}
+    }}},
+    "expected": {"ok": false, "error_count": 6, "error_codes": ["FORM_21_VAT_MISMATCH", "FORM_23_NET_MISMATCH", "FORM_MISSING_LINE", "FORM_NON_INTEGER_AMOUNT", "FORM_NON_NUMERIC_AMOUNT"]} }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "input": {
+      "query": "RU-MOW"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-MOW",
+      "ru": "Москва",
+      "en": "Moscow",
+      "center": "Москва"
+    }
+  },
+  {
+    "input": {
+      "query": "ru-mow"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-MOW",
+      "ru": "Москва",
+      "en": "Moscow",
+      "center": "Москва"
+    }
+  },
+  {
+    "input": {
+      "query": "  RU-MOW  "
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-MOW",
+      "ru": "Москва",
+      "en": "Moscow",
+      "center": "Москва"
+    }
+  },
+  {
+    "input": {
+      "query": "Москва"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-MOW",
+      "ru": "Москва",
+      "en": "Moscow",
+      "center": "Москва"
+    }
+  },
+  {
+    "input": {
+      "query": "moscow"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-MOW",
+      "ru": "Москва",
+      "en": "Moscow",
+      "center": "Москва"
+    }
+  },
+  {
+    "input": {
+      "query": "Saint Petersburg"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-SPE",
+      "ru": "Санкт-Петербург",
+      "en": "Saint Petersburg",
+      "center": "Санкт-Петербург"
+    }
+  },
+  {
+    "input": {
+      "query": "RU-SPE"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-SPE",
+      "ru": "Санкт-Петербург",
+      "en": "Saint Petersburg",
+      "center": "Санкт-Петербург"
+    }
+  },
+  {
+    "input": {
+      "query": "Республика Татарстан"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-TA",
+      "ru": "Республика Татарстан",
+      "en": "Tatarstan",
+      "center": "Казань"
+    }
+  },
+  {
+    "input": {
+      "query": "Tatarstan"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-TA",
+      "ru": "Республика Татарстан",
+      "en": "Tatarstan",
+      "center": "Казань"
+    }
+  },
+  {
+    "input": {
+      "query": "RU-NVS"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-NVS",
+      "ru": "Новосибирская область",
+      "en": "Novosibirsk Oblast",
+      "center": "Новосибирск"
+    }
+  },
+  {
+    "input": {
+      "query": "Новосибирская область"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-NVS",
+      "ru": "Новосибирская область",
+      "en": "Novosibirsk Oblast",
+      "center": "Новосибирск"
+    }
+  },
+  {
+    "input": {
+      "query": "Ханты-Мансийский автономный округ — Югра"
+    },
+    "expected": {
+      "found": true,
+      "code": "RU-KHM",
+      "ru": "Ханты-Мансийский автономный округ — Югра",
+      "en": "Khanty-Mansi Autonomous Okrug – Yugra",
+      "center": "Ханты-Мансийск"
+    }
+  },
+  {
+    "input": {
+      "query": "RU-XX"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "ru": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": "Atlantis"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "ru": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": ""
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "ru": null,
+      "en": null,
+      "center": null
+    }
+  }
+]

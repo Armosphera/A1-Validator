@@ -1,0 +1,374 @@
+[
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "defaults"
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "",
+        "models": {
+          "default": "",
+          "copilot": "",
+          "transform": "",
+          "finance": "",
+          "crm": "",
+          "docs": ""
+        },
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKey": ""
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "getSettings"
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "",
+        "models": {
+          "default": "",
+          "copilot": "",
+          "transform": "",
+          "finance": "",
+          "crm": "",
+          "docs": ""
+        },
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKey": ""
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "updateSettings",
+          "patch": {
+            "openrouterApiKey": "sk-test-123"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "sk-test-123",
+        "models": {
+          "default": "",
+          "copilot": "",
+          "transform": "",
+          "finance": "",
+          "crm": "",
+          "docs": ""
+        },
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKey": ""
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "updateSettings",
+          "patch": {
+            "openrouterApiKey": "sk-stored",
+            "models": {
+              "default": "anthropic/claude"
+            }
+          }
+        },
+        {
+          "operation": "getSettings"
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "sk-stored",
+        "models": {
+          "default": "anthropic/claude",
+          "copilot": "",
+          "transform": "",
+          "finance": "",
+          "crm": "",
+          "docs": ""
+        },
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKey": ""
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "updateSettings",
+          "patch": {
+            "models": {
+              "copilot": "openai/gpt-4o"
+            }
+          }
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "",
+        "models": {
+          "default": "",
+          "copilot": "openai/gpt-4o",
+          "transform": "",
+          "finance": "",
+          "crm": "",
+          "docs": ""
+        },
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKey": ""
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "updateSettings",
+          "patch": {
+            "openrouterApiKey": "sk-real-secret",
+            "openNotebook": {
+              "enabled": true,
+              "baseUrl": "https://notebook.example.com",
+              "apiKey": "nb-key-xyz"
+            }
+          }
+        },
+        {
+          "operation": "redactedForClient"
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKeySet": true,
+        "models": {
+          "default": "",
+          "copilot": "",
+          "transform": "",
+          "finance": "",
+          "crm": "",
+          "docs": ""
+        },
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": "https://notebook.example.com",
+          "apiKeySet": true
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "updateSettings",
+          "patch": {
+            "models": {
+              "default": "stored-model",
+              "copilot": ""
+            }
+          }
+        },
+        {
+          "operation": "resolveModelPolicy",
+          "defaultModels": {
+            "copilot": "env-default-model",
+            "transform": "env-tx-model"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "default": "stored-model",
+        "copilot": "env-default-model",
+        "transform": "env-tx-model",
+        "finance": "",
+        "crm": "",
+        "docs": ""
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "updateSettings",
+          "patch": {
+            "openNotebook": {
+              "enabled": true,
+              "baseUrl": "https://nb.example.com/"
+            }
+          }
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "",
+        "models": {
+          "default": "",
+          "copilot": "",
+          "transform": "",
+          "finance": "",
+          "crm": "",
+          "docs": ""
+        },
+        "openNotebook": {
+          "enabled": true,
+          "baseUrl": "https://nb.example.com",
+          "apiKey": ""
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "getSettings",
+          "modelKeys": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "",
+        "models": {
+          "a": "",
+          "b": "",
+          "c": ""
+        },
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKey": ""
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "updateSettings",
+          "patch": {
+            "openrouterApiKey": 12345,
+            "models": "not-a-dict",
+            "openNotebook": "also-not-a-dict"
+          }
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "",
+        "models": {
+          "default": "",
+          "copilot": "",
+          "transform": "",
+          "finance": "",
+          "crm": "",
+          "docs": ""
+        },
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKey": ""
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "redactedForClient",
+          "settings": {
+            "openrouterApiKey": "",
+            "models": {},
+            "openNotebook": {
+              "enabled": false,
+              "baseUrl": "",
+              "apiKey": ""
+            }
+          }
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKeySet": false,
+        "models": {},
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKeySet": false
+        }
+      }
+    }
+  },
+  {
+    "input": {
+      "operations": [
+        {
+          "operation": "getSettings",
+          "modelKeys": [
+            "x",
+            "y"
+          ]
+        }
+      ]
+    },
+    "expected": {
+      "result": {
+        "openrouterApiKey": "",
+        "models": {
+          "x": "",
+          "y": ""
+        },
+        "openNotebook": {
+          "enabled": false,
+          "baseUrl": "",
+          "apiKey": ""
+        }
+      }
+    }
+  }
+]

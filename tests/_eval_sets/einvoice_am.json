@@ -1,0 +1,642 @@
+[
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service A",
+            "quantity": 2,
+            "netAmount": 100000,
+            "vatRate": 20
+          },
+          {
+            "description": "Service B",
+            "quantity": 1,
+            "netAmount": 50000,
+            "vatRate": 20
+          },
+          {
+            "description": "Service C",
+            "quantity": 1,
+            "netAmount": 25000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": true,
+      "error_count": 0,
+      "error_codes": []
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Zero-rated",
+            "quantity": 1,
+            "netAmount": 50000,
+            "vatRate": 0
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": true,
+      "error_count": 0,
+      "error_codes": []
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Excise+env-fee",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20,
+            "exciseAmount": 5000,
+            "envFee": 1000
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": true,
+      "error_count": 0,
+      "error_codes": []
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "passport": "AN1234567"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": true,
+      "error_count": 0,
+      "error_codes": []
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_TRANSACTION_TYPE"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_NUMBER"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_ISSUE_DATE"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "15/03/2025",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_ISSUE_DATE"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_SUPPLIER_NAME"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": ""
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_SUPPLIER_HVHH"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "12345"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_SUPPLIER_HVHH"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "MISSING_BUYER_ID"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "99999999"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_BUYER_HVHH"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": []
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "NO_LINES"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_DESCRIPTION"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 0,
+            "netAmount": 100000,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_QUANTITY"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": -100,
+            "vatRate": 20
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_NET"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 16.67
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_VAT_RATE"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20,
+            "vatAmount": "not-a-number"
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "INVALID_LINE_VAT_AMOUNT"
+      ]
+    }
+  },
+  {
+    "input": {
+      "invoice": {
+        "transactionType": "SALE",
+        "number": "INV-001",
+        "issueDate": "2025-03-15",
+        "supplier": {
+          "name": "ACME Corp",
+          "hvhh": "01234567"
+        },
+        "buyer": {
+          "name": "Buyer Inc",
+          "hvhh": "11111112"
+        },
+        "lines": [
+          {
+            "description": "Service",
+            "quantity": 1,
+            "netAmount": 100000,
+            "vatRate": 20,
+            "vatAmount": 999
+          }
+        ]
+      }
+    },
+    "expected": {
+      "ok": false,
+      "error_count": 1,
+      "error_codes": [
+        "LINE_VAT_MISMATCH"
+      ]
+    }
+  }
+]

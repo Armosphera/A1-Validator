@@ -1,0 +1,242 @@
+[
+  {
+    "input": {
+      "query": "AM-ER"
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-ER",
+      "hy": "Երևան",
+      "en": "Yerevan",
+      "center": "Երևան"
+    }
+  },
+  {
+    "input": {
+      "query": "am-er"
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-ER",
+      "hy": "Երևան",
+      "en": "Yerevan",
+      "center": "Երևան"
+    }
+  },
+  {
+    "input": {
+      "query": "  AM-ER  "
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-ER",
+      "hy": "Երևան",
+      "en": "Yerevan",
+      "center": "Երևան"
+    }
+  },
+  {
+    "input": {
+      "query": "AM-LO"
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-LO",
+      "hy": "Լոռի",
+      "en": "Lori",
+      "center": "Վանաձոր"
+    }
+  },
+  {
+    "input": {
+      "query": "AM-SU"
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-SU",
+      "hy": "Սյունիք",
+      "en": "Syunik",
+      "center": "Կապան"
+    }
+  },
+  {
+    "input": {
+      "query": "AM-SH"
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-SH",
+      "hy": "Շիրակ",
+      "en": "Shirak",
+      "center": "Գյումրի"
+    }
+  },
+  {
+    "input": {
+      "query": "Yerevan"
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-ER",
+      "hy": "Երևան",
+      "en": "Yerevan",
+      "center": "Երևան"
+    }
+  },
+  {
+    "input": {
+      "query": "Lori"
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-LO",
+      "hy": "Լոռի",
+      "en": "Lori",
+      "center": "Վանաձոր"
+    }
+  },
+  {
+    "input": {
+      "query": "  Yerevan  "
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-ER",
+      "hy": "Երևան",
+      "en": "Yerevan",
+      "center": "Երևան"
+    }
+  },
+  {
+    "input": {
+      "query": "Syunik"
+    },
+    "expected": {
+      "found": true,
+      "code": "AM-SU",
+      "hy": "Սյունիք",
+      "en": "Syunik",
+      "center": "Կապան"
+    }
+  },
+  {
+    "input": {
+      "query": "AM-ZZ"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": "AM-XX"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": ""
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": null
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": "Gyumri"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": "Moscow"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": "123"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": "AM-"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": "AM-ER-1"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  },
+  {
+    "input": {
+      "query": "Kotayk-KK"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "hy": null,
+      "en": null,
+      "center": null
+    }
+  }
+]

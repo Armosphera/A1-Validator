@@ -1,0 +1,83 @@
+[
+  {
+    "id": "I",
+    "ru": "Внеоборотные активы",
+    "en": "Non-current assets",
+    "range": [
+      1,
+      9
+    ]
+  },
+  {
+    "id": "II",
+    "ru": "Производственные запасы",
+    "en": "Inventories",
+    "range": [
+      10,
+      19
+    ]
+  },
+  {
+    "id": "III",
+    "ru": "Затраты на производство",
+    "en": "Production costs",
+    "range": [
+      20,
+      39
+    ]
+  },
+  {
+    "id": "IV",
+    "ru": "Готовая продукция и товары",
+    "en": "Finished goods and merchandise",
+    "range": [
+      40,
+      49
+    ]
+  },
+  {
+    "id": "V",
+    "ru": "Денежные средства",
+    "en": "Cash",
+    "range": [
+      50,
+      59
+    ]
+  },
+  {
+    "id": "VI",
+    "ru": "Расчёты",
+    "en": "Settlements",
+    "range": [
+      60,
+      79
+    ]
+  },
+  {
+    "id": "VII",
+    "ru": "Капитал",
+    "en": "Capital",
+    "range": [
+      80,
+      89
+    ]
+  },
+  {
+    "id": "VIII",
+    "ru": "Финансовые результаты",
+    "en": "Financial results",
+    "range": [
+      90,
+      99
+    ]
+  },
+  {
+    "id": "offBalance",
+    "ru": "Забалансовые счета",
+    "en": "Off-balance-sheet",
+    "range": [
+      1,
+      11
+    ]
+  }
+]

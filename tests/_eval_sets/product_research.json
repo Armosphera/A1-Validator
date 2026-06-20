@@ -1,0 +1,454 @@
+[
+  {
+    "input": {
+      "operation": "constants"
+    },
+    "expected": {
+      "defaultResultColumns": [
+        "commit",
+        "metric",
+        "memory_gb",
+        "status",
+        "description"
+      ],
+      "statuses": [
+        "crash",
+        "discard",
+        "keep"
+      ],
+      "directions": [
+        "maximize",
+        "minimize"
+      ]
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeConfig",
+      "config": {
+        "productName": "A1 Suite",
+        "runTag": "v1",
+        "editableFiles": [
+          "src/foo.js",
+          "src/bar.js"
+        ],
+        "readOnlyFiles": [
+          "src/baz.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "score",
+          "direction": "maximize",
+          "improvementEpsilon": 0.001
+        },
+        "timeBudgetMinutes": 15,
+        "timeoutMinutes": 30
+      }
+    },
+    "expected": {
+      "result": {
+        "productName": "A1 Suite",
+        "runTag": "v1",
+        "branchPrefix": "autoresearch/",
+        "editableFiles": [
+          "src/foo.js",
+          "src/bar.js"
+        ],
+        "readOnlyFiles": [
+          "src/baz.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "guardrails": [],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "score",
+          "direction": "maximize",
+          "improvementEpsilon": 0.001
+        },
+        "timeBudgetMinutes": 15,
+        "timeoutMinutes": 30
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeConfig",
+      "config": {
+        "productName": "",
+        "runTag": "v1",
+        "editableFiles": [
+          "src/foo.js",
+          "src/bar.js"
+        ],
+        "readOnlyFiles": [
+          "src/baz.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "score",
+          "direction": "maximize",
+          "improvementEpsilon": 0.001
+        },
+        "timeBudgetMinutes": 15,
+        "timeoutMinutes": 30
+      }
+    },
+    "expected": {
+      "error": "productName is required"
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeConfig",
+      "config": {
+        "productName": "A1 Suite",
+        "runTag": "v1",
+        "editableFiles": [
+          "src/a.js",
+          "src/b.js"
+        ],
+        "readOnlyFiles": [
+          "src/b.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "score",
+          "direction": "maximize",
+          "improvementEpsilon": 0.001
+        },
+        "timeBudgetMinutes": 15,
+        "timeoutMinutes": 30
+      }
+    },
+    "expected": {
+      "error": "readOnlyFiles overlap editableFiles: src/b.js"
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeConfig",
+      "config": {
+        "productName": "A1 Suite",
+        "runTag": "v1",
+        "editableFiles": [],
+        "readOnlyFiles": [
+          "src/baz.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "score",
+          "direction": "maximize",
+          "improvementEpsilon": 0.001
+        },
+        "timeBudgetMinutes": 15,
+        "timeoutMinutes": 30
+      }
+    },
+    "expected": {
+      "error": "editableFiles must include at least one path"
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeConfig",
+      "config": {
+        "productName": "A1 Suite",
+        "runTag": "v1",
+        "editableFiles": [
+          "src/foo.js",
+          "src/bar.js"
+        ],
+        "readOnlyFiles": [
+          "src/baz.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "x",
+          "direction": "up"
+        },
+        "timeBudgetMinutes": 15,
+        "timeoutMinutes": 30
+      }
+    },
+    "expected": {
+      "error": "metric.direction must be minimize or maximize"
+    }
+  },
+  {
+    "input": {
+      "operation": "normalizeConfig",
+      "config": {
+        "productName": "A1 Suite",
+        "runTag": "v1",
+        "editableFiles": [
+          "src/foo.js",
+          "src/bar.js"
+        ],
+        "readOnlyFiles": [
+          "src/baz.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "score",
+          "direction": "maximize",
+          "improvementEpsilon": 0.001
+        },
+        "timeBudgetMinutes": 30,
+        "timeoutMinutes": 10
+      }
+    },
+    "expected": {
+      "error": "timeoutMinutes must be >= timeBudgetMinutes"
+    }
+  },
+  {
+    "input": {
+      "operation": "renderProgram",
+      "config": {
+        "productName": "A1 Suite",
+        "runTag": "v1",
+        "editableFiles": [
+          "src/foo.js",
+          "src/bar.js"
+        ],
+        "readOnlyFiles": [
+          "src/baz.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "score",
+          "direction": "maximize",
+          "improvementEpsilon": 0.001
+        },
+        "timeBudgetMinutes": 15,
+        "timeoutMinutes": 30
+      }
+    },
+    "expected": {
+      "result": "# A1 Suite Product Research Program\n\nRun tag: `v1`\nBranch: `autoresearch/v1`\n\n## Scope\n\nYou may edit only:\n- `src/foo.js`\n- `src/bar.js`\n\nDo not edit:\n- `src/baz.js`\n\nRead for context before changing code:\n- `README.md`\n\n## Evaluation\n\n- Command: `pytest -q`\n- Metric: `score` (higher is better)\n- Fixed eval budget: 15.0 minutes\n- Timeout: 30.0 minutes\n\n## Guardrails\n\n- `Keep the editable surface narrow and reviewable.`\n- `Do not add dependencies unless the human explicitly approves.`\n- `Do not weaken auth, tenant isolation, egress policy, or audit logging.`\n- `Prefer simpler code when the metric is tied.`\n\n## Experiment Loop\n\n1. Record the starting commit and current best metric.\n2. Make one focused change inside the editable files.\n3. Run the eval command and capture stdout/stderr into a log file.\n4. Extract the configured metric and any memory/runtime signal.\n5. Append one uncommitted TSV row: `commit`, metric, `memory_gb`, `status`, `description`.\n6. Keep the change only when the metric improves, or when the metric ties and the code is materially simpler.\n7. Discard crashes, invalid metrics, and changes that regress the metric.\n\n## Result TSV\n\nHeader: `commit\tscore\tmemory_gb\tstatus\tdescription`"
+    }
+  },
+  {
+    "input": {
+      "operation": "renderProgram",
+      "config": {
+        "productName": "",
+        "runTag": "v1",
+        "editableFiles": [
+          "src/foo.js",
+          "src/bar.js"
+        ],
+        "readOnlyFiles": [
+          "src/baz.js"
+        ],
+        "contextFiles": [
+          "README.md"
+        ],
+        "evalCommand": "pytest -q",
+        "metric": {
+          "name": "score",
+          "direction": "maximize",
+          "improvementEpsilon": 0.001
+        },
+        "timeBudgetMinutes": 15,
+        "timeoutMinutes": 30
+      }
+    },
+    "expected": {
+      "error": "productName is required"
+    }
+  },
+  {
+    "input": {
+      "operation": "decide",
+      "opts": {
+        "crashed": true
+      }
+    },
+    "expected": {
+      "result": {
+        "status": "crash",
+        "improved": false,
+        "delta": 0,
+        "reason": "crash"
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "decide",
+      "opts": {
+        "bestMetric": null,
+        "candidateMetric": 0.5,
+        "direction": "maximize"
+      }
+    },
+    "expected": {
+      "result": {
+        "status": "keep",
+        "improved": true,
+        "delta": 0,
+        "reason": "baseline"
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "decide",
+      "opts": {
+        "bestMetric": 0.5,
+        "candidateMetric": 0.6,
+        "direction": "maximize"
+      }
+    },
+    "expected": {
+      "result": {
+        "status": "keep",
+        "improved": true,
+        "delta": 0.1,
+        "reason": "metric-improved"
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "decide",
+      "opts": {
+        "bestMetric": 0.5,
+        "candidateMetric": 0.4,
+        "direction": "maximize"
+      }
+    },
+    "expected": {
+      "result": {
+        "status": "discard",
+        "improved": false,
+        "delta": -0.1,
+        "reason": "metric-regressed"
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "decide",
+      "opts": {
+        "bestMetric": 0.5,
+        "candidateMetric": 0.5,
+        "direction": "minimize",
+        "complexityDelta": -1
+      }
+    },
+    "expected": {
+      "result": {
+        "status": "keep",
+        "improved": true,
+        "delta": 0,
+        "reason": "metric-tied-and-simpler"
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "metricDelta",
+      "best": 0.5,
+      "candidate": 0.3,
+      "direction": "minimize"
+    },
+    "expected": {
+      "result": 0.2
+    }
+  },
+  {
+    "input": {
+      "operation": "metricDelta",
+      "best": 0.5,
+      "candidate": 0.7,
+      "direction": "maximize"
+    },
+    "expected": {
+      "result": 0.2
+    }
+  },
+  {
+    "input": {
+      "operation": "extractMetric",
+      "text": "Starting eval...\nscore = 0.92\nDone.",
+      "metricName": "score"
+    },
+    "expected": {
+      "result": 0.92
+    }
+  },
+  {
+    "input": {
+      "operation": "formatHeader",
+      "metricName": "score"
+    },
+    "expected": {
+      "result": "commit\tscore\tmemory_gb\tstatus\tdescription"
+    }
+  },
+  {
+    "input": {
+      "operation": "formatResult",
+      "opts": {
+        "commit": "abc123",
+        "metricValue": 0.92,
+        "memoryGb": 4.5,
+        "status": "keep",
+        "description": "first try"
+      }
+    },
+    "expected": {
+      "result": "abc123\t0.920000\t4.5\tkeep\tfirst try"
+    }
+  },
+  {
+    "input": {
+      "operation": "parseTsv",
+      "text": "commit\tscore\tmemory_gb\tstatus\tdescription\nabc\t0.92\t4.5\tkeep\thello\ndef\t0.85\t4.3\tdiscard\tlower",
+      "metricName": "score"
+    },
+    "expected": {
+      "result": [
+        {
+          "commit": "abc",
+          "score": 0.92,
+          "memoryGb": 4.5,
+          "status": "keep",
+          "description": "hello"
+        },
+        {
+          "commit": "def",
+          "score": 0.85,
+          "memoryGb": 4.3,
+          "status": "discard",
+          "description": "lower"
+        }
+      ]
+    }
+  }
+]

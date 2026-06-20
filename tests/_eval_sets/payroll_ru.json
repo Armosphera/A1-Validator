@@ -1,0 +1,272 @@
+[
+  {
+    "input": {
+      "operation": "ndflOnAnnualBase",
+      "base": 1000000,
+      "opts": {
+        "resident": true
+      }
+    },
+    "expected": {
+      "result": 130000
+    }
+  },
+  {
+    "input": {
+      "operation": "ndflOnAnnualBase",
+      "base": 2400000,
+      "opts": {
+        "resident": true
+      }
+    },
+    "expected": {
+      "result": 312000
+    }
+  },
+  {
+    "input": {
+      "operation": "ndflOnAnnualBase",
+      "base": 3000000,
+      "opts": {
+        "resident": true
+      }
+    },
+    "expected": {
+      "result": 402000
+    }
+  },
+  {
+    "input": {
+      "operation": "ndflOnAnnualBase",
+      "base": 1000000,
+      "opts": {
+        "resident": false
+      }
+    },
+    "expected": {
+      "result": 300000
+    }
+  },
+  {
+    "input": {
+      "operation": "ndflMonthly",
+      "opts": {
+        "ytdBaseBefore": 0,
+        "monthBase": 100000
+      }
+    },
+    "expected": {
+      "result": 13000
+    }
+  },
+  {
+    "input": {
+      "operation": "ndflMonthly",
+      "opts": {
+        "ytdBaseBefore": 2300000,
+        "monthBase": 200000
+      }
+    },
+    "expected": {
+      "result": 28000
+    }
+  },
+  {
+    "input": {
+      "operation": "insuranceUnified",
+      "cumBase": 1000000
+    },
+    "expected": {
+      "result": 300000.0
+    }
+  },
+  {
+    "input": {
+      "operation": "insuranceUnified",
+      "cumBase": 5000000
+    },
+    "expected": {
+      "result": 1198871.0
+    }
+  },
+  {
+    "input": {
+      "operation": "insuranceSmeMonthly",
+      "monthlyPay": 30000
+    },
+    "expected": {
+      "result": 9000.0
+    }
+  },
+  {
+    "input": {
+      "operation": "insuranceSmeMonthly",
+      "monthlyPay": 100000
+    },
+    "expected": {
+      "result": 21095.93
+    }
+  },
+  {
+    "input": {
+      "operation": "childDeductionMonthly",
+      "opts": {
+        "ytdIncome": 200000,
+        "children": [
+          {
+            "order": 1
+          }
+        ]
+      }
+    },
+    "expected": {
+      "result": 1400
+    }
+  },
+  {
+    "input": {
+      "operation": "childDeductionMonthly",
+      "opts": {
+        "ytdIncome": 200000,
+        "children": [
+          {
+            "order": 1
+          },
+          {
+            "order": 2
+          },
+          {
+            "order": 3
+          }
+        ]
+      }
+    },
+    "expected": {
+      "result": 10200
+    }
+  },
+  {
+    "input": {
+      "operation": "childDeductionMonthly",
+      "opts": {
+        "ytdIncome": 200000,
+        "children": [
+          {
+            "order": 1,
+            "disabled": true
+          }
+        ]
+      }
+    },
+    "expected": {
+      "result": 13400
+    }
+  },
+  {
+    "input": {
+      "operation": "childDeductionMonthly",
+      "opts": {
+        "ytdIncome": 500000,
+        "children": [
+          {
+            "order": 1
+          }
+        ]
+      }
+    },
+    "expected": {
+      "result": 0
+    }
+  },
+  {
+    "input": {
+      "operation": "computeMonthlyPayroll",
+      "opts": {
+        "monthGross": 100000,
+        "ytdBaseBefore": 0,
+        "ytdGrossBefore": 0
+      }
+    },
+    "expected": {
+      "result": {
+        "gross": 100000.0,
+        "deduction": 0.0,
+        "ndfl": 13000,
+        "net": 87000.0,
+        "employerInsurance": 30000.0,
+        "employerCost": 130000.0,
+        "resident": true,
+        "sme": false
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "computeMonthlyPayroll",
+      "opts": {
+        "monthGross": 100000,
+        "ytdBaseBefore": 0,
+        "ytdGrossBefore": 0,
+        "resident": false
+      }
+    },
+    "expected": {
+      "result": {
+        "gross": 100000.0,
+        "deduction": 0.0,
+        "ndfl": 30000,
+        "net": 70000.0,
+        "employerInsurance": 30000.0,
+        "employerCost": 130000.0,
+        "resident": false,
+        "sme": false
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "computeMonthlyPayroll",
+      "opts": {
+        "monthGross": 100000,
+        "ytdBaseBefore": 0,
+        "ytdGrossBefore": 0,
+        "sme": true
+      }
+    },
+    "expected": {
+      "result": {
+        "gross": 100000.0,
+        "deduction": 0.0,
+        "ndfl": 13000,
+        "net": 87000.0,
+        "employerInsurance": 21095.93,
+        "employerCost": 121095.93,
+        "resident": true,
+        "sme": true
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "computeMonthlyPayroll",
+      "opts": {
+        "monthGross": 150000,
+        "monthDeduction": 14000,
+        "ytdBaseBefore": 0,
+        "ytdGrossBefore": 0
+      }
+    },
+    "expected": {
+      "result": {
+        "gross": 150000.0,
+        "deduction": 14000.0,
+        "ndfl": 17680,
+        "net": 132320.0,
+        "employerInsurance": 45000.0,
+        "employerCost": 195000.0,
+        "resident": true,
+        "sme": false
+      }
+    }
+  }
+]

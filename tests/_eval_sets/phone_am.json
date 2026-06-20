@@ -1,0 +1,61 @@
+[
+  { "input": {"phone": "+37491234567"},
+    "expected": {"nsn": "91234567", "valid": true,  "e164": "+37491234567", "formatted": "+374 91 234567"} },
+
+  { "input": {"phone": "0037491234567"},
+    "expected": {"nsn": "91234567", "valid": true,  "e164": "+37491234567", "formatted": "+374 91 234567"} },
+
+  { "input": {"phone": "091234567"},
+    "expected": {"nsn": "91234567", "valid": true,  "e164": "+37491234567", "formatted": "+374 91 234567"} },
+
+  { "input": {"phone": "91234567"},
+    "expected": {"nsn": "91234567", "valid": true,  "e164": "+37491234567", "formatted": "+374 91 234567"} },
+
+  { "input": {"phone": "+374 91 23 45 67"},
+    "expected": {"nsn": "91234567", "valid": true,  "e164": "+37491234567", "formatted": "+374 91 234567"} },
+
+  { "input": {"phone": "(091) 23-45-67"},
+    "expected": {"nsn": "91234567", "valid": true,  "e164": "+37491234567", "formatted": "+374 91 234567"} },
+
+  { "input": {"phone": "010561234"},
+    "expected": {"nsn": "10561234", "valid": true,  "e164": "+37410561234", "formatted": "+374 10 561234"} },
+
+  { "input": {"phone": "+374 10 561234"},
+    "expected": {"nsn": "10561234", "valid": true,  "e164": "+37410561234", "formatted": "+374 10 561234"} },
+
+  { "input": {"phone": "12345678"},
+    "expected": {"nsn": "12345678", "valid": true,  "e164": "+37412345678", "formatted": "+374 12 345678"} },
+
+  { "input": {"phone": "+374 (10) 561-234"},
+    "expected": {"nsn": "10561234", "valid": true,  "e164": "+37410561234", "formatted": "+374 10 561234"} },
+
+  { "input": {"phone": "1234567"},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": "912345678"},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": "00000000"},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": "9123456A"},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": ""},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": null},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": "abcdefgh"},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": "+374"},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": "00374"},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} },
+
+  { "input": {"phone": "374"},
+    "expected": {"nsn": "",         "valid": false, "e164": null,            "formatted": null} }
+]

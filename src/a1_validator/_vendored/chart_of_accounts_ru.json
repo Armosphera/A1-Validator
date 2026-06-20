@@ -1,0 +1,440 @@
+[
+  {
+    "code": "01",
+    "ru": "Основные средства",
+    "section": "I",
+    "nature": "active"
+  },
+  {
+    "code": "02",
+    "ru": "Амортизация основных средств",
+    "section": "I",
+    "nature": "passive"
+  },
+  {
+    "code": "03",
+    "ru": "Доходные вложения в материальные ценности",
+    "section": "I",
+    "nature": "active"
+  },
+  {
+    "code": "04",
+    "ru": "Нематериальные активы",
+    "section": "I",
+    "nature": "active"
+  },
+  {
+    "code": "05",
+    "ru": "Амортизация нематериальных активов",
+    "section": "I",
+    "nature": "passive"
+  },
+  {
+    "code": "07",
+    "ru": "Оборудование к установке",
+    "section": "I",
+    "nature": "active"
+  },
+  {
+    "code": "08",
+    "ru": "Вложения во внеоборотные активы",
+    "section": "I",
+    "nature": "active"
+  },
+  {
+    "code": "09",
+    "ru": "Отложенные налоговые активы",
+    "section": "I",
+    "nature": "active"
+  },
+  {
+    "code": "10",
+    "ru": "Материалы",
+    "section": "II",
+    "nature": "active"
+  },
+  {
+    "code": "11",
+    "ru": "Животные на выращивании и откорме",
+    "section": "II",
+    "nature": "active"
+  },
+  {
+    "code": "14",
+    "ru": "Резервы под снижение стоимости материальных ценностей",
+    "section": "II",
+    "nature": "passive"
+  },
+  {
+    "code": "15",
+    "ru": "Заготовление и приобретение материальных ценностей",
+    "section": "II",
+    "nature": "active"
+  },
+  {
+    "code": "16",
+    "ru": "Отклонение в стоимости материальных ценностей",
+    "section": "II",
+    "nature": "active-passive"
+  },
+  {
+    "code": "19",
+    "ru": "Налог на добавленную стоимость по приобретённым ценностям",
+    "section": "II",
+    "nature": "active"
+  },
+  {
+    "code": "20",
+    "ru": "Основное производство",
+    "section": "III",
+    "nature": "active"
+  },
+  {
+    "code": "21",
+    "ru": "Полуфабрикаты собственного производства",
+    "section": "III",
+    "nature": "active"
+  },
+  {
+    "code": "23",
+    "ru": "Вспомогательные производства",
+    "section": "III",
+    "nature": "active"
+  },
+  {
+    "code": "25",
+    "ru": "Общепроизводственные расходы",
+    "section": "III",
+    "nature": "active"
+  },
+  {
+    "code": "26",
+    "ru": "Общехозяйственные расходы",
+    "section": "III",
+    "nature": "active"
+  },
+  {
+    "code": "28",
+    "ru": "Брак в производстве",
+    "section": "III",
+    "nature": "active"
+  },
+  {
+    "code": "29",
+    "ru": "Обслуживающие производства и хозяйства",
+    "section": "III",
+    "nature": "active"
+  },
+  {
+    "code": "40",
+    "ru": "Выпуск продукции (работ, услуг)",
+    "section": "IV",
+    "nature": "active-passive"
+  },
+  {
+    "code": "41",
+    "ru": "Товары",
+    "section": "IV",
+    "nature": "active"
+  },
+  {
+    "code": "42",
+    "ru": "Торговая наценка",
+    "section": "IV",
+    "nature": "passive"
+  },
+  {
+    "code": "43",
+    "ru": "Готовая продукция",
+    "section": "IV",
+    "nature": "active"
+  },
+  {
+    "code": "44",
+    "ru": "Расходы на продажу",
+    "section": "IV",
+    "nature": "active"
+  },
+  {
+    "code": "45",
+    "ru": "Товары отгруженные",
+    "section": "IV",
+    "nature": "active"
+  },
+  {
+    "code": "46",
+    "ru": "Выполненные этапы по незавершённым работам",
+    "section": "IV",
+    "nature": "active"
+  },
+  {
+    "code": "50",
+    "ru": "Касса",
+    "section": "V",
+    "nature": "active"
+  },
+  {
+    "code": "51",
+    "ru": "Расчётные счета",
+    "section": "V",
+    "nature": "active"
+  },
+  {
+    "code": "52",
+    "ru": "Валютные счета",
+    "section": "V",
+    "nature": "active"
+  },
+  {
+    "code": "55",
+    "ru": "Специальные счета в банках",
+    "section": "V",
+    "nature": "active"
+  },
+  {
+    "code": "57",
+    "ru": "Переводы в пути",
+    "section": "V",
+    "nature": "active"
+  },
+  {
+    "code": "58",
+    "ru": "Финансовые вложения",
+    "section": "V",
+    "nature": "active"
+  },
+  {
+    "code": "59",
+    "ru": "Резервы под обесценение финансовых вложений",
+    "section": "V",
+    "nature": "passive"
+  },
+  {
+    "code": "60",
+    "ru": "Расчёты с поставщиками и подрядчиками",
+    "section": "VI",
+    "nature": "active-passive"
+  },
+  {
+    "code": "62",
+    "ru": "Расчёты с покупателями и заказчиками",
+    "section": "VI",
+    "nature": "active-passive"
+  },
+  {
+    "code": "63",
+    "ru": "Резервы по сомнительным долгам",
+    "section": "VI",
+    "nature": "passive"
+  },
+  {
+    "code": "66",
+    "ru": "Расчёты по краткосрочным кредитам и займам",
+    "section": "VI",
+    "nature": "passive"
+  },
+  {
+    "code": "67",
+    "ru": "Расчёты по долгосрочным кредитам и займам",
+    "section": "VI",
+    "nature": "passive"
+  },
+  {
+    "code": "68",
+    "ru": "Расчёты по налогам и сборам",
+    "section": "VI",
+    "nature": "active-passive"
+  },
+  {
+    "code": "69",
+    "ru": "Расчёты по социальному страхованию и обеспечению",
+    "section": "VI",
+    "nature": "active-passive"
+  },
+  {
+    "code": "70",
+    "ru": "Расчёты с персоналом по оплате труда",
+    "section": "VI",
+    "nature": "passive"
+  },
+  {
+    "code": "71",
+    "ru": "Расчёты с подотчётными лицами",
+    "section": "VI",
+    "nature": "active-passive"
+  },
+  {
+    "code": "73",
+    "ru": "Расчёты с персоналом по прочим операциям",
+    "section": "VI",
+    "nature": "active"
+  },
+  {
+    "code": "75",
+    "ru": "Расчёты с учредителями",
+    "section": "VI",
+    "nature": "active-passive"
+  },
+  {
+    "code": "76",
+    "ru": "Расчёты с разными дебиторами и кредиторами",
+    "section": "VI",
+    "nature": "active-passive"
+  },
+  {
+    "code": "77",
+    "ru": "Отложенные налоговые обязательства",
+    "section": "VI",
+    "nature": "passive"
+  },
+  {
+    "code": "79",
+    "ru": "Внутрихозяйственные расчёты",
+    "section": "VI",
+    "nature": "active-passive"
+  },
+  {
+    "code": "80",
+    "ru": "Уставный капитал",
+    "section": "VII",
+    "nature": "passive"
+  },
+  {
+    "code": "81",
+    "ru": "Собственные акции (доли)",
+    "section": "VII",
+    "nature": "active"
+  },
+  {
+    "code": "82",
+    "ru": "Резервный капитал",
+    "section": "VII",
+    "nature": "passive"
+  },
+  {
+    "code": "83",
+    "ru": "Добавочный капитал",
+    "section": "VII",
+    "nature": "passive"
+  },
+  {
+    "code": "84",
+    "ru": "Нераспределённая прибыль (непокрытый убыток)",
+    "section": "VII",
+    "nature": "active-passive"
+  },
+  {
+    "code": "86",
+    "ru": "Целевое финансирование",
+    "section": "VII",
+    "nature": "passive"
+  },
+  {
+    "code": "90",
+    "ru": "Продажи",
+    "section": "VIII",
+    "nature": "active-passive"
+  },
+  {
+    "code": "91",
+    "ru": "Прочие доходы и расходы",
+    "section": "VIII",
+    "nature": "active-passive"
+  },
+  {
+    "code": "94",
+    "ru": "Недостачи и потери от порчи ценностей",
+    "section": "VIII",
+    "nature": "active"
+  },
+  {
+    "code": "96",
+    "ru": "Резервы предстоящих расходов",
+    "section": "VIII",
+    "nature": "passive"
+  },
+  {
+    "code": "97",
+    "ru": "Расходы будущих периодов",
+    "section": "VIII",
+    "nature": "active"
+  },
+  {
+    "code": "98",
+    "ru": "Доходы будущих периодов",
+    "section": "VIII",
+    "nature": "passive"
+  },
+  {
+    "code": "99",
+    "ru": "Прибыли и убытки",
+    "section": "VIII",
+    "nature": "active-passive"
+  },
+  {
+    "code": "001",
+    "ru": "Арендованные основные средства",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "002",
+    "ru": "Товарно-материальные ценности, принятые на ответственное хранение",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "003",
+    "ru": "Материалы, принятые в переработку",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "004",
+    "ru": "Товары, принятые на комиссию",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "005",
+    "ru": "Оборудование, принятое для монтажа",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "006",
+    "ru": "Бланки строгой отчётности",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "007",
+    "ru": "Списанная в убыток задолженность неплатёжеспособных дебиторов",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "008",
+    "ru": "Обеспечения обязательств и платежей полученные",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "009",
+    "ru": "Обеспечения обязательств и платежей выданные",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "010",
+    "ru": "Износ основных средств",
+    "section": "offBalance",
+    "nature": "active"
+  },
+  {
+    "code": "011",
+    "ru": "Основные средства, сданные в аренду",
+    "section": "offBalance",
+    "nature": "active"
+  }
+]

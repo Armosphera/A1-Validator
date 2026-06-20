@@ -1,0 +1,134 @@
+[
+  {
+    "input": {
+      "value": "+7 (495) 123-45-67"
+    },
+    "expected": {
+      "nsn": "4951234567",
+      "valid": true,
+      "e164": "+74951234567",
+      "formatted": "+7 (495) 123-45-67"
+    }
+  },
+  {
+    "input": {
+      "value": "8 (495) 123-45-67"
+    },
+    "expected": {
+      "nsn": "4951234567",
+      "valid": true,
+      "e164": "+74951234567",
+      "formatted": "+7 (495) 123-45-67"
+    }
+  },
+  {
+    "input": {
+      "value": "4951234567"
+    },
+    "expected": {
+      "nsn": "4951234567",
+      "valid": true,
+      "e164": "+74951234567",
+      "formatted": "+7 (495) 123-45-67"
+    }
+  },
+  {
+    "input": {
+      "value": "7 495 123 45 67"
+    },
+    "expected": {
+      "nsn": "4951234567",
+      "valid": true,
+      "e164": "+74951234567",
+      "formatted": "+7 (495) 123-45-67"
+    }
+  },
+  {
+    "input": {
+      "value": "+7 (903) 123-45-67"
+    },
+    "expected": {
+      "nsn": "9031234567",
+      "valid": true,
+      "e164": "+79031234567",
+      "formatted": "+7 (903) 123-45-67"
+    }
+  },
+  {
+    "input": {
+      "value": "8-800-555-35-35"
+    },
+    "expected": {
+      "nsn": "8005553535",
+      "valid": true,
+      "e164": "+78005553535",
+      "formatted": "+7 (800) 555-35-35"
+    }
+  },
+  {
+    "input": {
+      "value": "+7 (812) 999-88-77"
+    },
+    "expected": {
+      "nsn": "8129998877",
+      "valid": true,
+      "e164": "+78129998877",
+      "formatted": "+7 (812) 999-88-77"
+    }
+  },
+  {
+    "input": {
+      "value": ""
+    },
+    "expected": {
+      "nsn": "",
+      "valid": false,
+      "e164": null,
+      "formatted": null
+    }
+  },
+  {
+    "input": {
+      "value": "abc"
+    },
+    "expected": {
+      "nsn": "",
+      "valid": false,
+      "e164": null,
+      "formatted": null
+    }
+  },
+  {
+    "input": {
+      "value": "12345"
+    },
+    "expected": {
+      "nsn": "",
+      "valid": false,
+      "e164": null,
+      "formatted": null
+    }
+  },
+  {
+    "input": {
+      "value": "0123456789"
+    },
+    "expected": {
+      "nsn": "",
+      "valid": false,
+      "e164": null,
+      "formatted": null
+    }
+  },
+  {
+    "input": {
+      "value": "+7 (200) 123-45-67"
+    },
+    "expected": {
+      "nsn": "",
+      "valid": false,
+      "e164": null,
+      "formatted": null
+    }
+  }
+]

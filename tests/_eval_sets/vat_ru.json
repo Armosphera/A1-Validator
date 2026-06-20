@@ -1,0 +1,218 @@
+[
+  {
+    "input": {
+      "operation": "ratesFor",
+      "year": 2026
+    },
+    "expected": {
+      "result": {
+        "standard": 22,
+        "reduced": 10,
+        "zero": 0,
+        "usnLow": 5,
+        "usnHigh": 7
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "ratesFor",
+      "year": 2025
+    },
+    "expected": {
+      "result": {
+        "standard": 20,
+        "reduced": 10,
+        "zero": 0
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "ratesFor",
+      "year": 2027
+    },
+    "expected": {
+      "result": {
+        "standard": 22,
+        "reduced": 10,
+        "zero": 0,
+        "usnLow": 5,
+        "usnHigh": 7
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "ratesFor"
+    },
+    "expected": {
+      "result": {
+        "standard": 22,
+        "reduced": 10,
+        "zero": 0,
+        "usnLow": 5,
+        "usnHigh": 7
+      }
+    }
+  },
+  {
+    "input": {
+      "operation": "vatFromNet",
+      "net": 10000,
+      "ratePercent": 22
+    },
+    "expected": {
+      "result": 2200.0
+    }
+  },
+  {
+    "input": {
+      "operation": "vatFromNet",
+      "net": 50000,
+      "ratePercent": 10
+    },
+    "expected": {
+      "result": 5000.0
+    }
+  },
+  {
+    "input": {
+      "operation": "vatFromNet",
+      "net": 0,
+      "ratePercent": 22
+    },
+    "expected": {
+      "result": 0.0
+    }
+  },
+  {
+    "input": {
+      "operation": "vatFromNet",
+      "net": 10000,
+      "ratePercent": 0
+    },
+    "expected": {
+      "result": 0.0
+    }
+  },
+  {
+    "input": {
+      "operation": "vatFromGross",
+      "gross": 12200,
+      "ratePercent": 22
+    },
+    "expected": {
+      "result": 2200.0
+    }
+  },
+  {
+    "input": {
+      "operation": "vatFromGross",
+      "gross": 11000,
+      "ratePercent": 10
+    },
+    "expected": {
+      "result": 1000.0
+    }
+  },
+  {
+    "input": {
+      "operation": "vatFromGross",
+      "gross": 1000,
+      "ratePercent": 0
+    },
+    "expected": {
+      "result": 0.0
+    }
+  },
+  {
+    "input": {
+      "operation": "netFromGross",
+      "gross": 12200,
+      "ratePercent": 22
+    },
+    "expected": {
+      "result": 10000.0
+    }
+  },
+  {
+    "input": {
+      "operation": "netFromGross",
+      "gross": 11000,
+      "ratePercent": 10
+    },
+    "expected": {
+      "result": 10000.0
+    }
+  },
+  {
+    "input": {
+      "operation": "isValidVatRate",
+      "ratePercent": 22
+    },
+    "expected": {
+      "result": true
+    }
+  },
+  {
+    "input": {
+      "operation": "isValidVatRate",
+      "ratePercent": 22,
+      "opts": {
+        "regime": "usn"
+      }
+    },
+    "expected": {
+      "result": true
+    }
+  },
+  {
+    "input": {
+      "operation": "isValidVatRate",
+      "ratePercent": 5,
+      "opts": {
+        "regime": "usn"
+      }
+    },
+    "expected": {
+      "result": true
+    }
+  },
+  {
+    "input": {
+      "operation": "isValidVatRate",
+      "ratePercent": 5
+    },
+    "expected": {
+      "result": false
+    }
+  },
+  {
+    "input": {
+      "operation": "isValidVatRate",
+      "ratePercent": 20
+    },
+    "expected": {
+      "result": false
+    }
+  },
+  {
+    "input": {
+      "operation": "isValidVatRate",
+      "ratePercent": 18
+    },
+    "expected": {
+      "result": false
+    }
+  },
+  {
+    "input": {
+      "operation": "isValidVatRate",
+      "ratePercent": 0
+    },
+    "expected": {
+      "result": true
+    }
+  }
+]

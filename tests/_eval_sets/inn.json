@@ -1,0 +1,22 @@
+[
+  { "input": { "id": "7707083893" },       "expected": { "ok": true,  "normalized": "7707083893",     "kind": "inn_legal",      "error": null } },
+  { "input": { "id": "500100732259" },    "expected": { "ok": true,  "normalized": "500100732259",   "kind": "inn_individual", "error": null } },
+  { "input": { "id": "770701001" },       "expected": { "ok": true,  "normalized": "770701001",      "kind": "kpp",            "error": null } },
+  { "input": { "id": "7707AB001" },       "expected": { "ok": true,  "normalized": "7707AB001",      "kind": "kpp",            "error": null } },
+  { "input": { "id": "1027700132195" },   "expected": { "ok": true,  "normalized": "1027700132195",  "kind": "ogrn",           "error": null } },
+  { "input": { "id": "304500116000157" }, "expected": { "ok": true,  "normalized": "304500116000157","kind": "ogrnip",         "error": null } },
+  { "input": { "id": "11223344595" },     "expected": { "ok": true,  "normalized": "11223344595",    "kind": "snils",          "error": null } },
+  { "input": { "id": "112-233-445 95" },  "expected": { "ok": true,  "normalized": "11223344595",    "kind": "snils",          "error": null } },
+  { "input": { "id": "" },                "expected": { "ok": false, "normalized": null,             "kind": null,             "error": "identifier is empty" } },
+  { "input": { "id": "7707083894" },      "expected": { "ok": false, "normalized": "7707083894",     "kind": "inn_legal",      "error": "неверная контрольная сумма ИНН" } },
+  { "input": { "id": "500100732258" },    "expected": { "ok": false, "normalized": "500100732258",   "kind": "inn_individual", "error": "неверная контрольная сумма ИНН" } },
+  { "input": { "id": "123456789" },       "expected": { "ok": true,  "normalized": "123456789",      "kind": "kpp",            "error": null } },
+  { "input": { "id": "abcdefghij" },      "expected": { "ok": false, "normalized": "abcdefghij",     "kind": null,             "error": "unknown identifier shape (length=10, has_letters=True)" } },
+  { "input": { "id": "1027700132194" },   "expected": { "ok": false, "normalized": "1027700132194",  "kind": "ogrn",           "error": "неверная контрольная сумма ОГРН" } },
+  { "input": { "id": "304500116000156" }, "expected": { "ok": false, "normalized": "304500116000156","kind": "ogrnip",         "error": "неверная контрольная сумма ОГРНИП" } },
+  { "input": { "id": "11223344594" },     "expected": { "ok": false, "normalized": "11223344594",    "kind": "snils",          "error": "неверная контрольная сумма СНИЛС" } },
+  { "input": { "id": "77070100" },        "expected": { "ok": false, "normalized": "77070100",       "kind": null,             "error": "unknown identifier shape (length=8, has_letters=False)" } },
+  { "input": { "id": "77070100X" },       "expected": { "ok": false, "normalized": "77070100X",      "kind": null,             "error": "unknown identifier shape (length=9, has_letters=True)" } },
+  { "input": { "id": "7707-0838-93" },    "expected": { "ok": true,  "normalized": "7707083893",     "kind": "inn_legal",      "error": null } },
+  { "input": { "id": "10277-0013-2195" }, "expected": { "ok": true,  "normalized": "1027700132195",  "kind": "ogrn",           "error": null } }
+]

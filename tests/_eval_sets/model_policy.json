@@ -1,0 +1,61 @@
+[
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet"}, "ctx": {} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet"}, "ctx": {"module": "finance"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet", "finance": "openai/gpt-4o-mini"}, "ctx": {"module": "finance"} },
+    "expected": { "resolved_model": "openai/gpt-4o-mini", "source": "module" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet", "finance": "openai/gpt-4o-mini"}, "ctx": {"module": "finance", "aspect": "copilot"} },
+    "expected": { "resolved_model": "openai/gpt-4o-mini", "source": "module" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet", "copilot": "openai/gpt-4o"}, "ctx": {"aspect": "copilot"} },
+    "expected": { "resolved_model": "openai/gpt-4o", "source": "aspect" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet", "copilot": "openai/gpt-4o"}, "ctx": {"module": "finance", "aspect": "copilot"} },
+    "expected": { "resolved_model": "openai/gpt-4o", "source": "aspect" } },
+
+  { "input": { "policy": {}, "ctx": {} },
+    "expected": { "resolved_model": "", "source": "auto" } },
+
+  { "input": { "policy": {"default": ""}, "ctx": {} },
+    "expected": { "resolved_model": "", "source": "auto" } },
+
+  { "input": { "policy": {"default": "  anthropic/claude-3.5-sonnet  "}, "ctx": {} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"finance": "", "default": "anthropic/claude-3.5-sonnet"}, "ctx": {"module": "finance"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet"}, "ctx": {"module": "bogus"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet"}, "ctx": {"module": "bogus", "aspect": "bogus"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet"}, "ctx": {"module": "finance", "aspect": "transform"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"copilot": "openai/gpt-4o"}, "ctx": {"aspect": "copilot"} },
+    "expected": { "resolved_model": "openai/gpt-4o", "source": "aspect" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet"}, "ctx": {"module": "crm"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"finance": 42, "default": "anthropic/claude-3.5-sonnet"}, "ctx": {"module": "finance"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"copilot": null, "default": "anthropic/claude-3.5-sonnet"}, "ctx": {"aspect": "copilot"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet", "docs": "  "}, "ctx": {"module": "docs"} },
+    "expected": { "resolved_model": "anthropic/claude-3.5-sonnet", "source": "default" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet", "finance": "openai/gpt-4o-mini", "copilot": "openai/gpt-4o"}, "ctx": {"module": "finance", "aspect": "copilot"} },
+    "expected": { "resolved_model": "openai/gpt-4o-mini", "source": "module" } },
+
+  { "input": { "policy": {"default": "anthropic/claude-3.5-sonnet", "crm": "google/gemini-flash-1.5", "copilot": "openai/gpt-4o"}, "ctx": {"module": "crm", "aspect": "copilot"} },
+    "expected": { "resolved_model": "google/gemini-flash-1.5", "source": "module" } }
+]

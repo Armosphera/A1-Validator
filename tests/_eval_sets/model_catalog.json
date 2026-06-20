@@ -1,0 +1,337 @@
+[
+  {
+    "input": {
+      "egressAllowed": false,
+      "safeFetchResponse": {
+        "data": [
+          {
+            "id": "anthropic/claude-3.5-sonnet",
+            "name": "Anthropic: Claude 3.5 Sonnet",
+            "context_length": 200000,
+            "pricing": {
+              "prompt": "0.000003",
+              "completion": "0.000015"
+            }
+          },
+          {
+            "id": "openai/gpt-4o",
+            "name": "OpenAI: GPT-4o",
+            "context_length": 128000,
+            "pricing": {
+              "prompt": "0.000005",
+              "completion": "0.000015"
+            }
+          }
+        ]
+      },
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": false,
+      "source": "fallback",
+      "reason": "egress-blocked",
+      "modelsCount": 5,
+      "lastRequestUrl": null
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchResponse": {
+        "data": [
+          {
+            "id": "anthropic/claude-3.5-sonnet",
+            "name": "Anthropic: Claude 3.5 Sonnet",
+            "context_length": 200000,
+            "pricing": {
+              "prompt": "0.000003",
+              "completion": "0.000015"
+            }
+          },
+          {
+            "id": "openai/gpt-4o",
+            "name": "OpenAI: GPT-4o",
+            "context_length": 128000,
+            "pricing": {
+              "prompt": "0.000005",
+              "completion": "0.000015"
+            }
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true,
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": true,
+      "source": "live",
+      "reason": null,
+      "modelsCount": 2,
+      "lastRequestUrl": "https://openrouter.ai/api/v1/models",
+      "lastRequestMethod": "GET"
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchResponse": null,
+      "safeFetchStatus": 500,
+      "safeFetchOk": false,
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": false,
+      "source": "fallback",
+      "reason": "http-500",
+      "modelsCount": 5,
+      "lastRequestUrl": "https://openrouter.ai/api/v1/models",
+      "lastRequestMethod": "GET"
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchResponse": {
+        "data": []
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true,
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": false,
+      "source": "fallback",
+      "reason": "empty-list",
+      "modelsCount": 5,
+      "lastRequestUrl": "https://openrouter.ai/api/v1/models"
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchThrows": true,
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": false,
+      "source": "fallback",
+      "reason": "ECONNREFUSED",
+      "modelsCount": 5,
+      "lastRequestUrl": "https://openrouter.ai/api/v1/models"
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchResponse": {
+        "data": [
+          {
+            "id": "anthropic/claude-3.5-sonnet",
+            "name": "Anthropic: Claude 3.5 Sonnet",
+            "context_length": 200000,
+            "pricing": {
+              "prompt": "0.000003",
+              "completion": "0.000015"
+            }
+          },
+          {
+            "id": "openai/gpt-4o",
+            "name": "OpenAI: GPT-4o",
+            "context_length": 128000,
+            "pricing": {
+              "prompt": "0.000005",
+              "completion": "0.000015"
+            }
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true,
+      "apiKey": "sk-or-test",
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": true,
+      "source": "live",
+      "reason": null,
+      "modelsCount": 2,
+      "lastRequestHeaders": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "",
+        "X-Title": "",
+        "Authorization": "Bearer sk-or-test"
+      }
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchResponse": {
+        "data": [
+          {
+            "id": "anthropic/claude-3.5-sonnet",
+            "name": "Anthropic: Claude 3.5 Sonnet",
+            "context_length": 200000,
+            "pricing": {
+              "prompt": "0.000003",
+              "completion": "0.000015"
+            }
+          },
+          {
+            "id": "openai/gpt-4o",
+            "name": "OpenAI: GPT-4o",
+            "context_length": 128000,
+            "pricing": {
+              "prompt": "0.000005",
+              "completion": "0.000015"
+            }
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true,
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": true,
+      "source": "live",
+      "reason": null,
+      "modelsCount": 2,
+      "lastRequestHeaders": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "",
+        "X-Title": ""
+      }
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchResponse": {
+        "data": [
+          {
+            "id": "anthropic/claude-3.5-sonnet",
+            "name": "Anthropic: Claude 3.5 Sonnet",
+            "context_length": 200000,
+            "pricing": {
+              "prompt": "0.000003",
+              "completion": "0.000015"
+            }
+          },
+          {
+            "id": "openai/gpt-4o",
+            "name": "OpenAI: GPT-4o",
+            "context_length": 128000,
+            "pricing": {
+              "prompt": "0.000005",
+              "completion": "0.000015"
+            }
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true,
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "https://a1suite.app",
+        "title": "A1 Suite"
+      }
+    },
+    "expected": {
+      "online": true,
+      "source": "live",
+      "reason": null,
+      "modelsCount": 2,
+      "lastRequestHeaders": {
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://a1suite.app",
+        "X-Title": "A1 Suite"
+      }
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchResponse": {
+        "foo": "bar"
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true,
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": false,
+      "source": "fallback",
+      "reason": "empty-list",
+      "modelsCount": 5,
+      "lastRequestUrl": "https://openrouter.ai/api/v1/models"
+    }
+  },
+  {
+    "input": {
+      "egressAllowed": true,
+      "safeFetchResponse": {
+        "data": [
+          {
+            "name": "No ID"
+          },
+          {
+            "id": "",
+            "name": "Empty ID"
+          },
+          {
+            "id": "valid/model",
+            "name": "Valid"
+          }
+        ]
+      },
+      "safeFetchStatus": 200,
+      "safeFetchOk": true,
+      "openrouter": {
+        "modelsUrl": "https://openrouter.ai/api/v1/models",
+        "referer": "",
+        "title": ""
+      }
+    },
+    "expected": {
+      "online": true,
+      "source": "live",
+      "reason": null,
+      "modelsCount": 1,
+      "lastRequestUrl": "https://openrouter.ai/api/v1/models"
+    }
+  }
+]

@@ -1,0 +1,249 @@
+[
+  {
+    "input": {
+      "code": "01"
+    },
+    "expected": {
+      "found": true,
+      "code": "01",
+      "ru": "Основные средства",
+      "section": "I",
+      "nature": "active",
+      "normalBalance": "debit"
+    }
+  },
+  {
+    "input": {
+      "code": "02"
+    },
+    "expected": {
+      "found": true,
+      "code": "02",
+      "ru": "Амортизация основных средств",
+      "section": "I",
+      "nature": "passive",
+      "normalBalance": "credit"
+    }
+  },
+  {
+    "input": {
+      "code": "  01  "
+    },
+    "expected": {
+      "found": true,
+      "code": "01",
+      "ru": "Основные средства",
+      "section": "I",
+      "nature": "active",
+      "normalBalance": "debit"
+    }
+  },
+  {
+    "input": {
+      "code": 41
+    },
+    "expected": {
+      "found": true,
+      "code": "41",
+      "ru": "Товары",
+      "section": "IV",
+      "nature": "active",
+      "normalBalance": "debit"
+    }
+  },
+  {
+    "input": {
+      "code": "41"
+    },
+    "expected": {
+      "found": true,
+      "code": "41",
+      "ru": "Товары",
+      "section": "IV",
+      "nature": "active",
+      "normalBalance": "debit"
+    }
+  },
+  {
+    "input": {
+      "code": "42"
+    },
+    "expected": {
+      "found": true,
+      "code": "42",
+      "ru": "Торговая наценка",
+      "section": "IV",
+      "nature": "passive",
+      "normalBalance": "credit"
+    }
+  },
+  {
+    "input": {
+      "code": "51"
+    },
+    "expected": {
+      "found": true,
+      "code": "51",
+      "ru": "Расчётные счета",
+      "section": "V",
+      "nature": "active",
+      "normalBalance": "debit"
+    }
+  },
+  {
+    "input": {
+      "code": "60"
+    },
+    "expected": {
+      "found": true,
+      "code": "60",
+      "ru": "Расчёты с поставщиками и подрядчиками",
+      "section": "VI",
+      "nature": "active-passive",
+      "normalBalance": null
+    }
+  },
+  {
+    "input": {
+      "code": "62"
+    },
+    "expected": {
+      "found": true,
+      "code": "62",
+      "ru": "Расчёты с покупателями и заказчиками",
+      "section": "VI",
+      "nature": "active-passive",
+      "normalBalance": null
+    }
+  },
+  {
+    "input": {
+      "code": "70"
+    },
+    "expected": {
+      "found": true,
+      "code": "70",
+      "ru": "Расчёты с персоналом по оплате труда",
+      "section": "VI",
+      "nature": "passive",
+      "normalBalance": "credit"
+    }
+  },
+  {
+    "input": {
+      "code": "80"
+    },
+    "expected": {
+      "found": true,
+      "code": "80",
+      "ru": "Уставный капитал",
+      "section": "VII",
+      "nature": "passive",
+      "normalBalance": "credit"
+    }
+  },
+  {
+    "input": {
+      "code": "90"
+    },
+    "expected": {
+      "found": true,
+      "code": "90",
+      "ru": "Продажи",
+      "section": "VIII",
+      "nature": "active-passive",
+      "normalBalance": null
+    }
+  },
+  {
+    "input": {
+      "code": "99"
+    },
+    "expected": {
+      "found": true,
+      "code": "99",
+      "ru": "Прибыли и убытки",
+      "section": "VIII",
+      "nature": "active-passive",
+      "normalBalance": null
+    }
+  },
+  {
+    "input": {
+      "code": "001"
+    },
+    "expected": {
+      "found": true,
+      "code": "001",
+      "ru": "Арендованные основные средства",
+      "section": "offBalance",
+      "nature": "active",
+      "normalBalance": "debit"
+    }
+  },
+  {
+    "input": {
+      "code": "06"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "ru": null,
+      "section": null,
+      "nature": null,
+      "normalBalance": null
+    }
+  },
+  {
+    "input": {
+      "code": "100"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "ru": null,
+      "section": null,
+      "nature": null,
+      "normalBalance": null
+    }
+  },
+  {
+    "input": {
+      "code": "ABC"
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "ru": null,
+      "section": null,
+      "nature": null,
+      "normalBalance": null
+    }
+  },
+  {
+    "input": {
+      "code": ""
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "ru": null,
+      "section": null,
+      "nature": null,
+      "normalBalance": null
+    }
+  },
+  {
+    "input": {
+      "code": null
+    },
+    "expected": {
+      "found": false,
+      "code": null,
+      "ru": null,
+      "section": null,
+      "nature": null,
+      "normalBalance": null
+    }
+  }
+]
