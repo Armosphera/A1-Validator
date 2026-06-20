@@ -1,0 +1,76 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-flight runs for the same ref when a new commit lands — keeps
+# the queue short on active branches and saves runner minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: pytest (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install package with server extras
+        # [server] pulls in FastAPI + uvicorn so the in-tree TestClient-based
+        # server tests can run (httpx is needed for starlette.testclient too —
+        # `pip` resolves it transitively from fastapi's test extra in most
+        # versions, but we pin it explicitly here to be safe).
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[server]"
+          python -m pip install pytest pytest-cov ruff mypy
+
+      - name: Lint with ruff
+        # Loose ruleset — `ruff check` only, no formatter enforcement yet.
+        # Vendored modules are excluded via per-file-ignores in pyproject.toml.
+        run: ruff check src/a1_validator/ tests/
+
+      - name: Type-check with mypy
+        # Loose config: ignore_missing_imports, exclude _vendored/. See
+        # `[tool.mypy]` in pyproject.toml for the full config.
+        run: mypy src/a1_validator/
+        continue-on-error: false
+
+      - name: Run pytest with coverage
+        # Fail the build if coverage drops below 80% (--cov-fail-under).
+        # Also upload coverage.xml for codecov.io when the CODECOV_TOKEN
+        # secret is present in the repo settings.
+        run: |
+          pytest tests/ -v --tb=short \
+            --cov=a1_validator \
+            --cov-report=xml \
+            --cov-report=term-missing \
+            --cov-fail-under=80
+
+      - name: Upload coverage to Codecov
+        # Skip silently when CODECOV_TOKEN is not set — local / fork PRs
+        # don't have access to the secret, and that's fine. The Codecov
+        # GitHub Action checks for the token internally and bails out.
+        if: always() && matrix.python-version == '3.12'
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: false

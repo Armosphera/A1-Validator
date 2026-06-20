@@ -1,0 +1,58 @@
+name: docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Cancel in-flight docs builds on the same ref — they're cheap but there's
+# no point queueing up redundant ones.
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write   # peaceiris/actions-gh-pages pushes to the gh-pages branch
+
+jobs:
+  build-and-deploy:
+    name: Build mkdocs site and deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install mkdocs + material theme
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install mkdocs mkdocs-material
+
+      - name: Build site
+        # `--strict` upgrades missing-reference warnings to errors. The
+        # gen_validators_md.py output covers every link that `mkdocs.yml`
+        # references, so a strict build catches broken nav edits early.
+        run: mkdocs build --strict
+
+      - name: Deploy to GitHub Pages
+        # peaceiris/actions-gh-pages@v3 — pushes the `site/` directory to
+        # the `gh-pages` branch using the built-in GITHUB_TOKEN. The action
+        # keeps the gh-pages branch history clean (one squash commit per
+        # deploy) and supports both project pages and user/org pages via
+        # the `external_repository` / `keep_files` knobs if needed later.
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          # Use a single commit per deploy for a tidy gh-pages history.
+          force_orphan: true
+          # Quiet output — the action's default is chatty.
+          enable_jekyll: false
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com

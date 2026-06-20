@@ -39,7 +39,8 @@ Run the service with:
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable, Optional
+from collections.abc import Callable
+from typing import Any
 
 from fastapi import FastAPI
 from pydantic import BaseModel, ConfigDict
@@ -149,8 +150,8 @@ class ValidateRequest(_BaseBody):
     full input dict at the top level.
     """
 
-    value: Optional[Any] = None
-    raw: Optional[Any] = None
+    value: Any | None = None
+    raw: Any | None = None
 
 
 class BatchRequest(_BaseBody):

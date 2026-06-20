@@ -1,0 +1,97 @@
+site_name: A1 Validator
+site_description: 23 SBOSS sovereign business ID validators, packaged as a single importable Python library.
+site_url: https://armosphera.github.io/A1-Validator/
+repo_url: https://github.com/Armosphera/A1-Validator
+repo_name: Armosphera/A1-Validator
+edit_uri: edit/main/docs/
+
+# Don't include the readme — the docs site is its own first-class surface.
+docs_dir: docs
+site_dir: site
+
+# The `a1_validator` package lives under `src/` — mkdocs's strict-mode
+# `not_in_nav` warning fires if a markdown file under `docs/` is not
+# listed in `nav`. We list every page below, so this stays at 0.
+
+theme:
+  name: material
+  palette:
+    # Light/dark toggle — default to the brand's indigo accent.
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Armosphera/A1-Validator
+      name: A1 Validator on GitHub
+
+markdown_extensions:
+  # Standard syntax goodies that mkdocs-material ships with.
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.caret
+  - pymdownx.smartsymbols
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Validators: validators.md
+  - CLI: cli.md
+  - HTTP service: http.md
+  - Deploy: deploy.md
+  - About: about.md

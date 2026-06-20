@@ -13,7 +13,7 @@ extra fields or missing optional fields.
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict
 
@@ -32,66 +32,66 @@ class _BaseResult(BaseModel):
 class HHVHResult(_BaseResult):
     """Output of `a1_validator.hhvh()`."""
 
-    ok: Optional[bool] = None
-    normalized: Optional[str] = None
-    error: Optional[str] = None
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
 
 
 class INNResult(_BaseResult):
     """Output of `a1_validator.inn()` — Russian identifier dispatcher."""
 
-    ok: Optional[bool] = None
-    normalized: Optional[str] = None
-    kind: Optional[str] = None
-    error: Optional[str] = None
+    ok: bool | None = None
+    normalized: str | None = None
+    kind: str | None = None
+    error: str | None = None
 
 
 class ModelPolicyResult(_BaseResult):
     """Output of `a1_validator.model_policy()`."""
 
-    resolved_model: Optional[str] = None
-    source: Optional[str] = None
+    resolved_model: str | None = None
+    source: str | None = None
 
 
 class VatReturnResult(_BaseResult):
     """Output of `a1_validator.vat_return()`."""
 
-    net: Optional[float] = None
-    outputVat: Optional[float] = None
-    inputVat: Optional[float] = None
-    payable: Optional[float] = None
-    creditCarried: Optional[float] = None
-    taxableSales: Optional[float] = None
-    taxablePurchases: Optional[float] = None
+    net: float | None = None
+    outputVat: float | None = None
+    inputVat: float | None = None
+    payable: float | None = None
+    creditCarried: float | None = None
+    taxableSales: float | None = None
+    taxablePurchases: float | None = None
 
 
 class PayrollAmResult(_BaseResult):
     """Output of `a1_validator.payroll_am()`."""
 
-    gross: Optional[float] = None
-    incomeTax: Optional[float] = None
-    pension: Optional[float] = None
-    healthInsurance: Optional[float] = None
-    stampDuty: Optional[float] = None
-    totalWithholdings: Optional[float] = None
-    net: Optional[float] = None
+    gross: float | None = None
+    incomeTax: float | None = None
+    pension: float | None = None
+    healthInsurance: float | None = None
+    stampDuty: float | None = None
+    totalWithholdings: float | None = None
+    net: float | None = None
 
 
 class ChartOfAccountsAmResult(_BaseResult):
     """Output of `a1_validator.chart_of_accounts_am()`."""
 
-    code: Optional[Any] = None
-    ok: Optional[bool] = None
-    normalized: Optional[str] = None
-    hy: Optional[str] = None
-    class_: Optional[int] = None  # `class` is a Python keyword — use the alias.
-    type: Optional[str] = None
-    error: Optional[str] = None
+    code: Any | None = None
+    ok: bool | None = None
+    normalized: str | None = None
+    hy: str | None = None
+    class_: int | None = None  # `class` is a Python keyword — use the alias.
+    type: str | None = None
+    error: str | None = None
 
     model_config = ConfigDict(extra="allow", frozen=False, populate_by_name=True)
 
     @classmethod
-    def model_validate(cls, obj, *args, **kwargs):  # type: ignore[override]
+    def model_validate(cls, obj, *args, **kwargs):
         # Map incoming `class` key to `class_` field.
         if isinstance(obj, dict) and "class" in obj and "class_" not in obj:
             obj = {**obj, "class_": obj["class"]}
@@ -101,164 +101,164 @@ class ChartOfAccountsAmResult(_BaseResult):
 class VatReturnFormResult(_BaseResult):
     """Output of `a1_validator.vat_return_form()`."""
 
-    ok: Optional[bool] = None
-    error_count: Optional[int] = None
-    error_codes: Optional[list[str]] = None
+    ok: bool | None = None
+    error_count: int | None = None
+    error_codes: list[str] | None = None
 
 
 class PhoneAmResult(_BaseResult):
     """Output of `a1_validator.phone_am()`."""
 
-    nsn: Optional[str] = None
-    valid: Optional[bool] = None
-    e164: Optional[str] = None
-    formatted: Optional[str] = None
+    nsn: str | None = None
+    valid: bool | None = None
+    e164: str | None = None
+    formatted: str | None = None
 
 
 class RegionsAmResult(_BaseResult):
     """Output of `a1_validator.regions_am()`."""
 
-    found: Optional[bool] = None
-    code: Optional[str] = None
-    hy: Optional[str] = None
-    en: Optional[str] = None
-    center: Optional[str] = None
+    found: bool | None = None
+    code: str | None = None
+    hy: str | None = None
+    en: str | None = None
+    center: str | None = None
 
 
 class EInvoiceAmResult(_BaseResult):
     """Output of `a1_validator.einvoice_am()`."""
 
-    ok: Optional[bool] = None
-    error_count: Optional[int] = None
-    error_codes: Optional[list[str]] = None
+    ok: bool | None = None
+    error_count: int | None = None
+    error_codes: list[str] | None = None
 
 
 class ChatClientResult(_BaseResult):
     """Output of `a1_validator.chat_client()`."""
 
-    ok: Optional[bool] = None
-    model: Optional[str] = None
-    provider: Optional[str] = None
-    text: Optional[str] = None
-    responseId: Optional[str] = None
-    error_code: Optional[str] = None
-    error_status: Optional[int] = None
-    last_request: Optional[dict[str, Any]] = None
+    ok: bool | None = None
+    model: str | None = None
+    provider: str | None = None
+    text: str | None = None
+    responseId: str | None = None
+    error_code: str | None = None
+    error_status: int | None = None
+    last_request: dict[str, Any] | None = None
 
 
 class PhoneRuResult(_BaseResult):
     """Output of `a1_validator.phone_ru()`."""
 
-    nsn: Optional[str] = None
-    valid: Optional[bool] = None
-    e164: Optional[str] = None
-    formatted: Optional[str] = None
+    nsn: str | None = None
+    valid: bool | None = None
+    e164: str | None = None
+    formatted: str | None = None
 
 
 class RuEInvoiceResult(_BaseResult):
     """Output of `a1_validator.ru_einvoice()`."""
 
-    ok: Optional[bool] = None
-    error_count: Optional[int] = None
-    error_codes: Optional[list[str]] = None
+    ok: bool | None = None
+    error_count: int | None = None
+    error_codes: list[str] | None = None
 
 
 class PayrollRuResult(_BaseResult):
     """Output of `a1_validator.payroll_ru()` — generic {result: ...} wrapper."""
 
-    result: Optional[Any] = None
+    result: Any | None = None
 
 
 class RegionsRuResult(_BaseResult):
     """Output of `a1_validator.regions_ru()`."""
 
-    found: Optional[bool] = None
-    code: Optional[str] = None
-    ru: Optional[str] = None
-    en: Optional[str] = None
-    center: Optional[str] = None
+    found: bool | None = None
+    code: str | None = None
+    ru: str | None = None
+    en: str | None = None
+    center: str | None = None
 
 
 class ChartOfAccountsRuResult(_BaseResult):
     """Output of `a1_validator.chart_of_accounts_ru()`."""
 
-    found: Optional[bool] = None
-    code: Optional[str] = None
-    ru: Optional[str] = None
-    section: Optional[str] = None
-    nature: Optional[str] = None
-    normalBalance: Optional[str] = None
+    found: bool | None = None
+    code: str | None = None
+    ru: str | None = None
+    section: str | None = None
+    nature: str | None = None
+    normalBalance: str | None = None
 
 
 class VatRuResult(_BaseResult):
     """Output of `a1_validator.vat_ru()` — generic {result: ...} wrapper."""
 
-    result: Optional[Any] = None
+    result: Any | None = None
 
 
 class SettingsStoreResult(_BaseResult):
     """Output of `a1_validator.settings_store()` — generic {result: ...} wrapper."""
 
-    result: Optional[Any] = None
+    result: Any | None = None
 
 
 class ModelCatalogResult(_BaseResult):
     """Output of `a1_validator.model_catalog()`."""
 
-    online: Optional[bool] = None
-    reason: Optional[str] = None
-    source: Optional[str] = None
-    modelsCount: Optional[int] = None
-    lastRequestUrl: Optional[str] = None
-    lastRequestMethod: Optional[str] = None
-    lastRequestHeaders: Optional[dict[str, Any]] = None
+    online: bool | None = None
+    reason: str | None = None
+    source: str | None = None
+    modelsCount: int | None = None
+    lastRequestUrl: str | None = None
+    lastRequestMethod: str | None = None
+    lastRequestHeaders: dict[str, Any] | None = None
 
 
 class SupplementalSourcesResult(_BaseResult):
     """Output of `a1_validator.supplemental_sources()`."""
 
-    count: Optional[int] = None
-    titles: Optional[list[str]] = None
-    excerpts: Optional[list[str]] = None
-    sourceUrls: Optional[list[str]] = None
-    scores: Optional[list[float]] = None
-    allAdvisory: Optional[bool] = None
+    count: int | None = None
+    titles: list[str] | None = None
+    excerpts: list[str] | None = None
+    sourceUrls: list[str] | None = None
+    scores: list[float] | None = None
+    allAdvisory: bool | None = None
 
 
 class OpenNotebookResult(_BaseResult):
     """Output of `a1_validator.open_notebook()` — multi-op, multi-shape."""
 
-    enabled: Optional[bool] = None
-    count: Optional[int] = None
-    titles: Optional[list[str]] = None
-    texts: Optional[list[str]] = None
-    scores: Optional[list[float]] = None
-    origins: Optional[list[str]] = None
-    results: Optional[list[Any]] = None
-    lastRequestUrl: Optional[str] = None
-    lastRequestMethod: Optional[str] = None
-    lastRequestHeaders: Optional[dict[str, Any]] = None
-    lastRequestBody: Optional[Any] = None
+    enabled: bool | None = None
+    count: int | None = None
+    titles: list[str] | None = None
+    texts: list[str] | None = None
+    scores: list[float] | None = None
+    origins: list[str] | None = None
+    results: list[Any] | None = None
+    lastRequestUrl: str | None = None
+    lastRequestMethod: str | None = None
+    lastRequestHeaders: dict[str, Any] | None = None
+    lastRequestBody: Any | None = None
 
 
 class ProductResearchResult(_BaseResult):
     """Output of `a1_validator.product_research()` — multi-op."""
 
-    result: Optional[Any] = None
-    error: Optional[str] = None
-    defaultResultColumns: Optional[list[str]] = None
-    statuses: Optional[list[str]] = None
-    directions: Optional[list[str]] = None
+    result: Any | None = None
+    error: str | None = None
+    defaultResultColumns: list[str] | None = None
+    statuses: list[str] | None = None
+    directions: list[str] | None = None
 
 
 class InvoiceResult(_BaseResult):
     """Output of `a1_validator.invoice()` — invoice field extractor."""
 
-    vendor_name: Optional[str] = None
-    invoice_date: Optional[str] = None
-    total_amount: Optional[float] = None
-    currency: Optional[str] = None
-    tax_id: Optional[str] = None
+    vendor_name: str | None = None
+    invoice_date: str | None = None
+    total_amount: float | None = None
+    currency: str | None = None
+    tax_id: str | None = None
 
 
 # Mapping: public validator name -> Pydantic result model.

@@ -20,13 +20,13 @@ from __future__ import annotations
 
 import json
 
+# `tests/_eval_sets/` sits next to this test file.
+from pathlib import Path
+
 import pytest
 from typer.testing import CliRunner
 
 from a1_validator.cli import app
-
-# `tests/_eval_sets/` sits next to this test file.
-from pathlib import Path
 
 _TESTS_DIR = Path(__file__).resolve().parent
 _EVAL_SETS_DIR = _TESTS_DIR / "_eval_sets"

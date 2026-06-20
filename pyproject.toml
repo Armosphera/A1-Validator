@@ -28,19 +28,15 @@ classifiers = [
 dependencies = [
     "pydantic>=2.0,<3",
     "typer>=0.12",
-    # Typer 0.15+ dropped click from its required deps, but our
-    # `a1_validator.cli` module imports `click` directly (custom
-    # `TyperGroup` subclass uses `click.Context` in its `parse_args`
-    # override). Pin click as an explicit dep so sdist installs pull
-    # it without relying on a transitive that may go away again.
-    "click>=8.0",
-] 
+]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
     "httpx2>=2.0",  # starlette 1.x test client needs the renamed httpx
+    "ruff>=0.5",
+    "mypy>=1.8",
 ]
 # HTTP service stack — installed by `pip install a1-validator[server]`.
 # Kept opt-in so the core validator library stays light for embedded use
@@ -56,11 +52,9 @@ all = [
 ]
 
 [project.scripts]
-# Top-level CLI entry point — see `a1_validator.cli`. The cli task
-# (wip/cli) defined a single Typer `app` object that exposes the
-# `validate`, `list`, `batch`, `serve`, and `version` subcommands; the
-# http-service task added `serve` and `version` to its own cli.py, and
-# the orchestrator kept wip/cli's cli.py (which is a strict superset).
+# Top-level CLI entry point — see `a1_validator.cli`. The cli and
+# http-service tasks both own this entry point; the merged file is the
+# strict superset that exposes validate / list / batch / serve / version.
 a1-validate = "a1_validator.cli:app"
 
 [project.urls]
@@ -81,4 +75,47 @@ python_files = ["test_*.py"]
 addopts = "-ra"
 filterwarnings = [
     "ignore::DeprecationWarning",
+]
+
+# ---------------------------------------------------------------------------
+# Ruff — fast Python linter (https://docs.astral.sh/ruff/).
+# Line length 100 matches the existing style in vendored modules.
+# Target py310 keeps the lint pass identical across the 3.10/3.11/3.12 matrix
+# even on runners where py311-only syntax might creep in.
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# Start conservative — E/F (pycodestyle errors + pyflakes) catch the bulk
+# of likely problems without nagging about every cosmetic choice. Bump
+# this set as the project matures.
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = [
+    "E501",  # line too long — handled by the formatter / config above
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Vendored code is auto-generated from upstream; don't lint it.
+"src/a1_validator/_vendored/*" = ["E", "F", "W", "I", "B", "UP"]
+
+# ---------------------------------------------------------------------------
+# Mypy — optional static type checker.
+# The vendored modules are intentionally loosely-typed (they're JS→Python
+# ports with `Any` everywhere), so we run mypy against `src/a1_validator/`
+# *excluding* `_vendored/`. `ignore_missing_imports = true` lets mypy
+# happily run when optional deps (fastapi, typer) aren't installed in CI.
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+# Be permissive on the loose-typed vendored layer; strict mode would be noise.
+# Strict checks live in the top-level `src/a1_validator/` files where we
+# own the types.
+exclude = [
+    "src/a1_validator/_vendored/.*",
 ]
