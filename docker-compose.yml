@@ -1,0 +1,50 @@
+# docker-compose.yml — example deployment for a1-validator.
+#
+# Pulls the v0.1.0 image from GHCR and runs the FastAPI HTTP service on
+# port 8000. This is the example shape — adjust the image tag, port
+# mapping, and env vars for your environment.
+#
+# Usage:
+#   docker compose up -d          # boot in background
+#   docker compose logs -f        # tail logs
+#   curl http://localhost:8000/    # smoke-test the discovery endpoint
+#   docker compose down            # stop + remove the container
+#
+# To run a different version:
+#   A1_VALIDATOR_VERSION=v0.1.1 docker compose up -d
+#
+# To pin by digest (recommended for production):
+#   1. Get the digest:
+#        docker buildx imagetools inspect ghcr.io/armosphera/a1-validator:v0.1.0
+#   2. Replace the `image:` line with:
+#        image: ghcr.io/armosphera/a1-validator@sha256:<digest>
+
+services:
+  a1-validator:
+    # GHCR — public pull, no login required for public packages.
+    image: ghcr.io/armosphera/a1-validator:${A1_VALIDATOR_VERSION:-v0.1.0}
+    container_name: a1-validator
+    restart: unless-stopped
+    ports:
+      - "${A1_VALIDATOR_PORT:-8000}:8000"
+    environment:
+      # Override the version label baked into the image — useful when
+      # running `:dev` builds so logs show what was deployed.
+      A1_VALIDATOR_VERSION: ${A1_VALIDATOR_VERSION:-v0.1.0}
+      # uvicorn log level — debug/info/warning/error/critical.
+      A1_VALIDATOR_LOG_LEVEL: ${A1_VALIDATOR_LOG_LEVEL:-info}
+      # Number of uvicorn workers. Production: ~2 × CPU cores.
+      A1_VALIDATOR_WORKERS: ${A1_VALIDATOR_WORKERS:-1}
+    healthcheck:
+      # Liveness — GET / returns the discovery JSON; cheap, no side effects.
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/', timeout=2).status == 200 else 1)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    # Read-only filesystem is tempting but the FastAPI app writes nothing
+    # to disk at runtime — uvicorn logs go to stdout/stderr only. We keep
+    # the default writable fs to avoid breaking future log-handler or
+    # tmp-file use cases; tighten this later if you control the dep tree.
+    security_opt:
+      - no-new-privileges:true

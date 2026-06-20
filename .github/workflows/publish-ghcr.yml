@@ -1,0 +1,117 @@
+# .github/workflows/publish-ghcr.yml
+#
+# Build + push the a1-validator multi-arch Docker image to GitHub Container
+# Registry on tag push.
+#
+# Architecture: linux/amd64 + linux/arm64 (covers x86_64 hosts, AWS Graviton,
+# Apple-silicon runners, Raspberry Pi 4/5). Uses QEMU + buildx.
+#
+# Tagging scheme:
+#   - `v0.1.0`            → :0.1.0 (semver-stripped), :0.1, :0.1.0-<sha>
+#   - `v0.1.0-rc.1`       → :0.1.0-rc.1
+#   - The `:latest` tag is ONLY applied on a clean v0.1.0 (no pre-release
+#     suffix). Pre-releases never overwrite latest — they're released with
+#     explicit :<version> tags only.
+#
+# Required repository secrets / config:
+#   - `packages: write` permission on the GITHUB_TOKEN (default — no setup).
+#
+# Manual trigger: workflow_dispatch builds from main with the `:dev` tag
+# so PR-merge smoke tests can pull a fresh image without cutting a release.
+
+name: publish-ghcr
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    name: Build + push multi-arch image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Resolve image tags
+        id: meta
+        run: |
+          # Strip leading 'v' from the tag — Docker tags are conventionally
+          # `0.1.0`, not `v0.1.0`. Also compute the short-sha tag and the
+          # "is this a stable release?" flag for the `:latest` guard.
+          if [ "${{ github.event_name }}" = "push" ]; then
+            REF="${GITHUB_REF_NAME}"
+          else
+            REF="dev"
+          fi
+          VERSION="${REF#v}"
+          VERSION="${VERSION#V}"
+          SHORT_SHA="${GITHUB_SHA::7}"
+          IS_PRERELEASE="false"
+          case "$VERSION" in
+            *-*|*rc*|*alpha*|*beta*) IS_PRERELEASE="true" ;;
+          esac
+
+          TAGS="$VERSION,$VERSION-$SHORT_SHA"
+          if [ "$IS_PRERELEASE" = "false" ]; then
+            # Stable release: also tag major.minor (e.g. :0.1) and :latest.
+            MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2)
+            TAGS="$TAGS,$MAJOR_MINOR"
+            if [ "${{ github.event_name }}" = "push" ]; then
+              TAGS="$TAGS,latest"
+            fi
+          fi
+
+          # Build the comma-separated multi-tag list for docker/build-push-action.
+          TAGS_JSON=$(echo "$TAGS" | tr ',' '\n' | sed 's/^/"'"$REGISTRY"'\/'"$IMAGE_NAME"'"::/' | sed 's/$/",/' | tr -d '\n' | sed 's/,$//')
+          TAGS_JSON="[$TAGS_JSON]"
+          echo "tags=$TAGS_JSON" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "is_prerelease=$IS_PRERELEASE" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build + push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: |
+            org.opencontainers.image.title=a1-validator
+            org.opencontainers.image.description=23 SBOSS sovereign business ID validators — HTTP service + CLI
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.licenses=MIT
+            org.opencontainers.image.version=${{ steps.meta.outputs.version }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.created=${{ github.event.repository.updated_at }}
+          build-args: |
+            VERSION=${{ steps.meta.outputs.version }}
+            SDIST=dist/a1_validator-${{ steps.meta.outputs.version }}.tar.gz
+            WHEEL=dist/a1_validator-${{ steps.meta.outputs.version }}-py3-none-any.whl
+          # Cache layers across runs — saves ~30s on rebuilds.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

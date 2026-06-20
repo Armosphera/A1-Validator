@@ -28,7 +28,13 @@ classifiers = [
 dependencies = [
     "pydantic>=2.0,<3",
     "typer>=0.12",
-]
+    # Typer 0.15+ dropped click from its required deps, but our
+    # `a1_validator.cli` module imports `click` directly (custom
+    # `TyperGroup` subclass uses `click.Context` in its `parse_args`
+    # override). Pin click as an explicit dep so sdist installs pull
+    # it without relying on a transitive that may go away again.
+    "click>=8.0",
+] 
 
 [project.optional-dependencies]
 dev = [
@@ -49,15 +55,14 @@ all = [
 ]
 
 [project.scripts]
-# Top-level CLI entry point — see `a1_validator.cli`. Note: the cli task
-# in this plan adds other subcommands (`list`, `batch`, …) to the same
-# Typer `app` object; the merge in `packaging-and-deploy` combines them.
+# Top-level CLI entry point — see `a1_validator.cli`. The cli task
+# (wip/cli) defined a single Typer `app` object that exposes the
+# `validate`, `list`, `batch`, `serve`, and `version` subcommands; the
+# http-service task added `serve` and `version` to its own cli.py, and
+# the orchestrator kept wip/cli's cli.py (which is a strict superset).
 a1-validate = "a1_validator.cli:app"
 
-[project.scripts]
-a1-validate = "a1_validator.cli:app"
-
-[project.urls]
+[project.urls] 
 Homepage = "https://github.com/Armosphera/A1-Validator"
 Source = "https://github.com/Armosphera/A1-Validator"
 Upstream = "https://github.com/Armosphera/autoresearch-sboss"
