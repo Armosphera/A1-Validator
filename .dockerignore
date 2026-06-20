@@ -1,0 +1,72 @@
+# .dockerignore — keep the build context small.
+#
+# Anything not needed by the Docker build (sources, tests, VCS metadata,
+# build artifacts) should be excluded. The Dockerfile only needs:
+#   - pyproject.toml (read by `pip install ...[server]` for metadata)
+#   - README.md (long_description / metadata)
+#   - src/a1_validator/ (the package)
+#   - dist/*.tar.gz and dist/*.whl (the pre-built artifacts)
+#
+# NOTE: `dist/` is NOT excluded because the Dockerfile expects pre-built
+# artifacts under ./dist/. CI builds them before `docker build` runs.
+
+# VCS metadata
+.git
+.gitignore
+.gitattributes
+
+# Python — bytecode, caches, package metadata, virtualenvs
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/.coverage
+**/.coverage.*
+**/htmlcov
+**/.tox
+**/.nox
+.venv
+venv
+env/
+*.egg-info
+*.egg
+build/
+.pytest_cache/
+
+# Tests + vendored eval-sets — not needed in the runtime image
+tests/
+tests_*
+_eval_sets/
+**/test_*.py
+**/conftest.py
+scripts/_vendor.py
+
+# Editor / OS junk
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# CI / docs / examples — never needed by the runtime image
+.github/
+docs/
+examples/
+README.md
+LICENSE
+*.md
+
+# Docker meta — never copy Docker-related files into themselves
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.*.yml
+
+# Coverage + reports + logs
+*.log
+coverage.xml
+junit.xml
