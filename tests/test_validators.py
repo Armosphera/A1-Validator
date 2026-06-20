@@ -84,7 +84,7 @@ def _matches(actual, expected) -> bool:
     if isinstance(expected, list) and isinstance(actual, list):
         if len(expected) != len(actual):
             return False
-        return all(_matches(a, e) for a, e in zip(actual, expected))
+        return all(_matches(a, e) for a, e in zip(actual, expected, strict=False))
     return actual == expected
 
 

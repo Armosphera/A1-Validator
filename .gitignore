@@ -56,3 +56,6 @@ dmypy.json
 .env
 .env.local
 *.local
+
+# mkdocs build output (rebuilt in CI)
+site/

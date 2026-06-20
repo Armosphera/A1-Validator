@@ -70,14 +70,13 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import click
 import typer
 import typer.core
 
 import a1_validator
-
 
 # ---------------------------------------------------------------------------
 # Default-form routing — _CmdGroup.
@@ -115,12 +114,13 @@ class _CmdGroup(typer.core.TyperGroup):
         first = positional[0] if positional else None
         if first is not None and first in self.commands:
             # Subcommand dispatch — let Typer do its normal thing.
-            return super().parse_args(ctx, args)
+            return super().parse_args(ctx, args)  # type: ignore[arg-type]
         if not first:
             # No positional args — let Typer process options / emit help.
-            return super().parse_args(ctx, args)
+            return super().parse_args(ctx, args)  # type: ignore[arg-type]
         # Default: route to the hidden `__validate_default` subcommand.
-        return super().parse_args(ctx, [self._SENTINEL, *args])
+        return super().parse_args(ctx, [self._SENTINEL, *args])  # type: ignore[arg-type]
+
 
 
 # ---------------------------------------------------------------------------
@@ -278,7 +278,7 @@ def _version_callback(value: bool) -> None:
 
 @app.callback()
 def _root(
-    version: Optional[bool] = typer.Option(
+    version: bool | None = typer.Option(
         None,
         "--version",
         callback=_version_callback,
@@ -302,19 +302,19 @@ def _run_validate(kind: str, value: str) -> None:
         validator = a1_validator.get_validator(kind)
     except KeyError as exc:
         typer.echo(str(exc), err=True)
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
 
     try:
         payload = _coerce_value(kind, value)
     except typer.BadParameter as exc:
         typer.echo(f"error: {exc.message if hasattr(exc, 'message') else exc}", err=True)
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
 
     try:
         result = validator(payload)
     except Exception as exc:  # pragma: no cover — defensive net
         typer.echo(f"error: validator {kind!r} raised {type(exc).__name__}: {exc}", err=True)
-        raise typer.Exit(code=2)
+        raise typer.Exit(code=2) from None
 
     typer.echo(json.dumps(result, ensure_ascii=False))
     if isinstance(result, dict) and result.get("ok") is False:
@@ -324,7 +324,7 @@ def _run_validate(kind: str, value: str) -> None:
 @app.command(name="__validate_default", hidden=True)
 def __validate_default_cmd(
     kind: str = typer.Argument(..., help="Validator name (e.g. `hhvh`, `inn`)."),
-    value: Optional[str] = typer.Argument(
+    value: str | None = typer.Argument(
         None,
         help="Raw value or JSON object to validate. Optional so we can raise a "
              "friendly error instead of Click's stock `Missing argument 'VALUE'` "
@@ -424,7 +424,7 @@ def _read_batch_inputs(path: Path) -> list[Any]:
 @app.command()
 def batch(
     kind: str = typer.Argument(..., help="Validator name (e.g. `hhvh`, `inn`)."),
-    file: Path = typer.Argument(
+    file: Path = typer.Argument(  # noqa: B008
         ...,
         help=(
             "Path to a batch input file. May be either (a) a JSON array of "
@@ -458,16 +458,16 @@ def batch(
         validator = a1_validator.get_validator(kind)
     except KeyError as exc:
         typer.echo(str(exc), err=True)
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from None
 
     try:
         raw_cases = _read_batch_inputs(file)
     except json.JSONDecodeError as exc:
         typer.echo(f"error: {file} is not valid JSON: {exc}", err=True)
-        raise typer.Exit(code=2)
+        raise typer.Exit(code=2) from None
     except ValueError as exc:
         typer.echo(f"error: {exc}", err=True)
-        raise typer.Exit(code=2)
+        raise typer.Exit(code=2) from None
 
     # Detect mode: JSON eval-set (cases are dicts with "input") vs. plain text
     # (cases are raw strings).
@@ -507,7 +507,7 @@ def batch(
         key = _SINGLE_INPUT_KEY[kind]
         total = len(raw_cases)
         ok_count = 0
-        failures: list[dict[str, Any]] = []
+        failures: list[dict[str, Any]] = []  # type: ignore[no-redef]
         for idx, raw_value in enumerate(raw_cases):
             payload = {key: raw_value}
             result = validator(payload)

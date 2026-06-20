@@ -25,12 +25,13 @@ from __future__ import annotations
 # doesn't help — `from . import results` puts `results` into sys.modules
 # and Python exposes it as an attribute of this package).
 import importlib as _importlib
+from typing import Any
 
 _results = _importlib.import_module("a1_validator.results")
 
-from ._port import (
-    _VALIDATORS,
+from ._port import (  # noqa: E402
     _VALIDATE_TABLE,
+    _VALIDATORS,
     get_validator,
     list_kinds,
 )
@@ -73,11 +74,11 @@ def validate(kind: str, value: Any) -> dict[str, Any]:
 # `del _results` at the bottom of this module — the closures in `model_for`
 # (and the `HHVHResult`/etc. re-exports below) need to keep working even
 # after the import-module reference is dropped from the public namespace.
-_RESULT_MODELS: dict[str, type["_BaseResult"]] = _results.RESULT_MODELS
+_RESULT_MODELS: dict[str, type[_BaseResult]] = _results.RESULT_MODELS  # type: ignore[valid-type]
 _BaseResult = _results._BaseResult
 
 
-def model_for(kind: str) -> type["_BaseResult"]:
+def model_for(kind: str) -> type[_BaseResult]:  # type: ignore[valid-type]
     """Return the Pydantic v2 result model for the named validator.
 
     Useful for typed consumers:
@@ -137,6 +138,6 @@ del _VALIDATE_TABLE
 # Python exposes submodules as attributes of their parent package. Drop the
 # `results` reference so `dir(a1_validator)` only shows the public surface
 # declared in `__all__`.
-import sys as _sys
+import sys as _sys  # noqa: E402
 
 _sys.modules[__name__].__dict__.pop("results", None)

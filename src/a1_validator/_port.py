@@ -15,7 +15,8 @@ The 23 mappings are declarative — adding a new validator is a single line.
 
 from __future__ import annotations
 
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from . import _vendored
 
