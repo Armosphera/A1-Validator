@@ -34,6 +34,24 @@ dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
 ]
+# HTTP service stack — installed by `pip install a1-validator[server]`.
+# Kept opt-in so the core validator library stays light for embedded use
+# (e.g. SBOSS UI bundles, notebook workflows) where FastAPI/uvicorn would
+# just be dead weight.
+server = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
+    "typer>=0.12",
+]
+all = [
+    "a1-validator[server]",
+]
+
+[project.scripts]
+# Top-level CLI entry point — see `a1_validator.cli`. Note: the cli task
+# in this plan adds other subcommands (`list`, `batch`, …) to the same
+# Typer `app` object; the merge in `packaging-and-deploy` combines them.
+a1-validate = "a1_validator.cli:app"
 
 [project.urls]
 Homepage = "https://github.com/Armosphera/A1-Validator"
