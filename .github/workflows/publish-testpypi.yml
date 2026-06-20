@@ -60,6 +60,9 @@ jobs:
     name: Publish to TestPyPI
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      # Required for PyPI trusted publishing (OIDC).
+      id-token: write
     environment:
       # Required secrets are configured on this environment in repo
       # settings — the workflow inherits them automatically.

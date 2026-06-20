@@ -1,117 +1,69 @@
-# .github/workflows/publish-ghcr.yml
-#
-# Build + push the a1-validator multi-arch Docker image to GitHub Container
-# Registry on tag push.
-#
-# Architecture: linux/amd64 + linux/arm64 (covers x86_64 hosts, AWS Graviton,
-# Apple-silicon runners, Raspberry Pi 4/5). Uses QEMU + buildx.
-#
-# Tagging scheme:
-#   - `v0.1.0`            → :0.1.0 (semver-stripped), :0.1, :0.1.0-<sha>
-#   - `v0.1.0-rc.1`       → :0.1.0-rc.1
-#   - The `:latest` tag is ONLY applied on a clean v0.1.0 (no pre-release
-#     suffix). Pre-releases never overwrite latest — they're released with
-#     explicit :<version> tags only.
-#
-# Required repository secrets / config:
-#   - `packages: write` permission on the GITHUB_TOKEN (default — no setup).
-#
-# Manual trigger: workflow_dispatch builds from main with the `:dev` tag
-# so PR-merge smoke tests can pull a fresh image without cutting a release.
-
-name: publish-ghcr
+name: Build and push Docker image to GHCR
 
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
   workflow_dispatch:
 
 permissions:
   contents: read
   packages: write
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
 jobs:
-  build-and-push:
-    name: Build + push multi-arch image
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Resolve image tags
-        id: meta
-        run: |
-          # Strip leading 'v' from the tag — Docker tags are conventionally
-          # `0.1.0`, not `v0.1.0`. Also compute the short-sha tag and the
-          # "is this a stable release?" flag for the `:latest` guard.
-          if [ "${{ github.event_name }}" = "push" ]; then
-            REF="${GITHUB_REF_NAME}"
-          else
-            REF="dev"
-          fi
-          VERSION="${REF#v}"
-          VERSION="${VERSION#V}"
-          SHORT_SHA="${GITHUB_SHA::7}"
-          IS_PRERELEASE="false"
-          case "$VERSION" in
-            *-*|*rc*|*alpha*|*beta*) IS_PRERELEASE="true" ;;
-          esac
-
-          TAGS="$VERSION,$VERSION-$SHORT_SHA"
-          if [ "$IS_PRERELEASE" = "false" ]; then
-            # Stable release: also tag major.minor (e.g. :0.1) and :latest.
-            MAJOR_MINOR=$(echo "$VERSION" | cut -d. -f1,2)
-            TAGS="$TAGS,$MAJOR_MINOR"
-            if [ "${{ github.event_name }}" = "push" ]; then
-              TAGS="$TAGS,latest"
-            fi
-          fi
-
-          # Build the comma-separated multi-tag list for docker/build-push-action.
-          TAGS_JSON=$(echo "$TAGS" | tr ',' '\n' | sed 's/^/"'"$REGISTRY"'\/'"$IMAGE_NAME"'"::/' | sed 's/$/",/' | tr -d '\n' | sed 's/,$//')
-          TAGS_JSON="[$TAGS_JSON]"
-          echo "tags=$TAGS_JSON" >> "$GITHUB_OUTPUT"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "is_prerelease=$IS_PRERELEASE" >> "$GITHUB_OUTPUT"
-
-      - name: Log in to GHCR
+      - name: Log in to GitHub Container Registry
+        if: github.event_name == 'push'
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build + push
-        uses: docker/build-push-action@v6
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: |
-            org.opencontainers.image.title=a1-validator
-            org.opencontainers.image.description=23 SBOSS sovereign business ID validators — HTTP service + CLI
-            org.opencontainers.image.source=https://github.com/${{ github.repository }}
-            org.opencontainers.image.licenses=MIT
-            org.opencontainers.image.version=${{ steps.meta.outputs.version }}
-            org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.created=${{ github.event.repository.updated_at }}
-          build-args: |
-            VERSION=${{ steps.meta.outputs.version }}
-            SDIST=dist/a1_validator-${{ steps.meta.outputs.version }}.tar.gz
-            WHEEL=dist/a1_validator-${{ steps.meta.outputs.version }}-py3-none-any.whl
-          # Cache layers across runs — saves ~30s on rebuilds.
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          images: ghcr.io/armosphera/a1-validator
+          tags: |
+            type=ref,event=tag
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,format=short
+
+      # Single-arch (linux/amd64) build using plain `docker build`. v0.1.0
+      # uses amd64 only — multi-arch (amd64+arm64) was attempted with
+      # docker/build-push-action@v6 but the buildx cache-key computation
+      # had an intermittent "/README.md not found" error on COPY steps
+      # (the same input would fail then succeed on retry). Plain
+      # `docker build` avoids buildx entirely. Multi-arch can be added
+      # back in v0.2.0 once the buildx cache-key bug is fixed upstream
+      # (https://github.com/moby/buildkit / https://github.com/docker/buildx).
+      - name: Build and push (single arch)
+        env:
+          TAG_LIST: ${{ steps.meta.outputs.tags }}
+        run: |
+          set -euo pipefail
+          # Build a space-separated tag list for `docker tag`
+          TAGS_SPACE=$(echo "$TAG_LIST" | tr '\n' ' ')
+          echo "Building image with tags: $TAGS_SPACE"
+          docker build \
+            --tag "ghcr.io/armosphera/a1-validator:build-tmp" \
+            --label org.opencontainers.image.title=a1-validator \
+            --label org.opencontainers.image.description="23 SBOSS sovereign business ID validators" \
+            --label org.opencontainers.image.source=https://github.com/Armosphera/A1-Validator \
+            --label org.opencontainers.image.licenses=MIT \
+            --label org.opencontainers.image.version=${{ github.ref_name }} \
+            .
+          # Re-tag and push for each requested tag
+          for TAG in $TAGS_SPACE; do
+            echo "Tagging and pushing: $TAG"
+            docker tag "ghcr.io/armosphera/a1-validator:build-tmp" "$TAG"
+            if [ "${{ github.event_name }}" = 'push' ]; then
+              docker push "$TAG"
+            fi
+          done
+          docker rmi "ghcr.io/armosphera/a1-validator:build-tmp" || true

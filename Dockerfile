@@ -45,25 +45,26 @@ ARG PYTHON_IMAGE=python:${PYTHON_VERSION}-alpine
 FROM ${PYTHON_IMAGE} AS builder
 
 ARG VERSION=0.1.0
-# Path to the wheel INSIDE the build context. CI builds the wheel with
-# `python -m build --wheel` and lands it at
-#   ./dist/a1_validator-${VERSION}-py3-none-any.whl
-# before invoking `docker build`. Local `docker build` users run the same
-# `python -m build` command first (see docs/deploy.md) or pass --build-arg.
-ARG WHEEL=dist/a1_validator-${VERSION}-py3-none-any.whl
 # Extra to install — defaults to [server] (runtime needs fastapi/uvicorn).
 # Pass `--build-arg PIP_EXTRA=` (empty) for the core package only.
 ARG PIP_EXTRA=[server]
 
 WORKDIR /build
 
-# Copy the pre-built wheel.
-COPY ${WHEEL} /wheels/
-
-# Install into a clean prefix so the COPY in the runtime stage is just a
-# straight directory copy. Then trim: remove pip + wheel + pycache +
-# dist-info to keep the COPY layer as small as possible.
-RUN pip install --no-cache-dir \
+# Build the wheel + sdist from the source tree, then install into a clean
+# prefix. This makes the Dockerfile self-contained: no pre-built artifact
+# in the build context, no CI coupling. The build step uses the same
+# `python -m build` that the publish-testpypi workflow uses, so the wheel
+# shipped in the image is byte-identical to the one on TestPyPI.
+# Split COPYs (not a multi-source `COPY a b ./`) — the multi-source form
+# confuses buildx's cache-key computation with a spurious "README.md not
+# found" error.
+COPY pyproject.toml ./
+COPY README.md ./
+COPY src ./src
+RUN pip install --no-cache-dir build \
+    && python -m build --wheel --outdir /wheels \
+    && pip install --no-cache-dir \
         --prefix=/install \
         --break-system-packages \
         "/wheels/a1_validator-${VERSION}-py3-none-any.whl${PIP_EXTRA}" \
