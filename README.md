@@ -58,7 +58,17 @@ a1-validate list
 # Batch-run a vendored eval-set file (array of {input, expected} cases).
 # Exit 0 if every case matches, exit 1 if any case fails.
 a1-validate batch hhvh tests/_eval_sets/hhvh.json
-# → {"kind": "hhvh", "total": 20, "ok": 20, "fail": 0, "failures": []}
+# → {"kind": "hhvh", "mode": "eval_set", "total": 20, "ok": 20, "fail": 0, ...}
+
+# Batch-run a plain-text file (one raw value per line). Each value is wrapped
+# under the validator's canonical single-string input key. Exit 0 only if
+# every line is ok=true.
+cat values.txt | xargs -I{} echo {} | a1-validate batch hhvh values.txt
+# → {"kind": "hhvh", "mode": "lines", "total": 3, "ok": 2, "fail": 1, ...}
+
+# Boot the FastAPI HTTP service (requires the [server] extra).
+a1-validate serve --host 127.0.0.1 --port 8000 --reload
+# → uvicorn running on http://127.0.0.1:8000
 
 # Print the package version and exit.
 a1-validate --version
@@ -84,6 +94,20 @@ Pipe the JSON output straight into `jq`:
 a1-validate hhvh 00123456 | jq -r .normalized
 # → 00123456
 ```
+
+The `batch` subcommand auto-detects the input file's format:
+
+* **JSON eval-set** (`tests/_eval_sets/<name>.json`) — array of
+  `{input, expected}` cases. Each `input` is validated against `expected`
+  under the same subset-equality contract as the pytest suite.
+* **Plain text** — one raw value per line. Each non-blank line is wrapped
+  under the validator's canonical single-string input key and validated;
+  pass/fail is read from the validator's `ok` field. Only works for the
+  11 single-input validators — multi-input validators reject this mode
+  with a clear error.
+
+The output `mode` field (`"eval_set"` or `"lines"`) tells you which path
+was taken for the summary.
 
 ## The 23 validators
 

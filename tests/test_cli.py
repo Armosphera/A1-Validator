@@ -78,6 +78,19 @@ def test_validate_json_passthrough(runner: CliRunner) -> None:
     assert payload["normalized"] == "00123456"
 
 
+def test_validate_explicit_validate_subcommand(runner: CliRunner) -> None:
+    """`a1-validate validate hhvh 00123456` is the same as the bare form.
+
+    The explicit `validate` subcommand is non-hidden so users who want
+    symmetry (and `a1-validate validate --help`) can use it. Both forms
+    produce identical output.
+    """
+    result = runner.invoke(app, ["validate", "hhvh", "00123456"])
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout.strip())
+    assert payload["ok"] is True
+
+
 def test_validate_unknown_kind_exits_1(runner: CliRunner) -> None:
     """An unknown kind name produces a clean error and exit 1, not a crash."""
     result = runner.invoke(app, ["definitely_not_a_real_kind", "foo"])
@@ -130,8 +143,16 @@ def test_version_flag(runner: CliRunner) -> None:
     assert "a1-validator" in result.stdout
 
 
+def test_version_subcommand(runner: CliRunner) -> None:
+    """`a1-validate version` (explicit subcommand) also prints the version."""
+    from a1_validator import __version__
+    result = runner.invoke(app, ["version"])
+    assert result.exit_code == 0, result.stdout
+    assert __version__ in result.stdout
+
+
 # ---------------------------------------------------------------------------
-# 4. Subcommand: `batch` against a vendored eval set
+# 4. Subcommand: `batch` — eval-set mode (JSON array)
 # ---------------------------------------------------------------------------
 
 
@@ -153,6 +174,7 @@ def test_batch_validates_vendored_hhvh_eval_set(runner: CliRunner) -> None:
     assert result.exit_code == 0, f"batch failed: {result.stdout}"
     payload = json.loads(result.stdout)
     assert payload["kind"] == "hhvh"
+    assert payload["mode"] == "eval_set"
     assert payload["total"] == 20
     assert payload["ok"] == 20
     assert payload["fail"] == 0
@@ -197,3 +219,87 @@ def test_batch_partial_failures_exits_1(runner: CliRunner, tmp_path) -> None:
     assert payload["fail"] == 1
     assert len(payload["failures"]) == 1
     assert payload["failures"][0]["index"] == 1
+
+
+# ---------------------------------------------------------------------------
+# 5. Subcommand: `batch` — one-per-line mode (plain text)
+# ---------------------------------------------------------------------------
+
+
+def test_batch_lines_mode_validates_one_value_per_line(runner: CliRunner, tmp_path) -> None:
+    """Plain-text batch input — one raw value per line, no expected to compare."""
+    f = tmp_path / "values.txt"
+    # 00123456 → ok, 99999999 → fail, 12345678 → ok, "" → fail
+    f.write_text("00123456\n99999999\n12345678\n\n", encoding="utf-8")
+    result = runner.invoke(app, ["batch", "hhvh", str(f)])
+    assert result.exit_code == 1, result.stdout  # at least one failure
+    payload = json.loads(result.stdout)
+    assert payload["kind"] == "hhvh"
+    assert payload["mode"] == "lines"
+    assert payload["total"] == 3  # blank line is skipped
+    assert payload["ok"] == 2
+    assert payload["fail"] == 1
+    # The single failure is the all-same-digit line.
+    assert payload["failures"][0]["value"] == "99999999"
+
+
+def test_batch_lines_mode_all_ok_exits_0(runner: CliRunner, tmp_path) -> None:
+    """All-ok plain-text batch exits 0."""
+    f = tmp_path / "values.txt"
+    f.write_text("00123456\n12345678\n00000001\n", encoding="utf-8")
+    result = runner.invoke(app, ["batch", "hhvh", str(f)])
+    assert result.exit_code == 0, result.stdout
+    payload = json.loads(result.stdout)
+    assert payload["mode"] == "lines"
+    assert payload["total"] == 3
+    assert payload["ok"] == 3
+    assert payload["fail"] == 0
+
+
+def test_batch_lines_mode_rejects_multi_input_validator(runner: CliRunner, tmp_path) -> None:
+    """Plain-text batch on a multi-input validator exits 1 with a clear error.
+
+    ``vat_return`` is a multi-input validator — there's no canonical
+    single-string input key, so one-per-line text can't represent it.
+    The CLI must reject this with a helpful message instead of trying
+    to call ``vat_return({"vat_return": "<raw>"})`` and producing noise.
+    """
+    f = tmp_path / "values.txt"
+    f.write_text("100000\n200000\n", encoding="utf-8")
+    result = runner.invoke(app, ["batch", "vat_return", str(f)])
+    assert result.exit_code == 1
+    combined = (result.stderr or "") + (result.stdout or "")
+    assert "vat_return" in combined
+    assert "JSON" in combined
+
+
+# ---------------------------------------------------------------------------
+# 6. Routing sanity — make sure `_CmdGroup` doesn't break edge cases
+# ---------------------------------------------------------------------------
+
+
+def test_routing_no_args_shows_help(runner: CliRunner) -> None:
+    """`a1-validate` (no args) shows help and exits non-zero (usage error).
+
+    Click's standard ``no_args_is_help`` semantics surface a ``NoArgsIsHelpError``
+    which Click converts to exit code 2 (usage error). The help text is printed
+    to stdout so the user still sees it. We only assert the help is shown —
+    the exact exit code is Click's convention.
+    """
+    result = runner.invoke(app, [])
+    assert result.exit_code != 0
+    # Help text mentions at least one subcommand.
+    assert "list" in result.stdout or "Commands" in result.stdout
+
+
+def test_routing_known_subcommand_takes_priority_over_positional(
+    runner: CliRunner,
+) -> None:
+    """`a1-validate list` dispatches to the list subcommand, NOT kind='list'."""
+    # If the routing is broken, the CLI would try to validate a kind called
+    # 'list' and emit the unknown-kind error. Verify the list subcommand
+    # actually ran by checking the output shape (header + 23 validators).
+    result = runner.invoke(app, ["list"])
+    assert result.exit_code == 0
+    assert "23 SBOSS validators" in result.stdout
+    assert "Unknown validator kind 'list'" not in (result.stderr or "") + (result.stdout or "")
