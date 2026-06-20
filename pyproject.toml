@@ -49,12 +49,7 @@ all = [
 ]
 
 [project.scripts]
-# Top-level CLI entry point — see `a1_validator.cli`. Note: the cli task
-# in this plan adds other subcommands (`list`, `batch`, …) to the same
-# Typer `app` object; the merge in `packaging-and-deploy` combines them.
-a1-validate = "a1_validator.cli:app"
-
-[project.scripts]
+# Top-level CLI entry point — see `a1_validator.cli`.
 a1-validate = "a1_validator.cli:app"
 
 [project.urls]
