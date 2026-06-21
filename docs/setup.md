@@ -58,16 +58,21 @@ gh run watch
 When the workflow finishes, your package is on TestPyPI. Verify it installs:
 
 ```bash
-# IMPORTANT: prod PyPI as PRIMARY, TestPyPI as EXTRA. TestPyPI is
-# a sandbox with arbitrary uploads (including broken name-squats
-# like a broken 'fastapi' upload). Prod-first = prod deps, the
-# package from TestPyPI. See README.md for the full rationale.
+# TestPyPI hosts a1-validator. Prod PyPI hosts its deps. pip's
+# multi-index resolver is non-deterministic and will pick
+# TestPyPI's broken `fastapi` name-squat over prod's working
+# one. Use a two-step install (see README.md for rationale).
+
+# Step 1: a1-validator from TestPyPI, no deps
+pip install --index-url https://test.pypi.org/simple/ --no-deps a1-validator
+
+# Step 2: deps from prod PyPI
 pip install --index-url https://pypi.org/simple/ \
-            --extra-index-url https://test.pypi.org/simple/ \
-            "a1-validator[server]"
+            'pydantic<3,>=2.0' 'typer>=0.12' 'click>=8.0' \
+            'fastapi>=0.110' 'uvicorn[standard]>=0.27'
 
 # Smoke-test the CLI
-a1-validate list
+a1-validate --version   # should match the tag you just published
 /tmp/a1-test/bin/a1-validate hhvh 00123456
 
 # Or the HTTP service

@@ -12,18 +12,19 @@ invoice field extraction — without a network round-trip.
 ## Install
 
 ```bash
-# v0.1.x is on TestPyPI — use it as the smoke-test channel.
-# IMPORTANT: use prod PyPI as the PRIMARY index, TestPyPI as the
-# EXTRA. TestPyPI is a sandbox with arbitrary uploads (including
-# broken name-squats like a broken 'fastapi' upload). If TestPyPI
-# is the primary or sole index, pip will pick broken deps from
-# there. Prod-first + TestPyPI-extra = prod deps, a1-validator
-# from TestPyPI.
+# TestPyPI hosts a1-validator. Prod PyPI hosts its deps. The two
+# can't be mixed in one pip command (pip's multi-index resolver is
+# non-deterministic and will pick TestPyPI's broken `fastapi`
+# name-squat over prod's working one). Use a two-step install:
 
-# v0.1.1 is the latest:
+# Step 1: a1-validator from TestPyPI, no deps
+pip install --index-url https://test.pypi.org/simple/ \
+            --no-deps "a1-validator"
+
+# Step 2: deps from prod PyPI (only)
 pip install --index-url https://pypi.org/simple/ \
-            --extra-index-url https://test.pypi.org/simple/ \
-            "a1-validator[server]"
+            'pydantic<3,>=2.0' 'typer>=0.12' 'click>=8.0' \
+            'fastapi>=0.110' 'uvicorn[standard]>=0.27'
 
 # After production PyPI is wired up (see docs/setup.md), the
 # canonical install becomes:
