@@ -94,4 +94,6 @@ nav:
   - CLI: cli.md
   - HTTP service: http.md
   - Deploy: deploy.md
+  - Setup (PyPI): setup.md
+  - Changelog: CHANGELOG.md
   - About: about.md

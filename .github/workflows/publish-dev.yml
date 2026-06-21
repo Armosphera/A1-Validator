@@ -38,9 +38,15 @@ jobs:
         run: |
           set -euo pipefail
           TAGS_SPACE=$(echo "$TAG_LIST" | tr '\n' ' ')
-          echo "Building dev image with tags: $TAGS_SPACE"
+          # Read the version from pyproject.toml (not the tag — dev image
+          # is built from main, not from a v* tag, so there's no GITHUB_REF_NAME
+          # version to strip). The Dockerfile's `ARG VERSION=...` must match
+          # the wheel built by `python -m build` inside the builder.
+          VERSION=$(python -c "import tomllib; print(tomllib.loads(open('pyproject.toml').read())['project']['version'])")
+          echo "Building dev image (version=${VERSION}) with tags: $TAGS_SPACE"
           docker build \
             --tag "ghcr.io/armosphera/a1-validator:dev-tmp" \
+            --build-arg "VERSION=${VERSION}" \
             --label org.opencontainers.image.title=a1-validator \
             --label org.opencontainers.image.description="23 SBOSS sovereign business ID validators — DEV build" \
             --label org.opencontainers.image.source=https://github.com/Armosphera/A1-Validator \
