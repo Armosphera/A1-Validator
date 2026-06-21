@@ -10,6 +10,13 @@
 # 'v*' for v0.2.0+). Manual `workflow_dispatch` lets an operator push
 # without cutting a tag.
 #
+# Why twine (not pypa/gh-action-pypi-publish): the pypa action defaults
+# to OIDC "provenance attestations" and the OIDC failure path is fatal
+# even when TWINE_PASSWORD is set in env. Twine is bulletproof: no
+# OIDC dance, no action version drift, no attestation noise. The
+# trade-off is no SLSA provenance attestation, which we don't need
+# for an internal/early-stage release.
+#
 # Why a token (not OIDC trusted publishing): the trusted-publisher
 # registration step requires browser + 2FA and can't be scripted. The
 # token path trades that one-time web step for a one-time terminal
@@ -41,8 +48,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install build backend
-        run: python -m pip install --upgrade build
+      - name: Install build + twine
+        run: python -m pip install --upgrade build twine
 
       - name: Build sdist + wheel
         run: python -m build --sdist --wheel --outdir dist/
@@ -69,16 +76,15 @@ jobs:
           name: dist
           path: dist/
 
-      - name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository_url: https://test.pypi.org/legacy/
-          packages_dir: dist/
-          # Skip the existing-version check on TestPyPI — pre-existing
-          # uploads from earlier tag pushes shouldn't block re-runs.
-          skip_existing: false
+      - name: Publish to TestPyPI via twine
         env:
           # The token lives in the 'testpypi' GitHub environment's
           # TEST_PYPI_TOKEN secret, not as a repo-wide secret.
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
+        run: |
+          set -euo pipefail
+          python -m twine upload \
+            --repository-url https://test.pypi.org/legacy/ \
+            --non-interactive \
+            dist/*
