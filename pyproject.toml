@@ -8,7 +8,9 @@ version = "0.1.0"
 description = "A1 Validator — 23 SBOSS sovereign business ID validators, Python port."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = { text = "Proprietary" }
+# SPDX-License-Identifier: LicenseRef-Armosphera-Proprietary
+# Full license text in ./LICENSE
 authors = [
     { name = "A1 Suite", email = "ops@a1-suite.local" },
 ]
@@ -16,7 +18,6 @@ keywords = ["a1", "sboss", "validator", "armenian", "russian", "hhvh", "inn", "p
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
