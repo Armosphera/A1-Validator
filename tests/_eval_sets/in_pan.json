@@ -1,0 +1,14 @@
+[
+  { "input": { "pan": "AAAPA1234A" }, "expected": { "ok": true,  "normalized": "AAAPA1234A", "error": null } },
+  { "input": { "pan": "ABCPH1234F" }, "expected": { "ok": true,  "normalized": "ABCPH1234F", "error": null } },
+  { "input": { "pan": "aaapa 1234 a" }, "expected": { "ok": true, "normalized": "AAAPA1234A", "error": null } },
+  { "input": { "pan": "AADCS1234F" }, "expected": { "ok": true,  "normalized": "AADCS1234F", "error": null } },
+  { "input": { "pan": "" }, "expected": { "ok": false, "normalized": "", "error": "PAN is required" } },
+  { "input": { "pan": "   " }, "expected": { "ok": false, "normalized": "", "error": "PAN is required" } },
+  { "input": { "pan": null }, "expected": { "ok": false, "normalized": "", "error": "PAN is required" } },
+  { "input": { "pan": "ABCDE1234F" }, "expected": { "ok": false, "normalized": "ABCDE1234F", "error": "PAN format is invalid" } },
+  { "input": { "pan": "AAAAAAAAAA" }, "expected": { "ok": false, "normalized": "AAAAAAAAAA", "error": "PAN is invalid (all characters are the same)" } },
+  { "input": { "pan": "0000000000" }, "expected": { "ok": false, "normalized": "0000000000", "error": "PAN is invalid (all characters are the same)" } },
+  { "input": { "pan": "ABCPA1234" }, "expected": { "ok": false, "normalized": "ABCPA1234", "error": "PAN must be 10 characters, got 9" } },
+  { "input": { "pan": "ABCPA12345F" }, "expected": { "ok": false, "normalized": "ABCPA12345F", "error": "PAN must be 10 characters, got 11" } }
+]

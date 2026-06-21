@@ -1,0 +1,14 @@
+[
+  { "input": { "ubn": "12345675" }, "expected": { "ok": true, "normalized": "12345675", "error": null } },
+  { "input": { "ubn": "10458575" }, "expected": { "ok": true, "normalized": "10458575", "error": null } },
+  { "input": { "ubn": "123 456 75" }, "expected": { "ok": true, "normalized": "12345675", "error": null } },
+  { "input": { "ubn": "123-456-75" }, "expected": { "ok": true, "normalized": "12345675", "error": null } },
+  { "input": { "ubn": "" }, "expected": { "ok": false, "normalized": "", "error": "UBN is required" } },
+  { "input": { "ubn": "   " }, "expected": { "ok": false, "normalized": "", "error": "UBN is required" } },
+  { "input": { "ubn": null }, "expected": { "ok": false, "normalized": "", "error": "UBN is required" } },
+  { "input": { "ubn": "12345" }, "expected": { "ok": false, "normalized": "12345", "error": "UBN must be 8 digits, got 5" } },
+  { "input": { "ubn": "123456789" }, "expected": { "ok": false, "normalized": "123456789", "error": "UBN must be 8 digits, got 9" } },
+  { "input": { "ubn": "12345A75" }, "expected": { "ok": false, "normalized": "12345A75", "error": "UBN must contain only digits" } },
+  { "input": { "ubn": "00000000" }, "expected": { "ok": false, "normalized": "00000000", "error": "UBN is invalid (all digits are the same)" } },
+  { "input": { "ubn": "11111111" }, "expected": { "ok": false, "normalized": "11111111", "error": "UBN is invalid (all digits are the same)" } }
+]

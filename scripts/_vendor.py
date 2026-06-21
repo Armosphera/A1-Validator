@@ -15,9 +15,17 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 AUTORESEARCH = REPO_ROOT.parent / "autoresearch-sboss"
 VENDORED_DIR = REPO_ROOT / "src" / "a1_validator" / "_vendored"
-SOURCE_COMMIT = "7a4bb9a5bed9669801070b9c022d27b7d7b625e7"
+SOURCE_COMMIT = "6e01155a5932a5456995465ae761db8057f87089"
 
 # (example_name, source_path_relative_to_autoresearch)
+# Examples to skip during re-vendoring (kept at the last-known-good local
+# version even when the upstream source evolves). The skip is intentional:
+# re-vendoring these would re-introduce known bugs that the local pin fixes.
+SKIP_VENDOR = {
+    "chat_client",  # v0.4.0+: last_request snapshot regression upstream
+}
+
+
 EXAMPLES = [
     ("hhvh",                 "examples/hhvh/workflow.py"),
     ("ru_identifiers",       "examples/ru-identifiers/workflow.py"),
@@ -56,7 +64,12 @@ EXAMPLES = [
     ("cl_rut",              "examples/cl-rut/workflow.py"),
     ("sg_uen",              "examples/sg-uen/workflow.py"),
     ("kr_brn",              "examples/kr-brn/workflow.py"),
+    ("in_pan",              "examples/in-pan/workflow.py"),
+    ("il_id",               "examples/il-id/workflow.py"),
+    ("sa_tin",              "examples/sa-tin/workflow.py"),
+    ("tw_ubn",              "examples/tw-ubn/workflow.py"),
 ]
+
 
 
 

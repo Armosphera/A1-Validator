@@ -107,13 +107,13 @@ def test_validate_unknown_kind_exits_1(runner: CliRunner) -> None:
 
 
 def test_list_lists_23_validators(runner: CliRunner) -> None:
-    """`a1-validate list` exits 0 and prints at least 37 validators."""
+    """`a1-validate list` exits 0 and prints at least 41 validators."""
     result = runner.invoke(app, ["list"])
     assert result.exit_code == 0, result.stdout
     # The output has a header + blank line + 23 lines + footer + blank line.
-    # A loose `>= 37` keeps the test stable across formatting tweaks (e.g.
+    # A loose `>= 41` keeps the test stable across formatting tweaks (e.g.
     # adding a column for aliases later).
-    assert result.stdout.count("\n") >= 37
+    assert result.stdout.count("\n") >= 41
     # Spot-check a handful of canonical kinds are present.
     for kind in ("hhvh", "inn", "vat_return", "invoice", "model_policy"):
         assert kind in result.stdout, f"missing {kind!r} in list output"
@@ -298,8 +298,157 @@ def test_routing_known_subcommand_takes_priority_over_positional(
     """`a1-validate list` dispatches to the list subcommand, NOT kind='list'."""
     # If the routing is broken, the CLI would try to validate a kind called
     # 'list' and emit the unknown-kind error. Verify the list subcommand
-    # actually ran by checking the output shape (header + 37 validators).
+    # actually ran by checking the output shape (header + 41 validators).
     result = runner.invoke(app, ["list"])
     assert result.exit_code == 0
-    assert "37 SBOSS sovereign business-ops validators" in result.stdout
+    assert "41 SBOSS sovereign business-ops validators" in result.stdout
     assert "Unknown validator kind 'list'" not in (result.stderr or "") + (result.stdout or "")
+
+
+# ---------------------------------------------------------------------------
+# 7. `validate-csv` subcommand — period-close use case
+# ---------------------------------------------------------------------------
+
+
+def test_validate_csv_hhvh_writes_annotated_rows(runner: CliRunner, tmp_path) -> None:
+    """`a1-validate validate-csv` adds 3 columns per row + a stderr summary."""
+    import csv as _csv
+
+    src = tmp_path / "customers.csv"
+    with src.open("w", encoding="utf-8", newline="") as f:
+        w = _csv.writer(f)
+        w.writerow(["name", "tax_id", "country"])
+        w.writerow(["Acme Corp", "00123456", "AM"])
+        w.writerow(["Bad Co", "123", "AM"])
+        w.writerow(["Good Inc", "00123456", "AM"])
+        w.writerow(["Empty Inc", "", "AM"])
+
+    out = tmp_path / "out.csv"
+    result = runner.invoke(
+        app, ["validate-csv", str(src), "--column", "tax_id", "--kind", "hhvh", "--output", str(out)],
+    )
+    # Even with failures, exit 1 by default (fail_on_error=True)
+    assert result.exit_code == 1, f"expected exit 1 (has failures), got {result.exit_code}: {result.stdout}\n{result.stderr}"
+    # Stderr has the summary
+    assert "hhvh on column 'tax_id'" in result.stderr
+    assert "2/4 passed" in result.stderr
+    # Output file has the 3 extra columns
+    with out.open(encoding="utf-8") as f:
+        rows = list(_csv.reader(f))
+    assert rows[0] == ["name", "tax_id", "country", "tax_id_ok", "tax_id_normalized", "tax_id_error"]
+    assert rows[1] == ["Acme Corp", "00123456", "AM", "true", "00123456", ""]
+    assert rows[2] == ["Bad Co", "123", "AM", "false", "123", "ՀՎՀՀ-ն պետք է լինի 8 նիշ"]
+    assert rows[3] == ["Good Inc", "00123456", "AM", "true", "00123456", ""]
+    assert rows[4] == ["Empty Inc", "", "AM", "false", "", "ՀՎՀՀ-ն պարտադիր է"]
+
+
+def test_validate_csv_all_pass_exits_0(runner: CliRunner, tmp_path) -> None:
+    """When every row passes, exit 0 (no failure signal)."""
+    import csv as _csv
+
+    src = tmp_path / "all-good.csv"
+    with src.open("w", encoding="utf-8", newline="") as f:
+        w = _csv.writer(f)
+        w.writerow(["name", "tax_id"])
+        w.writerow(["Acme", "00123456"])
+        w.writerow(["Beta", "00123456"])
+
+    out = tmp_path / "out.csv"
+    result = runner.invoke(
+        app, ["validate-csv", str(src), "--column", "tax_id", "--kind", "hhvh", "--output", str(out)],
+    )
+    assert result.exit_code == 0, f"expected exit 0, got {result.exit_code}: {result.stderr}"
+    assert "2/2 passed" in result.stderr
+
+
+def test_validate_csv_no_fail_on_error(runner: CliRunner, tmp_path) -> None:
+    """`--no-fail-on-error` keeps exit 0 even with failures (for reports)."""
+    import csv as _csv
+
+    src = tmp_path / "mixed.csv"
+    with src.open("w", encoding="utf-8", newline="") as f:
+        w = _csv.writer(f)
+        w.writerow(["name", "tax_id"])
+        w.writerow(["Good", "00123456"])
+        w.writerow(["Bad", "99999999"])
+
+    out = tmp_path / "out.csv"
+    result = runner.invoke(
+        app, ["validate-csv", str(src), "--column", "tax_id", "--kind", "hhvh",
+              "--output", str(out), "--no-fail-on-error"],
+    )
+    assert result.exit_code == 0
+    assert "1/2 passed" in result.stderr
+
+
+def test_validate_csv_column_by_index(runner: CliRunner, tmp_path) -> None:
+    """`--column 1` selects the 2nd column (0-based index) by index."""
+    import csv as _csv
+
+    src = tmp_path / "indexed.csv"
+    with src.open("w", encoding="utf-8", newline="") as f:
+        w = _csv.writer(f)
+        w.writerow(["name", "tax_id"])
+        w.writerow(["Acme", "00123456"])
+
+    out = tmp_path / "out.csv"
+    result = runner.invoke(
+        app, ["validate-csv", str(src), "--column", "1", "--kind", "hhvh", "--output", str(out)],
+    )
+    assert result.exit_code == 0
+
+
+def test_validate_csv_unknown_kind_exits_1(runner: CliRunner, tmp_path) -> None:
+    """Unknown --kind emits a stderr error and exits 1, not crash."""
+    import csv as _csv
+
+    src = tmp_path / "any.csv"
+    with src.open("w", encoding="utf-8", newline="") as f:
+        w = _csv.writer(f)
+        w.writerow(["a", "b"])
+        w.writerow(["1", "2"])
+
+    out = tmp_path / "out.csv"
+    result = runner.invoke(
+        app, ["validate-csv", str(src), "--column", "a", "--kind", "definitely_not_real", "--output", str(out)],
+    )
+    assert result.exit_code == 1
+    assert "Unknown validator kind" in result.stderr
+
+
+def test_validate_csv_missing_column_exits_2(runner: CliRunner, tmp_path) -> None:
+    """Unknown --column emits a stderr error and exits 2 (bad input)."""
+    import csv as _csv
+
+    src = tmp_path / "any.csv"
+    with src.open("w", encoding="utf-8", newline="") as f:
+        w = _csv.writer(f)
+        w.writerow(["a", "b"])
+        w.writerow(["1", "2"])
+
+    out = tmp_path / "out.csv"
+    result = runner.invoke(
+        app, ["validate-csv", str(src), "--column", "no_such_column", "--kind", "hhvh", "--output", str(out)],
+    )
+    assert result.exit_code == 2
+    assert "no_such_column" in result.stderr
+
+
+def test_validate_csv_in_place_overwrites(runner: CliRunner, tmp_path) -> None:
+    """`--in-place` writes the annotated CSV back to the input file."""
+    import csv as _csv
+
+    src = tmp_path / "inplace.csv"
+    with src.open("w", encoding="utf-8", newline="") as f:
+        w = _csv.writer(f)
+        w.writerow(["name", "tax_id"])
+        w.writerow(["Good", "00123456"])
+
+    result = runner.invoke(
+        app, ["validate-csv", str(src), "--column", "tax_id", "--kind", "hhvh", "--in-place"],
+    )
+    assert result.exit_code == 0
+    with src.open(encoding="utf-8") as f:
+        rows = list(_csv.reader(f))
+    assert rows[0] == ["name", "tax_id", "tax_id_ok", "tax_id_normalized", "tax_id_error"]
+    assert rows[1] == ["Good", "00123456", "true", "00123456", ""]

@@ -83,7 +83,13 @@ VALIDATOR_DESCRIPTIONS: dict[str, str] = {
     "cl_rut":      "Chile RUT (7-8 digits + check, SII mod-11 right-to-left)",
     "sg_uen":      "Singapore UEN (9-10 alphanumeric, ACRA-internal check letter)",
     "kr_brn":      "Korea BRN (10 digits, 3-2-5 format, NTS structural)",
+    # 4 more international business ID validators (v0.5.0)
+    "in_pan":     "India PAN (10 chars, AAAAA9999A, 4th char kind code)",
+    "il_id":      "Israel ID Teudat Zehut (9 digits, modified Luhn)",
+    "sa_tin":     "Saudi Arabia TIN (10 digits, first digit 3/4)",
+    "tw_ubn":     "Taiwan UBN (8 digits, first digit non-zero)",
 }
+
 
 
 

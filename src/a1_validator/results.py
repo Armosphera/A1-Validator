@@ -386,6 +386,43 @@ class KrBrnResult(_BaseResult):
     error: str | None = None
 
 
+# ---------------------------------------------------------------------------
+# 4 more international business ID validators (added in v0.5.0).
+# ---------------------------------------------------------------------------
+
+
+class InPanResult(_BaseResult):
+    """Output of `a1_validator.in_pan()` — India PAN (Income Tax Dept)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class IlIdResult(_BaseResult):
+    """Output of `a1_validator.il_id()` — Israel ID (Teudat Zehut)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class SaTinResult(_BaseResult):
+    """Output of `a1_validator.sa_tin()` — Saudi Arabia TIN (ZATCA)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class TwUbnResult(_BaseResult):
+    """Output of `a1_validator.tw_ubn()` — Taiwan UBN (MOEA)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
 # Mapping: public validator name -> Pydantic result model.
 # Used by `a1_validator.validate(kind, value)` to coerce the dict result into
 # the matching typed model.
@@ -429,6 +466,11 @@ RESULT_MODELS: dict[str, type[_BaseResult]] = {
     "cl_rut":               ClRutResult,
     "sg_uen":               SgUenResult,
     "kr_brn":               KrBrnResult,
+    # 4 more international business ID validators (v0.5.0)
+    "in_pan":               InPanResult,
+    "il_id":                IlIdResult,
+    "sa_tin":               SaTinResult,
+    "tw_ubn":               TwUbnResult,
 }
 
 
@@ -471,5 +513,9 @@ __all__ = [
     "ClRutResult",
     "SgUenResult",
     "KrBrnResult",
+    "InPanResult",
+    "IlIdResult",
+    "SaTinResult",
+    "TwUbnResult",
     "RESULT_MODELS",
 ]

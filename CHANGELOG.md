@@ -1,5 +1,51 @@
 # Changelog
 
+## [0.5.0] - 2026-06-21
+
+### Added
+
+**4 more international business ID validators** (v0.4.0 → v0.5.0, 37 → 41 total):
+
+| Kind | Country / region | Format | Check |
+|------|------------------|--------|-------|
+| `in_pan`  | India (Income Tax) | 10 chars AAAAA9999A | 4th char is kind code (P/C/H/F/A/T/B/L/J/G) |
+| `il_id`   | Israel (Teudat Zehut) | 9 digits | modified Luhn weights [1,2,1,2,...] |
+| `sa_tin`  | Saudi Arabia (ZATCA) | 10 digits | first digit 3 (VAT) or 4 (non-VAT) |
+| `tw_ubn`  | Taiwan (MOEA) | 8 digits | first digit non-zero |
+
+**Test coverage:** 704/704 tests passing (was 655). The 49 new tests pull
+from the freshly-vendored `tests/_eval_sets/` corpus for each new
+validator (12-13 cases per validator × 4 new = ~49 new tests).
+
+**Re-vendored from autoresearch-sboss@6e01155** (was 7a4bb9a).
+
+### Added (CLI)
+
+**`a1-validate validate-csv <file> --column <c> --kind <k> [--output <o>]`**
+subcommand — batch-validate a column of tax IDs in a CSV file. Designed
+for period-close / data-cleanup use cases where a finance team has a
+customer/vendor spreadsheet and needs to know which rows have invalid
+tax IDs. Output CSV is the input + 3 new columns: `<column>_ok`,
+`<column>_normalized`, `<column>_error`. Summary goes to stderr so the
+stdout CSV is machine-pipeable.
+
+```bash
+# Validate a customer HHVH column
+a1-validate validate-csv customers.csv --column tax_id --kind hhvh \\
+  --output customers-validated.csv
+
+# Mixed batch with --no-fail-on-error (just produce a report)
+a1-validate validate-csv vendors.csv --column tax_id --kind inn \\
+  --output vendors-validated.csv --no-fail-on-error
+```
+
+### Fixed
+
+- **`scripts/_vendor.py` SKIP_VENDOR list** — the reference to
+  `SKIP_VENDOR` was added in v0.4.0 but the dict definition was missing.
+  Added the module-level constant in v0.5.0 (also affects any
+  v0.4.x user who tries to re-vendor).
+
 All notable changes to A1 Validator are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning: [SemVer](https://semver.org/).

@@ -1,4 +1,4 @@
-"""a1-validate CLI — Typer-based command-line interface for the 37 SBOSS sovereign business-ops validators.
+"""a1-validate CLI — Typer-based command-line interface for the 41 SBOSS sovereign business-ops validators.
 
 This module exposes a single Typer ``app`` object that is registered as the
 ``a1-validate`` console script in ``pyproject.toml``. It is the canonical CLI
@@ -258,7 +258,7 @@ app = typer.Typer(
     cls=_CmdGroup,
     help=(
         "Validate Armenian / Russian IDs, chart-of-accounts codes, e-invoice "
-        "shapes, payroll, and more — 37 SBOSS sovereign business-ops validators "
+        "shapes, payroll, and more — 41 SBOSS sovereign business-ops validators "
         "exposed as a single CLI. Run `a1-validate list` to see all kinds, "
         "or `a1-validate serve` to boot the HTTP service."
     ),
@@ -376,7 +376,7 @@ def validate(
 @app.command(name="list")
 def list_cmd() -> None:
     """List all 23 validators with a one-line description each."""
-    typer.echo(f"a1-validator {a1_validator.__version__} — 37 SBOSS sovereign business-ops validators:")
+    typer.echo(f"a1-validator {a1_validator.__version__} — 41 SBOSS sovereign business-ops validators:")
     typer.echo("")
     kinds = a1_validator.list_kinds()
     name_w = max(len(k) for k in kinds)
@@ -534,6 +534,194 @@ def batch(
 
     if fail_count > 0:
         raise typer.Exit(code=1)
+
+
+
+# ---------------------------------------------------------------------------
+# `validate-csv` subcommand — batch-validate a column of tax IDs from a CSV
+# file. Designed for period-close / data-cleanup use cases where a finance
+# team has a customer/vendor spreadsheet and needs to know which rows have
+# invalid tax IDs.
+#
+# Usage:
+#   a1-validate validate-csv customers.csv --kind hhvh --column tax_id \
+#     --output customers-validated.csv
+#   a1-validate validate-csv customers.csv --kind inn --column inn \
+#     --key-column 0 --output customers-validated.csv
+#   # Auto-detect per-row: CSV has a "kind" column with values like hhvh/inn/mx_rfc
+#   a1-validate validate-csv customers.csv --kind-column country --column tax_id \
+#     --output customers-validated.csv
+#
+# Exit codes:
+#   0 — every row passed (or no rows)
+#   1 — one or more rows failed
+#   2 — bad input (unknown kind, missing column, malformed CSV)
+# ---------------------------------------------------------------------------
+
+
+@app.command(name="validate-csv")
+def validate_csv(
+    file: Path = typer.Argument(  # noqa: B008
+        ...,
+        help="Path to the input CSV file. Must have a header row.",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+    ),
+    column: str = typer.Option(
+        ...,
+        "--column",
+        "-c",
+        help="Name (or 0-based index) of the column to validate.",
+    ),
+    kind: str = typer.Option(
+        ...,
+        "--kind",
+        "-k",
+        help="Validator name (e.g. `hhvh`, `inn`, `mx_rfc`).",
+    ),
+    output: Path = typer.Option(
+        None,
+        "--output",
+        "-o",
+        help="Where to write the annotated CSV (default: stdout).",
+    ),
+    key_column: str = typer.Option(
+        None,
+        "--key-column",
+        help="Optional identifier column (name or 0-based index) to echo in the report for each row.",
+    ),
+    in_place: bool = typer.Option(
+        False,
+        "--in-place",
+        help="Overwrite the input file with the annotated output (shorthand for --output <input>).",
+    ),
+    limit: int = typer.Option(
+        None,
+        "--limit",
+        help="Stop after N rows (useful for dry-runs on huge files).",
+    ),
+    fail_on_error: bool = typer.Option(
+        True,
+        "--fail-on-error/--no-fail-on-error",
+        help="Exit 1 if any row fails validation (default: True).",
+    ),
+) -> None:
+    """Validate a column of tax IDs in a CSV file and write an annotated report.
+
+    The output CSV is the input CSV plus three new columns at the end:
+    ``<column>_ok``, ``<column>_normalized``, ``<column>_error``. Each row
+    gets a per-row validation result.
+    """
+    import csv as _csv  # lazy import — only needed for this subcommand
+    try:
+        validator = a1_validator.get_validator(kind)
+    except KeyError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=1) from None
+
+    # Determine the input key for the validator
+    single_key = _SINGLE_INPUT_KEY.get(kind)
+    if single_key is None:
+        typer.echo(
+            f"error: validator {kind!r} requires a JSON object input, "
+            f"which is not supported by the CSV subcommand. Use a "
+            f"single-input validator (e.g. hhvh, inn, cnpj, mx_rfc).",
+            err=True,
+        )
+        raise typer.Exit(code=1)
+
+    if in_place:
+        output = file
+
+    # Read the CSV
+    with file.open(encoding="utf-8-sig", newline="") as f:
+        reader = _csv.reader(f)
+        try:
+            header = next(reader)
+        except StopIteration:
+            typer.echo("error: CSV is empty", err=True)
+            raise typer.Exit(code=2) from None
+        rows = list(reader)
+
+    # Resolve --column (accept name or 0-based index)
+    def _resolve_column(col: str, header: list[str]) -> int:
+        if col.isdigit():
+            idx = int(col)
+            if idx < 0 or idx >= len(header):
+                raise ValueError(f"column index {idx} out of range (CSV has {len(header)} columns)")
+            return idx
+        try:
+            return header.index(col)
+        except ValueError as exc:
+            raise ValueError(f"column {col!r} not found in header: {header}") from exc
+
+    try:
+        col_idx = _resolve_column(column, header)
+    except ValueError as exc:
+        typer.echo(f"error: {exc}", err=True)
+        raise typer.Exit(code=2) from None
+
+    key_idx: int | None = None
+    if key_column is not None:
+        try:
+            key_idx = _resolve_column(key_column, header)
+        except ValueError as exc:
+            typer.echo(f"error: {exc}", err=True)
+            raise typer.Exit(code=2) from None
+
+    # Annotate
+    out_header = list(header) + [f"{column}_ok", f"{column}_normalized", f"{column}_error"]
+    if key_column is not None and key_column not in header:
+        # Already resolved key_idx above; the header echo is implicit
+        pass
+
+    total = 0
+    ok_count = 0
+    out_rows: list[list[str]] = []
+    for raw_row in rows:
+        total += 1
+        if limit is not None and total > limit:
+            break
+        if col_idx >= len(raw_row):
+            raw_row = list(raw_row) + [""] * (col_idx + 1 - len(raw_row))
+        value = raw_row[col_idx]
+        result = validator({single_key: value})
+        ok = isinstance(result, dict) and result.get("ok") is True
+        if ok:
+            ok_count += 1
+        row_out = list(raw_row) + [
+            "true" if ok else "false",
+            str(result.get("normalized") or "") if isinstance(result, dict) else "",
+            str(result.get("error") or "") if isinstance(result, dict) else "",
+        ]
+        out_rows.append(row_out)
+
+    # Write
+    out_target = output if output else None
+    if out_target is None:
+        # stdout
+        writer = _csv.writer(__import__("sys").stdout)
+        writer.writerow(out_header)
+        writer.writerows(out_rows)
+    else:
+        with out_target.open("w", encoding="utf-8", newline="") as f:
+            writer = _csv.writer(f)
+            writer.writerow(out_header)
+            writer.writerows(out_rows)
+
+    # Summary to stderr (so it doesn't pollute the stdout CSV)
+    fail_count = total - ok_count
+    typer.echo(
+        f"validate-csv: {kind} on column {column!r} — "
+        f"{ok_count}/{total} passed, {fail_count} failed" +
+        (f" (output: {out_target})" if out_target else " (output: stdout)"),
+        err=True,
+    )
+    if fail_on_error and fail_count > 0:
+        raise typer.Exit(code=1)
+
 
 
 # ---------------------------------------------------------------------------

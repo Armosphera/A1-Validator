@@ -363,7 +363,7 @@ class TestPackageRuntime:
         )
 
     def test_validator_functions_are_top_level_attributes(self, installed_venv) -> None:
-        """All 37 public validators should be importable as attributes.
+        """All 41 public validators should be importable as attributes.
 
         Verifies that the ``for ... in _VALIDATORS: globals()[...] = ...``
         block in ``__init__.py`` actually populated the public namespace
@@ -387,8 +387,8 @@ class TestPackageRuntime:
             f"missing public attributes for {len(payload['missing'])} kinds: "
             f"{payload['missing']}"
         )
-        assert payload["n_kinds"] == 37, (
-            f"expected 37 kinds from list_kinds(), got {payload['n_kinds']}"
+        assert payload["n_kinds"] == 41, (
+            f"expected 41 kinds from list_kinds(), got {payload['n_kinds']}"
         )
 
     def test_hhvh_roundtrip(self, installed_venv) -> None:
@@ -452,7 +452,7 @@ class TestPackageRuntime:
         )
 
     def test_a1_validate_list_subcommand(self, installed_venv) -> None:
-        """``a1-validate list`` must print 37 validators.
+        """``a1-validate list`` must print 41 validators.
 
         Sanity check that the CLI loads from the sdist install path,
         not from a stale ``__pycache__`` of the dev install.
@@ -466,7 +466,7 @@ class TestPackageRuntime:
         # with two spaces and a kind name.
         entries = [ln for ln in result.stdout.splitlines()
                    if re.match(r"^\s{2}\w+\s+", ln)]
-        assert len(entries) == 37, (
-            f"expected 37 validators in `list` output, got {len(entries)}: "
+        assert len(entries) == 41, (
+            f"expected 41 validators in `list` output, got {len(entries)}: "
             f"{entries}"
         )

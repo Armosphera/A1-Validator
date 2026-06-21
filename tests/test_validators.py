@@ -309,9 +309,9 @@ def test_kr_brn(input_data, expected):
 
 def test_list_kinds_returns_23_canonical_names():
     kinds = a1_validator.list_kinds()
-    assert len(kinds) == 37
+    assert len(kinds) == 41
     assert kinds[0] == "hhvh"
-    assert kinds[-1] == "kr_brn"
+    assert kinds[-1] == "tw_ubn"
     # No alias leakage into the canonical list.
     assert "identifier" not in kinds
     assert "ru_identifiers" not in kinds
@@ -369,3 +369,23 @@ def test_model_for_returns_typed_model():
 def test_model_for_raises_on_unknown_kind():
     with pytest.raises(KeyError, match="No result model"):
         a1_validator.model_for("nope")
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("in_pan"))
+def test_in_pan(input_data, expected):
+    assert _matches(a1_validator.in_pan(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("il_id"))
+def test_il_id(input_data, expected):
+    assert _matches(a1_validator.il_id(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("sa_tin"))
+def test_sa_tin(input_data, expected):
+    assert _matches(a1_validator.sa_tin(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("tw_ubn"))
+def test_tw_ubn(input_data, expected):
+    assert _matches(a1_validator.tw_ubn(input_data), expected)

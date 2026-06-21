@@ -1,0 +1,15 @@
+[
+  { "input": { "tin": "3001234567" }, "expected": { "ok": true, "normalized": "3001234567", "error": null } },
+  { "input": { "tin": "4001234567" }, "expected": { "ok": true, "normalized": "4001234567", "error": null } },
+  { "input": { "tin": "300 123 4567" }, "expected": { "ok": true, "normalized": "3001234567", "error": null } },
+  { "input": { "tin": "300-123-4567" }, "expected": { "ok": true, "normalized": "3001234567", "error": null } },
+  { "input": { "tin": "" }, "expected": { "ok": false, "normalized": "", "error": "TIN is required" } },
+  { "input": { "tin": "   " }, "expected": { "ok": false, "normalized": "", "error": "TIN is required" } },
+  { "input": { "tin": null }, "expected": { "ok": false, "normalized": "", "error": "TIN is required" } },
+  { "input": { "tin": "30012345" }, "expected": { "ok": false, "normalized": "30012345", "error": "TIN must be 10 digits, got 8" } },
+  { "input": { "tin": "30012345678" }, "expected": { "ok": false, "normalized": "30012345678", "error": "TIN must be 10 digits, got 11" } },
+  { "input": { "tin": "300123456A" }, "expected": { "ok": false, "normalized": "300123456A", "error": "TIN must contain only digits" } },
+  { "input": { "tin": "5001234567" }, "expected": { "ok": false, "normalized": "5001234567", "error": "TIN kind prefix is invalid" } },
+  { "input": { "tin": "0000000000" }, "expected": { "ok": false, "normalized": "0000000000", "error": "TIN is invalid (all digits are the same)" } },
+  { "input": { "tin": "9999999999" }, "expected": { "ok": false, "normalized": "9999999999", "error": "TIN is invalid (all digits are the same)" } }
+]

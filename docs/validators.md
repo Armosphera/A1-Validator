@@ -43,6 +43,10 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 | 35 | `cl_rut` | Chile RUT (7-8 digits + check, SII mod-11 right-to-left) | `error, normalized, ok` |
 | 36 | `sg_uen` | Singapore UEN (9-10 alphanumeric, ACRA-internal check letter) | `error, normalized, ok` |
 | 37 | `kr_brn` | Korea BRN (10 digits, 3-2-5 format, NTS structural) | `error, normalized, ok` |
+| 38 | `in_pan` | India PAN (10 chars, AAAAA9999A, 4th char kind code) | `error, normalized, ok` |
+| 39 | `il_id` | Israel ID Teudat Zehut (9 digits, modified Luhn) | `error, normalized, ok` |
+| 40 | `sa_tin` | Saudi Arabia TIN (10 digits, first digit 3/4) | `error, normalized, ok` |
+| 41 | `tw_ubn` | Taiwan UBN (8 digits, first digit non-zero) | `error, normalized, ok` |
 
 ## Per-kind reference
 
@@ -910,20 +914,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **EU VATIN (VAT identification number, 28 EU + GB/NO/CH)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `eu_vat.json`
 - **Pydantic result model**: `a1_validator.EuVatResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "vat": "DE123456789"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "DE123456789",
+  "ok": true
 }
 ```
 
@@ -932,20 +940,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Brazilian CNPJ (14 digits, mod-11 DV per Receita Federal)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `cnpj.json`
 - **Pydantic result model**: `a1_validator.CnpjResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "cnpj": "11222333000181"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "11222333000181",
+  "ok": true
 }
 ```
 
@@ -954,20 +966,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Brazilian CPF (11 digits, mod-11 DV per Receita Federal)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `cpf.json`
 - **Pydantic result model**: `a1_validator.CpfResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "cpf": "52998224725"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "52998224725",
+  "ok": true
 }
 ```
 
@@ -976,20 +992,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **UK Company Number (8 digits, or SC/NI/OC/SO + 6 digits)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `uk_company.json`
 - **Pydantic result model**: `a1_validator.UkCompanyResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "uk_company": "12345678"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "12345678",
+  "ok": true
 }
 ```
 
@@ -998,20 +1018,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **US EIN (9 digits, IRS campus code prefix)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `us_ein.json`
 - **Pydantic result model**: `a1_validator.UsEinResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "ein": "12-3456789"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "123456789",
+  "ok": true
 }
 ```
 
@@ -1020,20 +1044,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **India GSTIN (15 alphanumeric, state code + PAN + Z + check)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `gstin.json`
 - **Pydantic result model**: `a1_validator.GstinResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "gstin": "22AAAAA0000A1Z5"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "22AAAAA0000A1Z5",
+  "ok": true
 }
 ```
 
@@ -1042,20 +1070,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Swiss UID (CHE/CH/CDF + 9 digits)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `swiss_uid.json`
 - **Pydantic result model**: `a1_validator.SwissUidResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "swiss_uid": "CHE-123.456.789"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "CHE123456789",
+  "ok": true
 }
 ```
 
@@ -1064,20 +1096,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Australian Business Number (11 digits, mod-89 check)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `au_abn.json`
 - **Pydantic result model**: `a1_validator.AuAbnResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "abn": "33 102 417 032"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "33102417032",
+  "ok": true
 }
 ```
 
@@ -1086,20 +1122,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Mexico RFC (12-13 chars, SAT mod-11 verification digit)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `mx_rfc.json`
 - **Pydantic result model**: `a1_validator.MxRfcResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "rfc": "ABCD010101AA"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "ABCD010101AA",
+  "ok": true
 }
 ```
 
@@ -1108,20 +1148,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Japan My Number (12 digits, mod-11 check, 個人番号)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `jp_mynumber.json`
 - **Pydantic result model**: `a1_validator.JpMynumberResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "mynumber": "123456 789 014"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "123456789014",
+  "ok": true
 }
 ```
 
@@ -1130,20 +1174,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Argentina CUIT/CUIL (11 digits, AFIP mod-11)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `ar_cuit.json`
 - **Pydantic result model**: `a1_validator.ArCuitResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "cuit": "20-12345678-6"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "20123456786",
+  "ok": true
 }
 ```
 
@@ -1152,20 +1200,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Chile RUT (7-8 digits + check, SII mod-11 right-to-left)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `cl_rut.json`
 - **Pydantic result model**: `a1_validator.ClRutResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "rut": "18550123-K"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "18550123K",
+  "ok": true
 }
 ```
 
@@ -1174,20 +1226,24 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Singapore UEN (9-10 alphanumeric, ACRA-internal check letter)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `sg_uen.json`
 - **Pydantic result model**: `a1_validator.SgUenResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "uen": "201912345A"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "201912345A",
+  "ok": true
 }
 ```
 
@@ -1196,19 +1252,127 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 **Korea BRN (10 digits, 3-2-5 format, NTS structural)**
 
 - **Aliases**: —
-- **Example source**: `(no vendored eval set)`
+- **Example source**: `kr_brn.json`
 - **Pydantic result model**: `a1_validator.KrBrnResult`
 
 **Example input**
 
 ```json
-"<see docs>"
+{
+  "brn": "123-45-67890"
+}
 ```
 
 **Example output**
 
 ```json
 {
-  "error": "AttributeError: 'str' object has no attribute 'get'"
+  "error": null,
+  "normalized": "1234567890",
+  "ok": true
+}
+```
+
+### 38. `in_pan`
+
+**India PAN (10 chars, AAAAA9999A, 4th char kind code)**
+
+- **Aliases**: —
+- **Example source**: `in_pan.json`
+- **Pydantic result model**: `a1_validator.InPanResult`
+
+**Example input**
+
+```json
+{
+  "pan": "AAAPA1234A"
+}
+```
+
+**Example output**
+
+```json
+{
+  "error": null,
+  "normalized": "AAAPA1234A",
+  "ok": true
+}
+```
+
+### 39. `il_id`
+
+**Israel ID Teudat Zehut (9 digits, modified Luhn)**
+
+- **Aliases**: —
+- **Example source**: `il_id.json`
+- **Pydantic result model**: `a1_validator.IlIdResult`
+
+**Example input**
+
+```json
+{
+  "id": "000000018"
+}
+```
+
+**Example output**
+
+```json
+{
+  "error": null,
+  "normalized": "000000018",
+  "ok": true
+}
+```
+
+### 40. `sa_tin`
+
+**Saudi Arabia TIN (10 digits, first digit 3/4)**
+
+- **Aliases**: —
+- **Example source**: `sa_tin.json`
+- **Pydantic result model**: `a1_validator.SaTinResult`
+
+**Example input**
+
+```json
+{
+  "tin": "3001234567"
+}
+```
+
+**Example output**
+
+```json
+{
+  "error": null,
+  "normalized": "3001234567",
+  "ok": true
+}
+```
+
+### 41. `tw_ubn`
+
+**Taiwan UBN (8 digits, first digit non-zero)**
+
+- **Aliases**: —
+- **Example source**: `tw_ubn.json`
+- **Pydantic result model**: `a1_validator.TwUbnResult`
+
+**Example input**
+
+```json
+{
+  "ubn": "12345675"
+}
+```
+
+**Example output**
+
+```json
+{
+  "error": null,
+  "normalized": "12345675",
+  "ok": true
 }
 ```

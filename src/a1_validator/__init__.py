@@ -127,6 +127,8 @@ __all__ = [
     "swiss_uid", "au_abn", "mx_rfc", "jp_mynumber",
     # 4 more international business ID validators (added in v0.4.0)
     "ar_cuit", "cl_rut", "sg_uen", "kr_brn",
+    # 4 more international business ID validators (added in v0.5.0)
+    "in_pan", "il_id", "sa_tin", "tw_ubn",
     # Dispatcher + helpers
     "validate", "model_for", "list_kinds", "get_validator",
     "RESULTS", "RESULT_MODELS",
@@ -144,6 +146,8 @@ __all__ = [
     "MxRfcResult", "JpMynumberResult",
     # 4 Pydantic models for international business ID validators (v0.4.0)
     "ArCuitResult", "ClRutResult", "SgUenResult", "KrBrnResult",
+    # 4 Pydantic models for international business ID validators (v0.5.0)
+    "InPanResult", "IlIdResult", "SaTinResult", "TwUbnResult",
     "__version__",
 ]
 

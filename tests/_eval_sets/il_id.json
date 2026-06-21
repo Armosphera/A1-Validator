@@ -1,0 +1,14 @@
+[
+  { "input": { "id": "000000018" }, "expected": { "ok": true, "normalized": "000000018", "error": null } },
+  { "input": { "id": "123456782" }, "expected": { "ok": true, "normalized": "123456782", "error": null } },
+  { "input": { "id": "000 000 018" }, "expected": { "ok": true, "normalized": "000000018", "error": null } },
+  { "input": { "id": "000-000-018" }, "expected": { "ok": true, "normalized": "000000018", "error": null } },
+  { "input": { "id": "" }, "expected": { "ok": false, "normalized": "", "error": "ID is required" } },
+  { "input": { "id": "   " }, "expected": { "ok": false, "normalized": "", "error": "ID is required" } },
+  { "input": { "id": null }, "expected": { "ok": false, "normalized": "", "error": "ID is required" } },
+  { "input": { "id": "12345" }, "expected": { "ok": false, "normalized": "12345", "error": "ID must be 9 digits, got 5" } },
+  { "input": { "id": "1234567890" }, "expected": { "ok": false, "normalized": "1234567890", "error": "ID must be 9 digits, got 10" } },
+  { "input": { "id": "12345A789" }, "expected": { "ok": false, "normalized": "12345A789", "error": "ID must contain only digits" } },
+  { "input": { "id": "111111111" }, "expected": { "ok": false, "normalized": "111111111", "error": "ID is invalid (all digits are the same)" } },
+  { "input": { "id": "999999999" }, "expected": { "ok": false, "normalized": "999999999", "error": "ID is invalid (all digits are the same)" } }
+]
