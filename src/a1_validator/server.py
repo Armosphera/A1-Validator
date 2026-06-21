@@ -73,6 +73,27 @@ _VALUE_KEY: dict[str, str] = {
     "chart_of_accounts_ru": "code",
     "payroll_am": "gross",
     "invoice": "document",
+    # 10 international business ID validators (v0.3.0)
+    "eu_vat": "vat",
+    "cnpj": "cnpj",
+    "cpf": "cpf",
+    "uk_company": "uk_company",
+    "us_ein": "ein",
+    "gstin": "gstin",
+    "swiss_uid": "uid",
+    "au_abn": "abn",
+    "mx_rfc": "rfc",
+    "jp_mynumber": "mynumber",
+    # 4 international business ID validators (v0.4.0)
+    "ar_cuit": "cuit",
+    "cl_rut": "rut",
+    "sg_uen": "uen",
+    "kr_brn": "brn",
+    # 4 international business ID validators (v0.5.0)
+    "in_pan": "pan",
+    "il_id": "id",
+    "sa_tin": "tin",
+    "tw_ubn": "ubn",
 }
 
 
