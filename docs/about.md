@@ -43,7 +43,7 @@ a1-validate serve --port 8000              # HTTP service
    `./scripts/setup_pypi_token.sh <token> prod`. Same workflow
    pattern, just a different env name.
 2. **Multi-arch Docker (amd64 + arm64)** — deferred to v0.2.0;
-   see [Known issues](changelog.md#known-issues).
+   see the [Changelog](CHANGELOG.md) page.
 3. **TestPyPI install is the smoke test** — after every v* tag
    push, the workflow publishes to TestPyPI. Run
    `pip install -i https://test.pypi.org/simple/ a1-validator` to
