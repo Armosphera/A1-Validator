@@ -52,30 +52,29 @@ if [ -z "$row" ]; then
 fi
 log "queue row: $row"
 
-# 2. Determine next port number (sequential 1..23 from queue)
-next_n=$(grep -cE '^\| [0-9]+ \|' "$ORCH_DIR/validator-port-queue.md")
-log "port number: $next_n"
-
-barrier="$ORCH_DIR/port-${next_n}-ready"
-
-if [ "$NO_WORKTREE" = true ]; then
-  log "skipping worktree creation (--no-worktree)"
-  log "touching $barrier"
-  touch "$barrier"
-else
-  worktree="$REPO_ROOT/.worktrees/port-$next_n-$NAME"
-  branch="orch/port-$next_n-$NAME"
-
-  if [ -d "$worktree" ]; then
-    log "worktree already exists at $worktree — skipping creation"
-  else
-    log "creating worktree at $worktree on branch $branch"
-    git -C "$REPO_ROOT" worktree add -b "$branch" "$worktree" main
-  fi
-
-  # 3. Touch the ready barrier inside the worktree
-  touch "$worktree/$barrier"
-  log "touched $barrier"
+# 2. Determine port number from the queue row's leading "| N |" column.
+queue_n=$(sed -n "${row}p" "$ORCH_DIR/validator-port-queue.md" \
+  | sed -nE 's/^\|[[:space:]]*([0-9]+)[[:space:]]*\|.*/\1/p')
+if [ -z "$queue_n" ]; then
+  log "ERROR: could not parse queue number from row $row"
+  exit 1
 fi
+log "queue number: $queue_n"
+
+# Barrier is a relative path under the worktree root.
+barrier=".orchestration/port-${queue_n}-ready"
+worktree="$REPO_ROOT/.worktrees/port-$queue_n-$NAME"
+branch="orch/port-$queue_n-$NAME"
+
+if [ -d "$worktree" ]; then
+  log "worktree already exists at $worktree — skipping creation"
+else
+  log "creating worktree at $worktree on branch $branch"
+  git -C "$REPO_ROOT" worktree add -b "$branch" "$worktree" main
+fi
+
+# 3. Touch the ready barrier inside the worktree (relative path from worktree root).
+touch "$worktree/$barrier"
+log "touched $worktree/$barrier"
 
 log "spawn complete — agent should now read $ORCH_DIR/program.md and execute the loop"
