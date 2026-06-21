@@ -9,7 +9,7 @@
 > **Superseded by:** nothing.
 > **Related:** [ADR-0008 — External
 > signing for non-repudiable audit
-> evidence](../../../A1-AI-ERP-SBOS-MSTUDIO-sovereign/docs/architecture/ADR-0008-external-signing.md);
+> evidence](https://github.com/Armosphera/A1-AI-ERP-SBOS-MSTUDIO-sovereign/blob/main/docs/architecture/ADR-0008-external-signing.md);
 > the A1-Validator v0.1.0 / v0.1.13
 > Docker story (commits
 > `be7629b` + `d8f7a08`); plan 64
