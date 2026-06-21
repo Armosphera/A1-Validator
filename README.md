@@ -275,6 +275,12 @@ uvicorn a1_validator.server:app --host 0.0.0.0 --port 8000 --workers 4
 The app object is a standard `fastapi.FastAPI` instance — mount it as a
 sub-app, add middleware, or swap the OpenAPI metadata as needed.
 
+## Related
+
+- [Armosphera/autoresearch-sboss](https://github.com/Armosphera/autoresearch-sboss) — the eval-loop harness this repo vendors from
+- [Armosphera/SBOS-A1-ERP](https://github.com/Armosphera/SBOS-A1-ERP) — the sovereign business-ops ERP that consumes these validators
+- [Armosphera/A1-Platform](https://github.com/Armosphera/A1-Platform) — the SBOSS product line
+
 ## License
 
 MIT — same as the upstream
