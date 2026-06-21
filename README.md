@@ -12,7 +12,12 @@ invoice field extraction — without a network round-trip.
 ## Install
 
 ```bash
-pip install a1-validator
+# v0.1.0 is on TestPyPI — use it as the smoke-test channel:
+pip install -i https://test.pypi.org/simple/ a1-validator
+
+# After production PyPI is wired up (see docs/setup.md), the
+# canonical install becomes:
+# pip install a1-validator
 ```
 
 ## Quick start

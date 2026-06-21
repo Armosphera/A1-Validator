@@ -38,10 +38,10 @@ Versioning: [SemVer](https://semver.org/).
   (auto-generated), CLI, HTTP service, deploy, about.
 - **CI** (GitHub Actions): Python 3.10/3.11/3.12 matrix, ruff lint,
   pytest with coverage gate (≥80%).
-- **Publish workflows**: TestPyPI (OIDC trusted publishing) +
-  GitHub Container Registry (multi-arch-ready, single-arch shipped
-  for v0.1.0 due to docker/buildx cache-key bug — see Known
-  Issues).
+- **Publish workflows**: TestPyPI (token-based via
+  `scripts/setup_pypi_token.sh` + GH `testpypi` environment secret) +
+  GitHub Container Registry (single-arch `docker build` — see Known
+  Issues for multi-arch status).
 - **Security policy** (`.github/SECURITY.md`).
 - **Dependabot** for pip updates.
 
@@ -65,15 +65,12 @@ the original JavaScript source at 100% baseline.
 
 ### Known issues
 
-- **TestPyPI trusted publisher not configured.** The workflow
-  `.github/workflows/publish-testpypi.yml` is correctly configured
-  with OIDC (`id-token: write`) and references the `testpypi`
-  GitHub environment, but the PyPI-side trusted publisher has not
-  been added. To enable `pip install a1-validator` from TestPyPI,
-  add the publisher at
-  https://test.pypi.org/manage/account/publishing/ with
-  owner=`Armosphera`, repo=`A1-Validator`, workflow
-  filename=`publish-testpypi.yml`, environment=`testpypi`.
+- **TestPyPI is live** for v0.1.0. Install with
+  `pip install -i https://test.pypi.org/simple/ a1-validator`.
+  Production PyPI publish workflow is NOT yet configured (only
+  the `testpypi` environment is set up). To enable production,
+  create the project on https://pypi.org, generate a production
+  API token, and run `./scripts/setup_pypi_token.sh <token> prod`.
 - **Single-arch Docker image (amd64 only) for v0.1.0.** The
   planned multi-arch (amd64 + arm64) hit a docker/buildx cache-key
   bug where `COPY` operations intermittently fail with

@@ -37,15 +37,17 @@ a1-validate serve --port 8000              # HTTP service
 
 ## Known gaps (next steps)
 
-1. **TestPyPI trusted publisher setup** — requires a one-time
-   click at https://test.pypi.org/manage/account/publishing/ (add
-   owner=`Armosphera`, repo=`A1-Validator`, workflow
-   filename=`publish-testpypi.yml`, environment=`testpypi`).
+1. **Production PyPI publish** — only TestPyPI is wired up for
+   v0.1.0. To enable production: create the `a1-validator`
+   project on https://pypi.org, generate an API token, and run
+   `./scripts/setup_pypi_token.sh <token> prod`. Same workflow
+   pattern, just a different env name.
 2. **Multi-arch Docker (amd64 + arm64)** — deferred to v0.2.0;
    see [Known issues](CHANGELOG.md#known-issues).
-3. **Multi-environment PyPI publishing** — only TestPyPI is
-   wired up. Production PyPI would need a separate workflow +
-   trusted publisher.
+3. **TestPyPI install is the smoke test** — after every v* tag
+   push, the workflow publishes to TestPyPI. Run
+   `pip install -i https://test.pypi.org/simple/ a1-validator` to
+   confirm the package is consumable.
 
 ## Architecture
 
