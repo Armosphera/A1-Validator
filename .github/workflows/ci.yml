@@ -37,12 +37,14 @@ jobs:
         # renamed httpx) is required by starlette 1.x's testclient —
         # not auto-resolved by pip from fastapi's test extra.
         # `tomli` is the backport for `tomllib` on Python 3.10.
+        # `build` is needed by test_packaging.py (runs `python -m build`
+        # to verify the sdist builds end-to-end).
         # `.[dev]` would also work but installs mypy + ruff, which
         # are installed explicitly below.
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[server]"
-          python -m pip install pytest pytest-cov ruff mypy httpx2 tomli
+          python -m pip install pytest pytest-cov ruff mypy httpx2 tomli build
 
       - name: Lint with ruff
         # Loose ruleset — `ruff check` only, no formatter enforcement yet.
