@@ -4,6 +4,34 @@ All notable changes to A1 Validator are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning: [SemVer](https://semver.org/).
 
+## [0.1.3] - 2026-06-21
+
+### Fixed
+
+- **`__version__` now reads from package metadata**, not hardcoded.
+  `a1-validator --version` correctly reports the installed version
+  (was stuck at "0.1.0" through v0.1.2).
+- **Install instructions** in `README.md` and `docs/setup.md` now use
+  the correct pattern: prod PyPI as primary, TestPyPI as extra.
+  TestPyPI has a broken name-squat for `fastapi` (resolves to
+  `FASTAPI-1.0.tar.gz` with missing `DESCRIPTION.txt`), so using
+  TestPyPI as the primary or sole index causes install failures.
+
+## [0.1.2] - 2026-06-21
+
+### Fixed
+
+- **Install instructions**: same as v0.1.3, but the edit didn't land
+  due to a path/symlink issue during the commit. Re-fixed in v0.1.3.
+
+## [0.1.1] - 2026-06-21
+
+### Fixed
+
+- **`a1-validate serve` without `[server]` extra** now prints a
+  friendly install hint instead of a Python traceback:
+  `pip install "a1-validator[server]"`.
+
 ## [0.1.0] - 2026-06-21
 
 ### Added
