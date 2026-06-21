@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "Armosphera-Proprietary" }
 authors = [
-    { name = "A1 Suite", email = "ops@a1-suite.local" },
+    { name = "A1 Suite", email = "ops@armosphera.dev" },
 ]
 keywords = ["a1", "sboss", "validator", "armenian", "russian", "hhvh", "inn", "phone", "invoice"]
 classifiers = [

@@ -174,8 +174,8 @@ app = FastAPI(
         "`/batch/<kind>`). The response is always HTTP 200; check the body's "
         "`ok` field for the per-call outcome."
     ),
-    contact={"name": "A1 Suite", "email": "ops@a1-suite.local"},
-    license_info={"name": "MIT"},
+    contact={"name": "A1 Suite", "email": "ops@armosphera.dev"},
+    license_info={"name": "Armosphera-Proprietary"},
 )
 
 
