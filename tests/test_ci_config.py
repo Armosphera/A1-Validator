@@ -22,10 +22,19 @@ Each test is fast (< 100 ms) and has no external dependencies.
 from __future__ import annotations
 
 import re
+import sys
 from pathlib import Path
 
 import pytest
 import yaml
+
+# tomllib is stdlib on Python 3.11+. On 3.10, fall back to the `tomli`
+# backport (install it as a test dep). Without this, pytest collection
+# crashes on 3.10 with `ModuleNotFoundError: No module named 'tomllib'`.
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib  # type: ignore[import-not-found]
 
 
 # ---------------------------------------------------------------------------
@@ -299,8 +308,6 @@ def test_docs_workflow_uses_peaceiris_action() -> None:
 def test_pyproject_declares_ruff_config() -> None:
     """pyproject.toml must have a `[tool.ruff]` section so `ruff check`
     uses the project's documented line-length and target-version."""
-    import tomllib
-
     pyproject = REPO_ROOT / "pyproject.toml"
     parsed = tomllib.loads(pyproject.read_text(encoding="utf-8"))
     ruff = parsed.get("tool", {}).get("ruff", {})
@@ -317,8 +324,6 @@ def test_pyproject_declares_ruff_config() -> None:
 def test_pyproject_declares_mypy_config() -> None:
     """pyproject.toml must have a `[tool.mypy]` section with
     `ignore_missing_imports = true` (the documented loose config)."""
-    import tomllib
-
     pyproject = REPO_ROOT / "pyproject.toml"
     parsed = tomllib.loads(pyproject.read_text(encoding="utf-8"))
     mypy = parsed.get("tool", {}).get("mypy", {})
