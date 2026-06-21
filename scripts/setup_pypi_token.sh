@@ -15,23 +15,39 @@
 #     compromised token can't touch other PyPI projects.
 #
 # Usage:
-#   ./scripts/setup_pypi_token.sh <token> [test|prod]
+#   # RECOMMENDED: read from env var or stdin (token stays in your shell, never in chat/history):
+#   export PYPI_TEST_TOKEN='pypi-XXX...'
+#   echo "$PYPI_TEST_TOKEN" | ./scripts/setup_pypi_token.sh test
 #
-# Examples:
-#   ./scripts/setup_pypi_token.sh pypi-XXXXXXXXXXXXXXXXXXXXXXXXXXXX test
-#   ./scripts/setup_pypi_token.sh pypi-YYYYYYYYYYYYYYYYYYYYYYYYYYYY prod
+#   # Alternative: pipe directly
+#   read -rs TOKEN && echo "$TOKEN" | ./scripts/setup_pypi_token.sh test
+#
+#   # Discouraged: pass as CLI arg (visible in `ps`/history):
+#   ./scripts/setup_pypi_token.sh pypi-XXX test
 #
 # After running:
-#   - TestPyPI:    ./scripts/setup_pypi_token.sh pypi-XXX test
-#   - Production:  ./scripts/setup_pypi_token.sh pypi-YYY prod
+#   - TestPyPI:    echo "$PYPI_TEST_TOKEN"  | ./scripts/setup_pypi_token.sh test
+#   - Production:  echo "$PYPI_TOKEN"       | ./scripts/setup_pypi_token.sh prod
 #
 # Then push a v* tag — the publish-testpypi.yml workflow picks up the
 # token from GitHub secrets and publishes automatically.
 
 set -euo pipefail
 
-if [ $# -lt 1 ]; then
-    echo "Usage: $0 <pypi-api-token> [test|prod]"
+ENVIRONMENT="${1:-test}"
+
+# Read token from: (1) $PYPI_TEST_TOKEN / $PYPI_TOKEN env var, (2) stdin pipe,
+# (3) deprecated CLI arg $2 (kept for backward compat, warns).
+TOKEN="${PYPI_TEST_TOKEN:-${PYPI_TOKEN:-}}"
+if [ -z "$TOKEN" ] && [ $# -ge 2 ]; then
+    echo "WARNING: passing token as a CLI arg is discouraged (visible in 'ps' and shell history)." >&2
+    echo "         Use: echo \"\$PYPI_TEST_TOKEN\" | $0 $ENVIRONMENT" >&2
+    TOKEN="$2"
+fi
+if [ -z "$TOKEN" ] && [ -t 0 ]; then
+    echo "Usage:"
+    echo "  export PYPI_TEST_TOKEN='pypi-XXX...'"
+    echo "  echo \"\$PYPI_TEST_TOKEN\" | $0 [test|prod]"
     echo ""
     echo "Get a token at:"
     echo "  TestPyPI:  https://test.pypi.org/manage/account/token/"
@@ -40,18 +56,26 @@ if [ $# -lt 1 ]; then
     echo "Scope the token to 'Project: a1-validator' (only this project)."
     exit 1
 fi
-
-TOKEN="$1"
-ENVIRONMENT="${2:-test}"
+if [ -z "$TOKEN" ]; then
+    TOKEN=$(cat)
+fi
+if [ -z "$TOKEN" ]; then
+    echo "ERROR: empty token (env var unset, stdin empty, or CLI arg blank)" >&2
+    exit 1
+fi
 
 case "$ENVIRONMENT" in
-    test)
+    test|testpypi)
+        # Semantic = TestPyPI, GitHub env namespace = "testpypi"
+        GH_ENV="testpypi"
         REPO="https://test.pypi.org/legacy/"
         API_BASE="https://test.pypi.org/pypi"
         API_CHECK="https://test.pypi.org/simple/a1-validator/"
         SECRET_NAME="TEST_PYPI_TOKEN"
         ;;
     prod)
+        # Semantic = production PyPI, GitHub env namespace = "prod"
+        GH_ENV="prod"
         REPO="https://upload.pypi.org/legacy/"
         API_BASE="https://pypi.org/pypi"
         API_CHECK="https://pypi.org/simple/a1-validator/"
@@ -87,21 +111,24 @@ if ! gh repo view --json name >/dev/null 2>&1; then
 fi
 
 REPO_SLUG=$(gh repo view --json nameWithOwner -q .nameWithOwner)
-echo "Setting secret $SECRET_NAME on $REPO_SLUG (environment=$ENVIRONMENT) …"
+echo "Setting secret $SECRET_NAME on $REPO_SLUG (gh-env=$GH_ENV) …"
 
-echo "$TOKEN" | gh secret set "$SECRET_NAME" \
+# Use --body "$TOKEN" (NOT echo | --body -). The echo version adds a trailing
+# newline that gh secret set preserves in the stored secret, which twine then
+# sends as part of the password and TestPyPI rejects as "Invalid auth".
+gh secret set "$SECRET_NAME" \
     --repo "$REPO_SLUG" \
-    --env "$ENVIRONMENT" \
-    --body -
+    --env "$GH_ENV" \
+    --body "$TOKEN"
 
 # ----- Confirm -----
 echo ""
 echo "Verifying secret was set …"
-SET_COUNT=$(gh secret list --repo "$REPO_SLUG" --env "$ENVIRONMENT" --json name -q '.[] | select(.name=="'"$SECRET_NAME"'") | .name' | wc -l | tr -d ' ')
+SET_COUNT=$(gh secret list --repo "$REPO_SLUG" --env "$GH_ENV" --json name -q '.[] | select(.name=="'"$SECRET_NAME"'") | .name' | wc -l | tr -d ' ')
 if [ "$SET_COUNT" -ge 1 ]; then
-    echo "  ✓ $SECRET_NAME is set in the '$ENVIRONMENT' environment"
+    echo "  ✓ $SECRET_NAME is set in the '$GH_ENV' environment"
 else
-    echo "  ✗ $SECRET_NAME does not appear in the '$ENVIRONMENT' environment"
+    echo "  ✗ $SECRET_NAME does not appear in the '$GH_ENV' environment"
     exit 1
 fi
 
