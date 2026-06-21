@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   build:
+    if: false  # disabled 2026-06-21 — repo is private, local CI in ~/dev/armosphera/
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

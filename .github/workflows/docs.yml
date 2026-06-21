@@ -16,6 +16,7 @@ permissions:
 
 jobs:
   build-and-deploy:
+    if: false  # disabled 2026-06-21 — repo is private, local CI in ~/dev/armosphera/
     name: Build mkdocs site and deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
