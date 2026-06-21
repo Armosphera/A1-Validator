@@ -1,0 +1,54 @@
+name: Build and push dev image to GHCR
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/armosphera/a1-validator
+          tags: |
+            type=ref,event=branch
+            type=sha,format=short
+
+      - name: Build and push (single arch)
+        env:
+          TAG_LIST: ${{ steps.meta.outputs.tags }}
+        run: |
+          set -euo pipefail
+          TAGS_SPACE=$(echo "$TAG_LIST" | tr '\n' ' ')
+          echo "Building dev image with tags: $TAGS_SPACE"
+          docker build \
+            --tag "ghcr.io/armosphera/a1-validator:dev-tmp" \
+            --label org.opencontainers.image.title=a1-validator \
+            --label org.opencontainers.image.description="23 SBOSS sovereign business ID validators — DEV build" \
+            --label org.opencontainers.image.source=https://github.com/Armosphera/A1-Validator \
+            --label org.opencontainers.image.licenses=Armosphera-Proprietary \
+            --label org.opencontainers.image.version=dev-${{ github.sha }} \
+            .
+          for TAG in $TAGS_SPACE; do
+            echo "Tagging and pushing: $TAG"
+            docker tag "ghcr.io/armosphera/a1-validator:dev-tmp" "$TAG"
+            docker push "$TAG"
+          done
+          docker rmi "ghcr.io/armosphera/a1-validator:dev-tmp" || true
