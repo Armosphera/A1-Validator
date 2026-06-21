@@ -126,3 +126,31 @@ warn_redundant_casts = true
 exclude = [
     "src/a1_validator/_vendored/.*",
 ]
+
+
+# ---------------------------------------------------------------------------
+# Coverage config — exclude the vendored layer.
+# The vendored modules are a faithful port of the upstream autoresearch-sboss
+# examples; their unit tests live in autoresearch-sboss itself. The tests
+# under tests/ exercise the public surface (a1_validator.<name>) which routes
+# through the vendored modules' `validate()` function. Excluding the vendored
+# layer from coverage is the standard pattern for vendored code (the unit
+# tests that the vendored code SHOULD be covered by live upstream).
+# ---------------------------------------------------------------------------
+[tool.coverage.run]
+source = ["src/a1_validator"]
+omit = [
+    "src/a1_validator/_vendored/*",
+]
+
+
+[tool.coverage.report]
+# Match the CI gate's --cov-fail-under=80.
+fail_under = 80
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
