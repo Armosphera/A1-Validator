@@ -104,7 +104,7 @@ WORKDIR /app
 LABEL org.opencontainers.image.title="a1-validator" \
       org.opencontainers.image.description="23 SBOSS sovereign business ID validators — HTTP service + CLI" \
       org.opencontainers.image.source="https://github.com/Armosphera/A1-Validator" \
-      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.licenses="Armosphera-Proprietary" \
       org.opencontainers.image.version="${VERSION}"
 
 USER a1

@@ -55,7 +55,7 @@ jobs:
             --label org.opencontainers.image.title=a1-validator \
             --label org.opencontainers.image.description="23 SBOSS sovereign business ID validators" \
             --label org.opencontainers.image.source=https://github.com/Armosphera/A1-Validator \
-            --label org.opencontainers.image.licenses=MIT \
+            --label org.opencontainers.image.licenses=Armosphera-Proprietary \
             --label org.opencontainers.image.version=${{ github.ref_name }} \
             .
           # Re-tag and push for each requested tag
