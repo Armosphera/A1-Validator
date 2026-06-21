@@ -663,19 +663,15 @@ def validate_csv(
         typer.echo(f"error: {exc}", err=True)
         raise typer.Exit(code=2) from None
 
-    key_idx: int | None = None
     if key_column is not None:
         try:
-            key_idx = _resolve_column(key_column, header)
+            _resolve_column(key_column, header)
         except ValueError as exc:
             typer.echo(f"error: {exc}", err=True)
             raise typer.Exit(code=2) from None
 
     # Annotate
     out_header = list(header) + [f"{column}_ok", f"{column}_normalized", f"{column}_error"]
-    if key_column is not None and key_column not in header:
-        # Already resolved key_idx above; the header echo is implicit
-        pass
 
     total = 0
     ok_count = 0
