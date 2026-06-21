@@ -2,22 +2,19 @@
 #
 # Publish a1-validator to TestPyPI on tag push.
 #
-# Safety: only `v0.1.0*` tags are allowed to trigger this workflow. The
-# v0.1.0 family is the first published version family for this package
-# and we're scoping the trigger tight while we shake out the publishing
-# pipeline. Once v0.1.1+ lands, widen the pattern to `v*` (and update
-# `publish-ghcr.yml` analogously).
+# Auth: PyPI API token (set by scripts/setup_pypi_token.sh as the
+# TEST_PYPI_TOKEN secret in the 'testpypi' GitHub environment).
+# The token must be scoped to project 'a1-validator' on TestPyPI.
 #
-# Manual trigger: workflow_dispatch lets an operator push a build without
-# cutting a tag — useful when iterating on the workflow itself.
+# Trigger: tag push matching 'v0.1.0*' (safe scope for v0.1.x; widen to
+# 'v*' for v0.2.0+). Manual `workflow_dispatch` lets an operator push
+# without cutting a tag.
 #
-# Required repository secrets:
-#   TESTPYPI_API_TOKEN — API token from https://test.pypi.org/manage/account/token/
-#                        (scope: "Project: a1-validator")
-#
-# The workflow does NOT actually publish on every push — the `if` clause
-# gates execution on the tag pattern, so opening a PR or merging to main
-# will not trigger it.
+# Why a token (not OIDC trusted publishing): the trusted-publisher
+# registration step requires browser + 2FA and can't be scripted. The
+# token path trades that one-time web step for a one-time terminal
+# command (`./scripts/setup_pypi_token.sh <token> test`). The workflow
+# then runs fully automated on every tag.
 
 name: publish-testpypi
 
@@ -60,14 +57,11 @@ jobs:
     name: Publish to TestPyPI
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      # Required for PyPI trusted publishing (OIDC).
-      id-token: write
     environment:
-      # Required secrets are configured on this environment in repo
-      # settings — the workflow inherits them automatically.
+      # TEST_PYPI_TOKEN is configured on this environment in repo
+      # settings — the workflow inherits it automatically. Use
+      # scripts/setup_pypi_token.sh to set it.
       name: testpypi
-      url: https://test.pypi.org/project/a1-validator/
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -83,3 +77,8 @@ jobs:
           # Skip the existing-version check on TestPyPI — pre-existing
           # uploads from earlier tag pushes shouldn't block re-runs.
           skip_existing: false
+        env:
+          # The token lives in the 'testpypi' GitHub environment's
+          # TEST_PYPI_TOKEN secret, not as a repo-wide secret.
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_TOKEN }}
