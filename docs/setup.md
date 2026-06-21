@@ -55,18 +55,19 @@ git push origin v0.1.0
 gh run watch
 ```
 
-When the workflow finishes, your package is on TestPyPI:
-- `pip install --index-url https://test.pypi.org/simple/ a1-validator`
-
-## Step 5 — Verify the package is installable
+When the workflow finishes, your package is on TestPyPI. Verify it installs:
 
 ```bash
-# Create a fresh venv
-python -m venv /tmp/a1-test
-/tmp/a1-test/bin/pip install --index-url https://test.pypi.org/simple/ a1-validator
+# IMPORTANT: prod PyPI as PRIMARY, TestPyPI as EXTRA. TestPyPI is
+# a sandbox with arbitrary uploads (including broken name-squats
+# like a broken 'fastapi' upload). Prod-first = prod deps, the
+# package from TestPyPI. See README.md for the full rationale.
+pip install --index-url https://pypi.org/simple/ \
+            --extra-index-url https://test.pypi.org/simple/ \
+            "a1-validator[server]"
 
 # Smoke-test the CLI
-/tmp/a1-test/bin/a1-validate list
+a1-validate list
 /tmp/a1-test/bin/a1-validate hhvh 00123456
 
 # Or the HTTP service

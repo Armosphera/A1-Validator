@@ -102,7 +102,7 @@ for _model_name in dir(_results):
         globals()[_model_name] = getattr(_results, _model_name)
 
 
-__version__ = "0.1.0"
+__version__ = version("a1-validator")
 
 __all__ = [
     # 23 validator functions
