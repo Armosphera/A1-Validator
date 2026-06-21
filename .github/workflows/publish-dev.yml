@@ -28,7 +28,8 @@ jobs:
         with:
           images: ghcr.io/armosphera/a1-validator
           tags: |
-            type=ref,event=branch
+            type=raw,value=dev
+            type=raw,value=main
             type=sha,format=short
 
       - name: Build and push (single arch)
