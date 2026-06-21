@@ -50,6 +50,14 @@ import venv
 from pathlib import Path
 
 import pytest
+
+# tomllib is stdlib on Python 3.11+. On 3.10, fall back to the `tomli`
+# backport (install it as a test dep). Without this, pytest collection
+# crashes on 3.10 with `ModuleNotFoundError: No module named 'tomllib'`.
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib  # type: ignore[import-not-found]
 import tomllib
 
 # ---------------------------------------------------------------------------
