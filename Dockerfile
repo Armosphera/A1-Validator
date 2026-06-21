@@ -72,7 +72,10 @@ RUN pip install --no-cache-dir build \
         -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true \
     && find /install -type f -name '*.pyc' -delete 2>/dev/null || true \
     && find /install -type d -name 'pip*' -exec rm -rf {} + 2>/dev/null || true \
-    && find /install -name '*.dist-info' -type d -exec rm -rf {} + 2>/dev/null || true \
+    # NOTE: do NOT delete the .dist-info/ directories. They're required
+    # by `importlib.metadata` to look up the installed version, package
+    # metadata, and entry points. The CLI's `a1-validate --version`
+    # command reads from there. Trimming saves < 10KB per package.
     && rm -rf /install/bin/pip* /install/bin/wheel* /install/bin/easy_install* 2>/dev/null || true
 
 
