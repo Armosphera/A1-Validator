@@ -585,8 +585,26 @@ def serve(
     Boots the FastAPI app defined in ``a1_validator.server`` under
     ``uvicorn``. Use ``--reload`` during local development; production
     should set ``--workers`` and run behind a reverse proxy.
+
+    Note: requires the ``[server]`` extras. If you see
+    "ModuleNotFoundError: No module named 'uvicorn'", reinstall with:
+
+        pip install "a1-validator[server]"
     """
-    import uvicorn
+    try:
+        import uvicorn
+    except ImportError:
+        typer.echo(
+            "Error: the 'serve' subcommand requires the [server] extras.\n"
+            "\n"
+            "Install them with:\n"
+            "    pip install \"a1-validator[server]\"\n"
+            "\n"
+            "Or, for the full development setup (server + test + lint deps):\n"
+            "    pip install \"a1-validator[all]\"",
+            err=True,
+        )
+        raise typer.Exit(code=1)
 
     uvicorn.run(
         "a1_validator.server:app",

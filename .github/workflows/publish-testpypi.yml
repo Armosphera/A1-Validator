@@ -28,8 +28,10 @@ name: publish-testpypi
 on:
   push:
     tags:
-      # Safety scope: only the v0.1.0 family for now.
-      - "v0.1.0*"
+      # Match all v* tags (v0.1.0, v0.1.1, v0.2.0, etc.). The publish
+      # workflow is safe to re-run for new versions; use --skip-existing
+      # on twine to handle re-pushes of the same tag as no-ops.
+      - "v*"
   workflow_dispatch:
 
 permissions:
