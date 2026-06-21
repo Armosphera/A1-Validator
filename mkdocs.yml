@@ -97,6 +97,7 @@ nav:
   - Setup (PyPI): setup.md
   - Changelog: CHANGELOG.md
   - About: about.md
+  - CFO Quickstart: cfo-quickstart.md
   - Architecture:
       - ADR-0010 — Multi-arch Docker state: architecture/ADR-0010-multiarch-blocked.md
       - ADR-0011 — PyPI OIDC migration: architecture/ADR-0011-pypi-oidc-deferred.md
