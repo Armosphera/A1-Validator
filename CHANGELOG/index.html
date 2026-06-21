@@ -1,0 +1,1884 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="23 SBOSS sovereign business ID validators, packaged as a single importable Python library.">
+      
+      
+      
+        <link rel="canonical" href="https://armosphera.github.io/A1-Validator/CHANGELOG/">
+      
+      
+        <link rel="prev" href="../setup/">
+      
+      
+        <link rel="next" href="../about/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Changelog - A1 Validator</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#changelog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="A1 Validator" class="md-header__button md-logo" aria-label="A1 Validator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A1 Validator
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Changelog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Armosphera/A1-Validator" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Armosphera/A1-Validator
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="A1 Validator" class="md-nav__button md-logo" aria-label="A1 Validator" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    A1 Validator
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Armosphera/A1-Validator" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Armosphera/A1-Validator
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../validators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setup (PyPI)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#050-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.5.0] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.5.0] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added (CLI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#040-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.4.0] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.4.0] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#030-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.3.0] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.3.0] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues-carried-over-from-v020" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Issues (carried over from v0.2.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#020-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2.0 - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.2.0 - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-code-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No code changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0111-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.11] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.11] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#013-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.3] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.3] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#012-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.2] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.2] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#011-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.1] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.1] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1.0 - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.1.0 - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source of truth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test contract
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cfo-quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CFO Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/ADR-0010-multiarch-blocked/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0010 — Multi-arch Docker state
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/ADR-0011-pypi-oidc-deferred/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR-0011 — PyPI OIDC migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#050-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.5.0] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.5.0] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#added-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added (CLI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#040-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.4.0] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.4.0] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#030-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.3.0] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.3.0] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues-carried-over-from-v020" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known Issues (carried over from v0.2.0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#020-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.2.0 - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.2.0 - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-code-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        No code changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0111-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.11] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.11] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#013-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.3] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.3] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#012-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.2] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.2] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#011-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [0.1.1] - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="[0.1.1] - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixed_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010-2026-06-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.1.0 - 2026-06-21
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0.1.0 - 2026-06-21">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source of truth
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test contract
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#known-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Known issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
+<h2 id="050-2026-06-21">[0.5.0] - 2026-06-21<a class="headerlink" href="#050-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<p><strong>4 more international business ID validators</strong> (v0.4.0 → v0.5.0, 37 → 41 total):</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Country / region</th>
+<th>Format</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>in_pan</code></td>
+<td>India (Income Tax)</td>
+<td>10 chars AAAAA9999A</td>
+<td>4<sup>th</sup> char is kind code (P/C/H/F/A/T/B/L/J/G)</td>
+</tr>
+<tr>
+<td><code>il_id</code></td>
+<td>Israel (Teudat Zehut)</td>
+<td>9 digits</td>
+<td>modified Luhn weights [1,2,1,2,...]</td>
+</tr>
+<tr>
+<td><code>sa_tin</code></td>
+<td>Saudi Arabia (ZATCA)</td>
+<td>10 digits</td>
+<td>first digit 3 (VAT) or 4 (non-VAT)</td>
+</tr>
+<tr>
+<td><code>tw_ubn</code></td>
+<td>Taiwan (MOEA)</td>
+<td>8 digits</td>
+<td>first digit non-zero</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Test coverage:</strong> 704/704 tests passing (was 655). The 49 new tests pull
+from the freshly-vendored <code>tests/_eval_sets/</code> corpus for each new
+validator (12-13 cases per validator × 4 new = ~49 new tests).</p>
+<p><strong>Re-vendored from autoresearch-sboss@6e01155</strong> (was 7a4bb9a).</p>
+<h3 id="added-cli">Added (CLI)<a class="headerlink" href="#added-cli" title="Permanent link">&para;</a></h3>
+<p><strong><code>a1-validate validate-csv &lt;file&gt; --column &lt;c&gt; --kind &lt;k&gt; [--output &lt;o&gt;]</code></strong>
+subcommand — batch-validate a column of tax IDs in a CSV file. Designed
+for period-close / data-cleanup use cases where a finance team has a
+customer/vendor spreadsheet and needs to know which rows have invalid
+tax IDs. Output CSV is the input + 3 new columns: <code>&lt;column&gt;_ok</code>,
+<code>&lt;column&gt;_normalized</code>, <code>&lt;column&gt;_error</code>. Summary goes to stderr so the
+stdout CSV is machine-pipeable.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Validate a customer HHVH column</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>a1-validate<span class="w"> </span>validate-csv<span class="w"> </span>customers.csv<span class="w"> </span>--column<span class="w"> </span>tax_id<span class="w"> </span>--kind<span class="w"> </span>hhvh<span class="w"> </span><span class="se">\\</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--output<span class="w"> </span>customers-validated.csv
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Mixed batch with --no-fail-on-error (just produce a report)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>a1-validate<span class="w"> </span>validate-csv<span class="w"> </span>vendors.csv<span class="w"> </span>--column<span class="w"> </span>tax_id<span class="w"> </span>--kind<span class="w"> </span>inn<span class="w"> </span><span class="se">\\</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>--output<span class="w"> </span>vendors-validated.csv<span class="w"> </span>--no-fail-on-error
+</span></code></pre></div>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>scripts/_vendor.py</code> SKIP_VENDOR list</strong> — the reference to
+  <code>SKIP_VENDOR</code> was added in v0.4.0 but the dict definition was missing.
+  Added the module-level constant in v0.5.0 (also affects any
+  v0.4.x user who tries to re-vendor).</li>
+</ul>
+<p>All notable changes to A1 Validator are documented here.
+Format: <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a>.
+Versioning: <a href="https://semver.org/">SemVer</a>.</p>
+<h2 id="040-2026-06-21">[0.4.0] - 2026-06-21<a class="headerlink" href="#040-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
+<p><strong>4 more international business ID validators</strong> (v0.3.0 → v0.4.0, 33 → 37 total):</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Country / region</th>
+<th>Format</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ar_cuit</code></td>
+<td>Argentina (AFIP)</td>
+<td>11 digits, XX-XXXXXXXX-X</td>
+<td>mod-11 weights [5,4,3,2,7,6,5,4,3,2]</td>
+</tr>
+<tr>
+<td><code>cl_rut</code></td>
+<td>Chile (SII)</td>
+<td>7-8 digits + check (0-9 or K)</td>
+<td>mod-11 weights [2,3,4,5,6,7,2,3] right-to-left</td>
+</tr>
+<tr>
+<td><code>sg_uen</code></td>
+<td>Singapore (ACRA)</td>
+<td>9-10 alphanumeric</td>
+<td>structural (no public check)</td>
+</tr>
+<tr>
+<td><code>kr_brn</code></td>
+<td>Korea (NTS)</td>
+<td>10 digits, XXX-XX-XXXXX</td>
+<td>structural (no public check)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Test coverage:</strong> 648/648 tests passing (was 471). The 177 new tests
+pull from the freshly-vendored <code>tests/_eval_sets/</code> corpus for each
+new validator (12-14 cases per validator × 14 new = ~177 new tests).</p>
+<p><strong>Re-vendored from autoresearch-sboss@7a4bb9a</strong> (was 0a79493).</p>
+<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>scripts/_vendor.py</code> eval_set vendoring bug</strong>: the <code>("invoice", "workflow.py")</code>
+  entry has <code>rel = "workflow.py"</code> (no slash), so <code>rel.rsplit("/", 1)[0]</code>
+  returned "workflow.py" itself. The script then looked for
+  <code>workflow.py/eval_set.json</code> which doesn't exist. Special-cased the
+  <code>invoice</code> example to use the top-level <code>eval_set.json</code>.</li>
+<li><strong><code>scripts/_vendor.py</code> SKIP_VENDOR list</strong>: added to pin <code>chat_client</code> to
+  its v0.3.0 working version (the upstream example has a regression
+  where the <code>last_request</code> snapshot is captured at dict-construction
+  time when <code>call_log</code> is still empty). Future re-vendors skip
+  <code>chat_client</code> and keep the local pin.</li>
+</ul>
+<h2 id="030-2026-06-21">[0.3.0] - 2026-06-21<a class="headerlink" href="#030-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">&para;</a></h3>
+<p><strong>10 international business ID validators</strong> (v0.2.0 → v0.3.0, 23 → 33 total):</p>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Country / region</th>
+<th>Format</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>eu_vat</code></td>
+<td>EU + GB/NO/CH (30 countries)</td>
+<td>Per-country length, 8-15 chars</td>
+<td>structural</td>
+</tr>
+<tr>
+<td><code>cnpj</code></td>
+<td>Brazil (CNPJ)</td>
+<td><code>XX.XXX.XXX/XXXX-XX</code> (14 digits)</td>
+<td>mod-11 DV1+DV2</td>
+</tr>
+<tr>
+<td><code>cpf</code></td>
+<td>Brazil (CPF)</td>
+<td><code>XXX.XXX.XXX-XX</code> (11 digits)</td>
+<td>mod-11 DV1+DV2</td>
+</tr>
+<tr>
+<td><code>uk_company</code></td>
+<td>UK (Companies House)</td>
+<td>8 digits or <code>SC/NI/OC/SO/NC/FC/SF/NF + 6 digits</code></td>
+<td>structural</td>
+</tr>
+<tr>
+<td><code>us_ein</code></td>
+<td>USA (IRS)</td>
+<td><code>XX-XXXXXXX</code> (9 digits)</td>
+<td>IRS campus-code prefix</td>
+</tr>
+<tr>
+<td><code>gstin</code></td>
+<td>India (GST)</td>
+<td>15 alphanumeric</td>
+<td>state + PAN + Z + check</td>
+</tr>
+<tr>
+<td><code>swiss_uid</code></td>
+<td>Switzerland (UID)</td>
+<td><code>CHE/CH/CDF + 9 digits</code></td>
+<td>structural</td>
+</tr>
+<tr>
+<td><code>au_abn</code></td>
+<td>Australia (ABN)</td>
+<td><code>XX XXX XXX XXX</code> (11 digits)</td>
+<td>mod-89</td>
+</tr>
+<tr>
+<td><code>mx_rfc</code></td>
+<td>Mexico (SAT)</td>
+<td>4 letters + 6 digits + 2-3 alphanumeric (12-13 chars)</td>
+<td>mod-11 [13..2], 10→"A"</td>
+</tr>
+<tr>
+<td><code>jp_mynumber</code></td>
+<td>Japan (個人番号)</td>
+<td>12 digits</td>
+<td>mod-11 [6,5,4,3,2,7,6,5,4,3,2,1]</td>
+</tr>
+</tbody>
+</table>
+<p>Each new validator is a faithful port of the matching
+<a href="https://github.com/Armosphera/autoresearch-sboss">autoresearch-sboss</a> example
+(33<sup>rd</sup>, 32<sup>nd</sup>, 31<sup>st</sup>, 30<sup>th</sup>, 29<sup>th</sup>, 28<sup>th</sup>, 27<sup>th</sup>, 26<sup>th</sup>, 25<sup>th</sup>, 24<sup>th</sup> respectively), with
+the corresponding Pydantic v2 result model added to <code>a1_validator.results</code>.</p>
+<p><strong>Test coverage:</strong> 471/471 tests passing (was 471 pre-vendor-update — same
+green count, but the suite now includes parametrized tests for the 10 new
+validators pulling from the freshly-vendored <code>tests/_eval_sets/</code> corpus).</p>
+<p><strong>Re-vendored all 23 + 10 = 33 examples from autoresearch-sboss@0a79493</strong>
+(was 6c9a914). The vendor script (<code>scripts/_vendor.py</code>) was updated to
+include the 10 new examples, and the source-commit pin was bumped.</p>
+<h3 id="fixed_2">Fixed<a class="headerlink" href="#fixed_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>chat_client</code> regression on v0.3.0 re-vendor:</strong> the upstream
+  <code>autoresearch-sboss</code> example evolved between the v0.2.0 pin (6c9a914) and
+  the v0.3.0 pin (0a79493) to inline the <code>last_request</code> snapshot at the
+  result-dict construction time — but the call_log is still empty at that
+  point, so <code>last_request.{method,headers,body}</code> always returned <code>None</code>.
+  Reverted <code>_vendored/chat_client.py</code> to the v0.2.0 working version
+  (with the post-call <code>_snapshot_last_request()</code> function). Tracked as a
+  separate upstream bug to fix in autoresearch-sboss next.</li>
+</ul>
+<h3 id="known-issues-carried-over-from-v020">Known Issues (carried over from v0.2.0)<a class="headerlink" href="#known-issues-carried-over-from-v020" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Multi-arch Docker</strong> is still blocked on the upstream docker/buildx
+  cache-key bug. The <code>publish-ghcr.yml</code> workflow continues to use plain
+  <code>docker build</code> (single-arch amd64).</li>
+<li><strong>PyPI trusted-publisher migration</strong> is still blocked on the 2FA web
+  step. <code>publish-prod.yml</code> is registered but dormant.</li>
+</ul>
+<h2 id="020-2026-06-21"><a href="https://github.com/Armosphera/A1-Validator/releases/tag/v0.2.0">0.2.0</a> - 2026-06-21<a class="headerlink" href="#020-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h3>
+<p>This is a <strong>version-bump release</strong> that
+documents the state of two
+deferred items from v0.1.0:</p>
+<ul>
+<li>
+<p><strong>Multi-arch Docker (amd64 + arm64)
+  is still blocked on the upstream
+  docker/buildx cache-key
+  computation bug</strong> (see v0.1.0
+  "Known Issues"). The
+  <code>publish-ghcr.yml</code> workflow
+  continues to use plain <code>docker
+  build</code> (single-arch amd64).
+  Tracked for v0.3.0 once the
+  bug is fixed upstream
+  (https://github.com/moby/buildkit
+  / https://github.com/docker/buildx).
+  No code change in this release;
+  the publish-ghcr.yml workflow
+  is unchanged from v0.1.x.</p>
+</li>
+<li>
+<p><strong>PyPI trusted-publisher
+  migration is still blocked
+  on the 2FA web step.</strong> PyPI
+  trusted-publisher registration
+  requires a browser + 2FA and
+  cannot be scripted. The current
+  publish workflow uses
+  token-based auth
+  (<code>scripts/setup_pypi_token.sh</code></p>
+</li>
+<li>GH <code>testpypi</code> environment
+  secret), which is the realistic
+  automation boundary until
+  PyPI adds a public API for
+  trusted-publisher registration.
+  Tracked for v0.3.0+ when the
+  operator does the 2FA step.</li>
+</ul>
+<h3 id="no-code-changes">No code changes<a class="headerlink" href="#no-code-changes" title="Permanent link">&para;</a></h3>
+<p>v0.2.0 is purely a version-bump
++ CHANGELOG documentation
+release. The 0.1.0 → 0.1.11
+patch series (see below) is the
+canonical list of code changes
+shipped in this release window.
+The version bump from 0.1.11 →
+0.2.0 is the marker that the
+multi-arch / OIDC items are
+deferred.</p>
+<h2 id="0111-2026-06-21">[0.1.11] - 2026-06-21<a class="headerlink" href="#0111-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="fixed_3">Fixed<a class="headerlink" href="#fixed_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>CI: install <code>build</code> module</strong> for
+  <code>test_packaging.py</code>. The
+  packaging test imports
+  <code>build.util</code> which is in the
+  <code>build</code> package, not in
+  <code>pip</code> or <code>setuptools</code>.</li>
+</ul>
+<h2 id="013-2026-06-21">[0.1.3] - 2026-06-21<a class="headerlink" href="#013-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="fixed_4">Fixed<a class="headerlink" href="#fixed_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>__version__</code> now reads from package metadata</strong>, not hardcoded.
+  <code>a1-validator --version</code> correctly reports the installed version
+  (was stuck at "0.1.0" through v0.1.2).</li>
+<li><strong>Install instructions</strong> in <code>README.md</code> and <code>docs/setup.md</code> now use
+  the correct pattern: prod PyPI as primary, TestPyPI as extra.
+  TestPyPI has a broken name-squat for <code>fastapi</code> (resolves to
+  <code>FASTAPI-1.0.tar.gz</code> with missing <code>DESCRIPTION.txt</code>), so using
+  TestPyPI as the primary or sole index causes install failures.</li>
+</ul>
+<h2 id="012-2026-06-21">[0.1.2] - 2026-06-21<a class="headerlink" href="#012-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="fixed_5">Fixed<a class="headerlink" href="#fixed_5" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Install instructions</strong>: same as v0.1.3, but the edit didn't land
+  due to a path/symlink issue during the commit. Re-fixed in v0.1.3.</li>
+</ul>
+<h2 id="011-2026-06-21">[0.1.1] - 2026-06-21<a class="headerlink" href="#011-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="fixed_6">Fixed<a class="headerlink" href="#fixed_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><code>a1-validate serve</code> without <code>[server]</code> extra</strong> now prints a
+  friendly install hint instead of a Python traceback:
+  <code>pip install "a1-validator[server]"</code>.</li>
+</ul>
+<h2 id="010-2026-06-21"><a href="https://github.com/Armosphera/A1-Validator/releases/tag/v0.1.0">0.1.0</a> - 2026-06-21<a class="headerlink" href="#010-2026-06-21" title="Permanent link">&para;</a></h2>
+<h3 id="added_3">Added<a class="headerlink" href="#added_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>23 SBOSS business ID validators</strong> bundled as a single Python
+  package <code>a1_validator</code>:</li>
+<li><strong>Armenia (AM)</strong>: HHVH (Armenian taxpayer ID), phone normalization,
+    e-invoice validator, payroll rules, regions lookup (11 marzes),
+    chart of accounts (623 accounts, 9 classes), VAT return
+    computation, VAT return form validator, top-level invoice extractor.</li>
+<li><strong>Russia (RU)</strong>: ru-identifiers (ИНН / КПП / ОГРН / ОГРНИП / СНИЛС
+    dispatcher), phone normalization, ru-einvoice (счёт-фактура / УПД)
+    validator, payroll (5-band НДФЛ + страховые взносы), regions
+    lookup (83 federal subjects, ISO 3166-2:RU), chart of accounts
+    (73 accounts per Приказ Минфина № 94н), VAT engine (2026 reform,
+    УСН 5/7%).</li>
+<li><strong>AI / config</strong>: model-policy resolver (with <code>source</code> tracking),
+    settings store (file-backed, 0600 perms), model catalog (live
+    OpenRouter with mock-injection seam), open-notebook RAG connector,
+    chat client (OpenAI-compatible), supplemental sources policy,
+    product-research primitives.</li>
+<li><strong>CLI</strong> <code>a1-validate</code> with 5 subcommands: <code>&lt;kind&gt; &lt;value&gt;</code> (single
+  validate, JSON output), <code>list</code> (23 validators + one-liners),
+  <code>batch &lt;kind&gt; &lt;file&gt;</code> (JSON eval-set OR plain-text auto-detected),
+  <code>serve</code> (HTTP service), <code>--version</code>.</li>
+<li><strong>HTTP service</strong> (FastAPI) on <code>a1-validate serve</code>: 48 OpenAPI paths
+  (23 validators × 2 endpoints + meta), Swagger UI at <code>/docs</code>,
+  ReDoc at <code>/redoc</code>. <code>POST /validate/{kind}</code> and <code>POST /batch/{kind}</code>.</li>
+<li><strong>Docker image</strong> at <code>ghcr.io/armosphera/a1-validator:v0.1.0</code>
+  (linux/amd64, 28MB, python:3.12-slim + tini, non-root).</li>
+<li><strong>Docs site</strong> (mkdocs-material) with 6 pages: home, validators
+  (auto-generated), CLI, HTTP service, deploy, about.</li>
+<li><strong>CI</strong> (GitHub Actions): Python 3.10/3.11/3.12 matrix, ruff lint,
+  pytest with coverage gate (≥80%).</li>
+<li><strong>Publish workflows</strong>: TestPyPI (token-based via
+  <code>scripts/setup_pypi_token.sh</code> + GH <code>testpypi</code> environment secret) +
+  GitHub Container Registry (single-arch <code>docker build</code> — see Known
+  Issues for multi-arch status).</li>
+<li><strong>Security policy</strong> (<code>.github/SECURITY.md</code>).</li>
+<li><strong>Dependabot</strong> for pip updates.</li>
+</ul>
+<h3 id="source-of-truth">Source of truth<a class="headerlink" href="#source-of-truth" title="Permanent link">&para;</a></h3>
+<p>Every validator is ported from the
+<a href="https://github.com/Armosphera/autoresearch-sboss">autoresearch-sboss</a>
+framework, which in turn ported each module from
+<a href="https://github.com/Armosphera/A1-Localization-AM">A1-Localization-AM</a>,
+<a href="https://github.com/Armosphera/A1-Localization-RU">A1-Localization-RU</a>,
+and <a href="https://github.com/samstep74/A1-AI-Core">A1-AI-Core</a>. Each
+validator ships with its own <code>eval_set.json</code> test cases that match
+the original JavaScript source at 100% baseline.</p>
+<h3 id="test-contract">Test contract<a class="headerlink" href="#test-contract" title="Permanent link">&para;</a></h3>
+<ul>
+<li>469 pytest cases pass, 86% line coverage.</li>
+<li>All 23 validator eval sets are vendored under
+  <code>tests/_eval_sets/&lt;name&gt;.json</code> and re-played in
+  <code>tests/test_validators.py</code>.</li>
+</ul>
+<h3 id="known-issues">Known issues<a class="headerlink" href="#known-issues" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>TestPyPI is live</strong> for v0.1.0. Install with
+  <code>pip install -i https://test.pypi.org/simple/ a1-validator</code>.
+  Production PyPI publish workflow is NOT yet configured (only
+  the <code>testpypi</code> environment is set up). To enable production,
+  create the project on https://pypi.org, generate a production
+  API token, and run <code>./scripts/setup_pypi_token.sh &lt;token&gt; prod</code>.</li>
+<li><strong>Single-arch Docker image (amd64 only) for v0.1.0.</strong> The
+  planned multi-arch (amd64 + arm64) hit a docker/buildx cache-key
+  bug where <code>COPY</code> operations intermittently fail with
+  <code>"/README.md: not found"</code> on the buildkit cache-key computation.
+  Tracked for v0.2.0 with a workaround: switched to plain
+  <code>docker build</code> (no buildx) and a simplified <code>.dockerignore</code>
+  (removed the <code>*.md / !README.md</code> exception pattern that
+  triggered the bug). When docker/buildx fixes the bug
+  upstream, multi-arch can be re-enabled.</li>
+<li><strong>License is Armosphera Proprietary</strong> (not MIT as in the
+  upstream source repos). This is an Armosphera LLC internal
+  product, not an open-source release.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/Armosphera/A1-Validator" target="_blank" rel="noopener" title="A1 Validator on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
