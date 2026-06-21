@@ -4,6 +4,71 @@ All notable changes to A1 Validator are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning: [SemVer](https://semver.org/).
 
+## [0.2.0] - 2026-06-21
+
+### Notes
+
+This is a **version-bump release** that
+documents the state of two
+deferred items from v0.1.0:
+
+- **Multi-arch Docker (amd64 + arm64)
+  is still blocked on the upstream
+  docker/buildx cache-key
+  computation bug** (see v0.1.0
+  "Known Issues"). The
+  `publish-ghcr.yml` workflow
+  continues to use plain `docker
+  build` (single-arch amd64).
+  Tracked for v0.3.0 once the
+  bug is fixed upstream
+  (https://github.com/moby/buildkit
+  / https://github.com/docker/buildx).
+  No code change in this release;
+  the publish-ghcr.yml workflow
+  is unchanged from v0.1.x.
+
+- **PyPI trusted-publisher
+  migration is still blocked
+  on the 2FA web step.** PyPI
+  trusted-publisher registration
+  requires a browser + 2FA and
+  cannot be scripted. The current
+  publish workflow uses
+  token-based auth
+  (`scripts/setup_pypi_token.sh`
+  + GH `testpypi` environment
+  secret), which is the realistic
+  automation boundary until
+  PyPI adds a public API for
+  trusted-publisher registration.
+  Tracked for v0.3.0+ when the
+  operator does the 2FA step.
+
+### No code changes
+
+v0.2.0 is purely a version-bump
++ CHANGELOG documentation
+release. The 0.1.0 → 0.1.11
+patch series (see below) is the
+canonical list of code changes
+shipped in this release window.
+The version bump from 0.1.11 →
+0.2.0 is the marker that the
+multi-arch / OIDC items are
+deferred.
+
+## [0.1.11] - 2026-06-21
+
+### Fixed
+
+- **CI: install `build` module** for
+  `test_packaging.py`. The
+  packaging test imports
+  `build.util` which is in the
+  `build` package, not in
+  `pip` or `setuptools`.
+
 ## [0.1.3] - 2026-06-21
 
 ### Fixed
@@ -112,4 +177,5 @@ the original JavaScript source at 100% baseline.
   upstream source repos). This is an Armosphera LLC internal
   product, not an open-source release.
 
+[0.2.0]: https://github.com/Armosphera/A1-Validator/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Armosphera/A1-Validator/releases/tag/v0.1.0
