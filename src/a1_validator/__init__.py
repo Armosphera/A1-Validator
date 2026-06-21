@@ -102,7 +102,17 @@ for _model_name in dir(_results):
         globals()[_model_name] = getattr(_results, _model_name)
 
 
-__version__ = version("a1-validator")
+from importlib.metadata import PackageNotFoundError, version as _pkg_version
+
+__version__ = "0.0.0+local"  # overridden below from package metadata
+try:
+    __version__ = _pkg_version("a1-validator")
+except PackageNotFoundError:
+    # Package not installed (e.g. running from a source checkout) — fall
+    # back to the sentinel above. CI / publish always installs the
+    # wheel, so this branch only matters for `python -c 'import ...'`
+    # from a git clone.
+    pass
 
 __all__ = [
     # 23 validator functions
