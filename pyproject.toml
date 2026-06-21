@@ -42,6 +42,8 @@ dev = [
     "httpx2>=2.0",  # starlette 1.x test client needs the renamed httpx
     "ruff>=0.5",
     "mypy>=1.8",
+    "pyyaml>=6.0",  # test_ci_config.py parses GitHub Actions workflow YAML
+    "build>=1.0",   # test_packaging.py runs `python -m build` end-to-end
 ]
 # HTTP service stack — installed by `pip install a1-validator[server]`.
 # Kept opt-in so the core validator library stays light for embedded use
