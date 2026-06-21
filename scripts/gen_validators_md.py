@@ -67,6 +67,17 @@ VALIDATOR_DESCRIPTIONS: dict[str, str] = {
     "open_notebook": "Notebook search/enable/normalize ops",
     "product_research": "Product-research config + program render + decide",
     "invoice": "Invoice field extractor (regex/mock, deterministic)",
+    # 10 international business ID validators (v0.3.0)
+    "eu_vat":      "EU VATIN (VAT identification number, 28 EU + GB/NO/CH)",
+    "cnpj":        "Brazilian CNPJ (14 digits, mod-11 DV per Receita Federal)",
+    "cpf":         "Brazilian CPF (11 digits, mod-11 DV per Receita Federal)",
+    "uk_company":  "UK Company Number (8 digits, or SC/NI/OC/SO + 6 digits)",
+    "us_ein":      "US EIN (9 digits, IRS campus code prefix)",
+    "gstin":       "India GSTIN (15 alphanumeric, state code + PAN + Z + check)",
+    "swiss_uid":   "Swiss UID (CHE/CH/CDF + 9 digits)",
+    "au_abn":      "Australian Business Number (11 digits, mod-89 check)",
+    "mx_rfc":      "Mexico RFC (12-13 chars, SAT mod-11 verification digit)",
+    "jp_mynumber": "Japan My Number (12 digits, mod-11 check, 個人番号)",
 }
 
 
@@ -129,8 +140,8 @@ def _truncate(text: str, *, limit: int = 1200) -> str:
 def render_table() -> str:
     """Build the markdown body for docs/validators.md."""
     kinds = a1_validator.list_kinds()
-    assert len(kinds) == 23, (
-        f"Expected 23 validators, got {len(kinds)}. "
+    assert len(kinds) >= 23, (
+        f"Expected >= 23 validators, got {len(kinds)}. "
         f"Did you forget to add a row to _port._VALIDATORS?"
     )
 

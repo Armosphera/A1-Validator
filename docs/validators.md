@@ -29,6 +29,16 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 | 21 | `open_notebook` | Notebook search/enable/normalize ops | `count, enabled, lastRequestBody, lastRequestHeaders, lastRequestMethod, lastRequestUrl, origins, results, scores, texts, titles` |
 | 22 | `product_research` | Product-research config + program render + decide | `defaultResultColumns, directions, error, result, statuses` |
 | 23 | `invoice` | Invoice field extractor (regex/mock, deterministic) | `currency, invoice_date, tax_id, total_amount, vendor_name` |
+| 24 | `eu_vat` | EU VATIN (VAT identification number, 28 EU + GB/NO/CH) | `country, error, normalized, ok` |
+| 25 | `cnpj` | Brazilian CNPJ (14 digits, mod-11 DV per Receita Federal) | `error, normalized, ok` |
+| 26 | `cpf` | Brazilian CPF (11 digits, mod-11 DV per Receita Federal) | `error, normalized, ok` |
+| 27 | `uk_company` | UK Company Number (8 digits, or SC/NI/OC/SO + 6 digits) | `error, normalized, ok` |
+| 28 | `us_ein` | US EIN (9 digits, IRS campus code prefix) | `error, normalized, ok` |
+| 29 | `gstin` | India GSTIN (15 alphanumeric, state code + PAN + Z + check) | `error, normalized, ok` |
+| 30 | `swiss_uid` | Swiss UID (CHE/CH/CDF + 9 digits) | `error, normalized, ok` |
+| 31 | `au_abn` | Australian Business Number (11 digits, mod-89 check) | `error, normalized, ok` |
+| 32 | `mx_rfc` | Mexico RFC (12-13 chars, SAT mod-11 verification digit) | `error, normalized, ok` |
+| 33 | `jp_mynumber` | Japan My Number (12 digits, mod-11 check, 個人番号) | `error, normalized, ok` |
 
 ## Per-kind reference
 
@@ -888,5 +898,225 @@ Auto-generated reference for every public validator in `a1_validator`. The table
   "tax_id": "12-3456789",
   "total_amount": 8118.75,
   "vendor_name": "ACME Corporation LLC"
+}
+```
+
+### 24. `eu_vat`
+
+**EU VATIN (VAT identification number, 28 EU + GB/NO/CH)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.EuVatResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 25. `cnpj`
+
+**Brazilian CNPJ (14 digits, mod-11 DV per Receita Federal)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.CnpjResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 26. `cpf`
+
+**Brazilian CPF (11 digits, mod-11 DV per Receita Federal)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.CpfResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 27. `uk_company`
+
+**UK Company Number (8 digits, or SC/NI/OC/SO + 6 digits)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.UkCompanyResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 28. `us_ein`
+
+**US EIN (9 digits, IRS campus code prefix)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.UsEinResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 29. `gstin`
+
+**India GSTIN (15 alphanumeric, state code + PAN + Z + check)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.GstinResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 30. `swiss_uid`
+
+**Swiss UID (CHE/CH/CDF + 9 digits)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.SwissUidResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 31. `au_abn`
+
+**Australian Business Number (11 digits, mod-89 check)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.AuAbnResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 32. `mx_rfc`
+
+**Mexico RFC (12-13 chars, SAT mod-11 verification digit)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.MxRfcResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 33. `jp_mynumber`
+
+**Japan My Number (12 digits, mod-11 check, 個人番号)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.JpMynumberResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
 }
 ```

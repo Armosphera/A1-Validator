@@ -107,13 +107,13 @@ def test_validate_unknown_kind_exits_1(runner: CliRunner) -> None:
 
 
 def test_list_lists_23_validators(runner: CliRunner) -> None:
-    """`a1-validate list` exits 0 and prints at least 23 validators."""
+    """`a1-validate list` exits 0 and prints at least 33 validators."""
     result = runner.invoke(app, ["list"])
     assert result.exit_code == 0, result.stdout
     # The output has a header + blank line + 23 lines + footer + blank line.
-    # A loose `>= 23` keeps the test stable across formatting tweaks (e.g.
+    # A loose `>= 33` keeps the test stable across formatting tweaks (e.g.
     # adding a column for aliases later).
-    assert result.stdout.count("\n") >= 23
+    assert result.stdout.count("\n") >= 33
     # Spot-check a handful of canonical kinds are present.
     for kind in ("hhvh", "inn", "vat_return", "invoice", "model_policy"):
         assert kind in result.stdout, f"missing {kind!r} in list output"
@@ -298,8 +298,8 @@ def test_routing_known_subcommand_takes_priority_over_positional(
     """`a1-validate list` dispatches to the list subcommand, NOT kind='list'."""
     # If the routing is broken, the CLI would try to validate a kind called
     # 'list' and emit the unknown-kind error. Verify the list subcommand
-    # actually ran by checking the output shape (header + 23 validators).
+    # actually ran by checking the output shape (header + 33 validators).
     result = runner.invoke(app, ["list"])
     assert result.exit_code == 0
-    assert "23 SBOSS validators" in result.stdout
+    assert "33 SBOSS sovereign business-ops validators" in result.stdout
     assert "Unknown validator kind 'list'" not in (result.stderr or "") + (result.stdout or "")

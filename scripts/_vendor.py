@@ -15,7 +15,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 AUTORESEARCH = REPO_ROOT.parent / "autoresearch-sboss"
 VENDORED_DIR = REPO_ROOT / "src" / "a1_validator" / "_vendored"
-SOURCE_COMMIT = "6c9a9149f1dc8b7a5430d542de19f564a078418c"
+SOURCE_COMMIT = "0a7949309c0380e921977f006689bab85ee2e9f8"
 
 # (example_name, source_path_relative_to_autoresearch)
 EXAMPLES = [
@@ -42,7 +42,18 @@ EXAMPLES = [
     ("open_notebook",        "examples/open-notebook/workflow.py"),
     ("product_research",     "examples/product-research/workflow.py"),
     ("invoice",              "workflow.py"),
+    ("eu_vat",              "examples/eu-vat/workflow.py"),
+    ("cnpj",                "examples/cnpj/workflow.py"),
+    ("cpf",                 "examples/cpf/workflow.py"),
+    ("uk_company",          "examples/uk-company/workflow.py"),
+    ("us_ein",              "examples/us-ein/workflow.py"),
+    ("gstin",               "examples/gstin/workflow.py"),
+    ("swiss_uid",           "examples/swiss-uid/workflow.py"),
+    ("au_abn",              "examples/au-abn/workflow.py"),
+    ("mx_rfc",              "examples/mx-rfc/workflow.py"),
+    ("jp_mynumber",         "examples/jp-mynumber/workflow.py"),
 ]
+
 
 
 def header(name: str, source_rel: str) -> str:

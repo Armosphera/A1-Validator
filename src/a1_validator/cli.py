@@ -1,4 +1,4 @@
-"""a1-validate CLI — Typer-based command-line interface for the 23 SBOSS validators.
+"""a1-validate CLI — Typer-based command-line interface for the 33 SBOSS sovereign business-ops validators.
 
 This module exposes a single Typer ``app`` object that is registered as the
 ``a1-validate`` console script in ``pyproject.toml``. It is the canonical CLI
@@ -258,7 +258,7 @@ app = typer.Typer(
     cls=_CmdGroup,
     help=(
         "Validate Armenian / Russian IDs, chart-of-accounts codes, e-invoice "
-        "shapes, payroll, and more — 23 SBOSS sovereign business-ops validators "
+        "shapes, payroll, and more — 33 SBOSS sovereign business-ops validators "
         "exposed as a single CLI. Run `a1-validate list` to see all kinds, "
         "or `a1-validate serve` to boot the HTTP service."
     ),
@@ -376,7 +376,7 @@ def validate(
 @app.command(name="list")
 def list_cmd() -> None:
     """List all 23 validators with a one-line description each."""
-    typer.echo(f"a1-validator {a1_validator.__version__} — 23 SBOSS validators:")
+    typer.echo(f"a1-validator {a1_validator.__version__} — 33 SBOSS sovereign business-ops validators:")
     typer.echo("")
     kinds = a1_validator.list_kinds()
     name_w = max(len(k) for k in kinds)

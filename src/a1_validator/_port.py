@@ -47,6 +47,17 @@ _VALIDATORS: list[tuple[str, str, tuple[str, ...]]] = [
     ("open_notebook",        "open_notebook",        ()),
     ("product_research",     "product_research",     ()),
     ("invoice",              "invoice",              ()),
+    # 10 international business ID validators (added in v0.3.0)
+    ("eu_vat",               "eu_vat",               ()),
+    ("cnpj",                 "cnpj",                 ()),
+    ("cpf",                  "cpf",                  ()),
+    ("uk_company",           "uk_company",           ()),
+    ("us_ein",               "us_ein",               ()),
+    ("gstin",                "gstin",                ()),
+    ("swiss_uid",            "swiss_uid",            ()),
+    ("au_abn",               "au_abn",               ()),
+    ("mx_rfc",               "mx_rfc",               ()),
+    ("jp_mynumber",          "jp_mynumber",          ()),
 ]
 
 

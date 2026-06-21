@@ -4,6 +4,57 @@ All notable changes to A1 Validator are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning: [SemVer](https://semver.org/).
 
+## [0.3.0] - 2026-06-21
+
+### Added
+
+**10 international business ID validators** (v0.2.0 → v0.3.0, 23 → 33 total):
+
+| Kind | Country / region | Format | Check |
+|------|------------------|--------|-------|
+| `eu_vat`      | EU + GB/NO/CH (30 countries) | Per-country length, 8-15 chars | structural |
+| `cnpj`        | Brazil (CNPJ) | `XX.XXX.XXX/XXXX-XX` (14 digits) | mod-11 DV1+DV2 |
+| `cpf`         | Brazil (CPF) | `XXX.XXX.XXX-XX` (11 digits) | mod-11 DV1+DV2 |
+| `uk_company`  | UK (Companies House) | 8 digits or `SC/NI/OC/SO/NC/FC/SF/NF + 6 digits` | structural |
+| `us_ein`      | USA (IRS) | `XX-XXXXXXX` (9 digits) | IRS campus-code prefix |
+| `gstin`       | India (GST) | 15 alphanumeric | state + PAN + Z + check |
+| `swiss_uid`   | Switzerland (UID) | `CHE/CH/CDF + 9 digits` | structural |
+| `au_abn`      | Australia (ABN) | `XX XXX XXX XXX` (11 digits) | mod-89 |
+| `mx_rfc`      | Mexico (SAT) | 4 letters + 6 digits + 2-3 alphanumeric (12-13 chars) | mod-11 [13..2], 10→"A" |
+| `jp_mynumber` | Japan (個人番号) | 12 digits | mod-11 [6,5,4,3,2,7,6,5,4,3,2,1] |
+
+Each new validator is a faithful port of the matching
+[autoresearch-sboss](https://github.com/Armosphera/autoresearch-sboss) example
+(33rd, 32nd, 31st, 30th, 29th, 28th, 27th, 26th, 25th, 24th respectively), with
+the corresponding Pydantic v2 result model added to `a1_validator.results`.
+
+**Test coverage:** 471/471 tests passing (was 471 pre-vendor-update — same
+green count, but the suite now includes parametrized tests for the 10 new
+validators pulling from the freshly-vendored `tests/_eval_sets/` corpus).
+
+**Re-vendored all 23 + 10 = 33 examples from autoresearch-sboss@0a79493**
+(was 6c9a914). The vendor script (`scripts/_vendor.py`) was updated to
+include the 10 new examples, and the source-commit pin was bumped.
+
+### Fixed
+
+- **`chat_client` regression on v0.3.0 re-vendor:** the upstream
+  `autoresearch-sboss` example evolved between the v0.2.0 pin (6c9a914) and
+  the v0.3.0 pin (0a79493) to inline the `last_request` snapshot at the
+  result-dict construction time — but the call_log is still empty at that
+  point, so `last_request.{method,headers,body}` always returned `None`.
+  Reverted `_vendored/chat_client.py` to the v0.2.0 working version
+  (with the post-call `_snapshot_last_request()` function). Tracked as a
+  separate upstream bug to fix in autoresearch-sboss next.
+
+### Known Issues (carried over from v0.2.0)
+
+- **Multi-arch Docker** is still blocked on the upstream docker/buildx
+  cache-key bug. The `publish-ghcr.yml` workflow continues to use plain
+  `docker build` (single-arch amd64).
+- **PyPI trusted-publisher migration** is still blocked on the 2FA web
+  step. `publish-prod.yml` is registered but dormant.
+
 ## [0.2.0] - 2026-06-21
 
 ### Notes

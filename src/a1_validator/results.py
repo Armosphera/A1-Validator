@@ -261,6 +261,94 @@ class InvoiceResult(_BaseResult):
     tax_id: str | None = None
 
 
+# ---------------------------------------------------------------------------
+# 10 international business ID validators (added in v0.3.0).
+# Each follows the { ok, normalized, error } contract from the upstream
+# autoresearch-sboss example — minimal typed shape with `extra="allow"`.
+# ---------------------------------------------------------------------------
+
+
+class EuVatResult(_BaseResult):
+    """Output of `a1_validator.eu_vat()` — EU VATIN (28 EU + GB/NO/CH)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    country: str | None = None
+    error: str | None = None
+
+
+class CnpjResult(_BaseResult):
+    """Output of `a1_validator.cnpj()` — Brazilian CNPJ (Receita Federal)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class CpfResult(_BaseResult):
+    """Output of `a1_validator.cpf()` — Brazilian CPF (Receita Federal)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class UkCompanyResult(_BaseResult):
+    """Output of `a1_validator.uk_company()` — UK Company Number (Companies House)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class UsEinResult(_BaseResult):
+    """Output of `a1_validator.us_ein()` — US EIN (IRS)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class GstinResult(_BaseResult):
+    """Output of `a1_validator.gstin()` — India GSTIN."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class SwissUidResult(_BaseResult):
+    """Output of `a1_validator.swiss_uid()` — Swiss UID (Unternehmens-Identifikationsnummer)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class AuAbnResult(_BaseResult):
+    """Output of `a1_validator.au_abn()` — Australian Business Number (ATO)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class MxRfcResult(_BaseResult):
+    """Output of `a1_validator.mx_rfc()` — Mexico RFC (SAT)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class JpMynumberResult(_BaseResult):
+    """Output of `a1_validator.jp_mynumber()` — Japan My Number (個人番号)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
 # Mapping: public validator name -> Pydantic result model.
 # Used by `a1_validator.validate(kind, value)` to coerce the dict result into
 # the matching typed model.
@@ -288,6 +376,17 @@ RESULT_MODELS: dict[str, type[_BaseResult]] = {
     "open_notebook":        OpenNotebookResult,
     "product_research":     ProductResearchResult,
     "invoice":              InvoiceResult,
+    # 10 international business ID validators (v0.3.0)
+    "eu_vat":               EuVatResult,
+    "cnpj":                 CnpjResult,
+    "cpf":                  CpfResult,
+    "uk_company":           UkCompanyResult,
+    "us_ein":               UsEinResult,
+    "gstin":                GstinResult,
+    "swiss_uid":            SwissUidResult,
+    "au_abn":               AuAbnResult,
+    "mx_rfc":               MxRfcResult,
+    "jp_mynumber":          JpMynumberResult,
 }
 
 
@@ -316,5 +415,15 @@ __all__ = [
     "OpenNotebookResult",
     "ProductResearchResult",
     "InvoiceResult",
+    "EuVatResult",
+    "CnpjResult",
+    "CpfResult",
+    "UkCompanyResult",
+    "UsEinResult",
+    "GstinResult",
+    "SwissUidResult",
+    "AuAbnResult",
+    "MxRfcResult",
+    "JpMynumberResult",
     "RESULT_MODELS",
 ]

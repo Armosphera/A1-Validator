@@ -1,4 +1,4 @@
-"""Pytest suite for the 23 SBOSS validators vendored under a1_validator.
+"""Pytest suite for the 33 SBOSS sovereign business ID validators vendored under a1_validator.
 
 Each ``test_<name>`` function loads ``tests/_eval_sets/<name>.json`` (a
 verbatim copy of the upstream autoresearch-sboss eval_set.json) and asserts
@@ -239,9 +239,9 @@ def test_invoice(input_data, expected):
 
 def test_list_kinds_returns_23_canonical_names():
     kinds = a1_validator.list_kinds()
-    assert len(kinds) == 23
+    assert len(kinds) == 33
     assert kinds[0] == "hhvh"
-    assert kinds[-1] == "invoice"
+    assert kinds[-1] == "jp_mynumber"
     # No alias leakage into the canonical list.
     assert "identifier" not in kinds
     assert "ru_identifiers" not in kinds
