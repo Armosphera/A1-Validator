@@ -25,9 +25,21 @@ from __future__ import annotations
 # doesn't help — `from . import results` puts `results` into sys.modules
 # and Python exposes it as an attribute of this package).
 import importlib as _importlib
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
 from typing import Any
 
 _results = _importlib.import_module("a1_validator.results")
+
+__version__ = "0.0.0+local"  # overridden below from package metadata
+try:
+    __version__ = _pkg_version("a1-validator")
+except PackageNotFoundError:
+    # Package not installed (e.g. running from a source checkout) — fall
+    # back to the sentinel above. CI / publish always installs the
+    # wheel, so this branch only matters for `python -c 'import ...'`
+    # from a git clone.
+    pass
 
 from ._port import (  # noqa: E402
     _VALIDATE_TABLE,
@@ -101,18 +113,6 @@ for _model_name in dir(_results):
     if _model_name.endswith("Result") and not _model_name.startswith("_"):
         globals()[_model_name] = getattr(_results, _model_name)
 
-
-from importlib.metadata import PackageNotFoundError, version as _pkg_version
-
-__version__ = "0.0.0+local"  # overridden below from package metadata
-try:
-    __version__ = _pkg_version("a1-validator")
-except PackageNotFoundError:
-    # Package not installed (e.g. running from a source checkout) — fall
-    # back to the sentinel above. CI / publish always installs the
-    # wheel, so this branch only matters for `python -c 'import ...'`
-    # from a git clone.
-    pass
 
 __all__ = [
     # 23 validator functions

@@ -593,7 +593,7 @@ def serve(
     """
     try:
         import uvicorn
-    except ImportError:
+    except ImportError as _exc:
         typer.echo(
             "Error: the 'serve' subcommand requires the [server] extras.\n"
             "\n"
@@ -604,7 +604,7 @@ def serve(
             "    pip install \"a1-validator[all]\"",
             err=True,
         )
-        raise typer.Exit(code=1)
+        raise typer.Exit(code=1) from _exc
 
     uvicorn.run(
         "a1_validator.server:app",

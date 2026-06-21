@@ -46,12 +46,11 @@ import re
 import shutil
 import subprocess
 import sys
-import tomllib
 import venv
 from pathlib import Path
 
 import pytest
-
+import tomllib
 
 # ---------------------------------------------------------------------------
 # Helpers

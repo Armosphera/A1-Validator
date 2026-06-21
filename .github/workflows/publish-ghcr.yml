@@ -50,8 +50,13 @@ jobs:
           # Build a space-separated tag list for `docker tag`
           TAGS_SPACE=$(echo "$TAG_LIST" | tr '\n' ' ')
           echo "Building image with tags: $TAGS_SPACE"
+          # Strip the leading 'v' from the tag (e.g. v0.1.5 → 0.1.5) so the
+          # Dockerfile's `ARG VERSION=...` matches the wheel built by
+          # `python -m build` inside the builder stage.
+          VERSION="${GITHUB_REF_NAME#v}"
           docker build \
             --tag "ghcr.io/armosphera/a1-validator:build-tmp" \
+            --build-arg "VERSION=${VERSION}" \
             --label org.opencontainers.image.title=a1-validator \
             --label org.opencontainers.image.description="23 SBOSS sovereign business ID validators" \
             --label org.opencontainers.image.source=https://github.com/Armosphera/A1-Validator \
