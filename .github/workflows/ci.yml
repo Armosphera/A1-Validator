@@ -31,15 +31,17 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
-      - name: Install package with server extras
-        # [server] pulls in FastAPI + uvicorn so the in-tree TestClient-based
-        # server tests can run (httpx is needed for starlette.testclient too —
-        # `pip` resolves it transitively from fastapi's test extra in most
-        # versions, but we pin it explicitly here to be safe).
+      - name: Install package + test deps
+        # `.[server]` pulls in FastAPI + uvicorn so the in-tree
+        # TestClient-based server tests can run. `httpx2` (the
+        # renamed httpx) is required by starlette 1.x's testclient —
+        # not auto-resolved by pip from fastapi's test extra.
+        # `.[dev]` would also work but installs mypy + ruff, which
+        # are installed explicitly below.
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[server]"
-          python -m pip install pytest pytest-cov ruff mypy
+          python -m pip install pytest pytest-cov ruff mypy httpx2
 
       - name: Lint with ruff
         # Loose ruleset — `ruff check` only, no formatter enforcement yet.
