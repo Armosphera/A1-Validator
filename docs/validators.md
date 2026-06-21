@@ -39,6 +39,10 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 | 31 | `au_abn` | Australian Business Number (11 digits, mod-89 check) | `error, normalized, ok` |
 | 32 | `mx_rfc` | Mexico RFC (12-13 chars, SAT mod-11 verification digit) | `error, normalized, ok` |
 | 33 | `jp_mynumber` | Japan My Number (12 digits, mod-11 check, 個人番号) | `error, normalized, ok` |
+| 34 | `ar_cuit` | Argentina CUIT/CUIL (11 digits, AFIP mod-11) | `error, normalized, ok` |
+| 35 | `cl_rut` | Chile RUT (7-8 digits + check, SII mod-11 right-to-left) | `error, normalized, ok` |
+| 36 | `sg_uen` | Singapore UEN (9-10 alphanumeric, ACRA-internal check letter) | `error, normalized, ok` |
+| 37 | `kr_brn` | Korea BRN (10 digits, 3-2-5 format, NTS structural) | `error, normalized, ok` |
 
 ## Per-kind reference
 
@@ -1106,6 +1110,94 @@ Auto-generated reference for every public validator in `a1_validator`. The table
 - **Aliases**: —
 - **Example source**: `(no vendored eval set)`
 - **Pydantic result model**: `a1_validator.JpMynumberResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 34. `ar_cuit`
+
+**Argentina CUIT/CUIL (11 digits, AFIP mod-11)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.ArCuitResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 35. `cl_rut`
+
+**Chile RUT (7-8 digits + check, SII mod-11 right-to-left)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.ClRutResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 36. `sg_uen`
+
+**Singapore UEN (9-10 alphanumeric, ACRA-internal check letter)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.SgUenResult`
+
+**Example input**
+
+```json
+"<see docs>"
+```
+
+**Example output**
+
+```json
+{
+  "error": "AttributeError: 'str' object has no attribute 'get'"
+}
+```
+
+### 37. `kr_brn`
+
+**Korea BRN (10 digits, 3-2-5 format, NTS structural)**
+
+- **Aliases**: —
+- **Example source**: `(no vendored eval set)`
+- **Pydantic result model**: `a1_validator.KrBrnResult`
 
 **Example input**
 

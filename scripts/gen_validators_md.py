@@ -78,7 +78,13 @@ VALIDATOR_DESCRIPTIONS: dict[str, str] = {
     "au_abn":      "Australian Business Number (11 digits, mod-89 check)",
     "mx_rfc":      "Mexico RFC (12-13 chars, SAT mod-11 verification digit)",
     "jp_mynumber": "Japan My Number (12 digits, mod-11 check, 個人番号)",
+    # 4 more international business ID validators (v0.4.0)
+    "ar_cuit":     "Argentina CUIT/CUIL (11 digits, AFIP mod-11)",
+    "cl_rut":      "Chile RUT (7-8 digits + check, SII mod-11 right-to-left)",
+    "sg_uen":      "Singapore UEN (9-10 alphanumeric, ACRA-internal check letter)",
+    "kr_brn":      "Korea BRN (10 digits, 3-2-5 format, NTS structural)",
 }
+
 
 
 # ---------------------------------------------------------------------------

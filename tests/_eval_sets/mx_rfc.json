@@ -1,0 +1,16 @@
+[
+  { "input": { "rfc": "ABCD010101AA" }, "expected": { "ok": true,  "normalized": "ABCD010101AA", "error": null } },
+  { "input": { "rfc": "AAAA010101AA0" }, "expected": { "ok": true,  "normalized": "AAAA010101AA0", "error": null } },
+  { "input": { "rfc": "abcd 010101 aa" }, "expected": { "ok": true, "normalized": "ABCD010101AA", "error": null } },
+  { "input": { "rfc": "ABCD-010101-AA" }, "expected": { "ok": true, "normalized": "ABCD010101AA", "error": null } },
+  { "input": { "rfc": "ABCD010101AAA" }, "expected": { "ok": false, "normalized": "ABCD010101AAA", "error": "RFC check digit is invalid" } },
+  { "input": { "rfc": "" }, "expected": { "ok": false, "normalized": "", "error": "RFC is required" } },
+  { "input": { "rfc": "   " }, "expected": { "ok": false, "normalized": "", "error": "RFC is required" } },
+  { "input": { "rfc": null }, "expected": { "ok": false, "normalized": "", "error": "RFC is required" } },
+  { "input": { "rfc": "ABCD010101A" }, "expected": { "ok": false, "normalized": "ABCD010101A", "error": "RFC must be 12 or 13 characters, got 11" } },
+  { "input": { "rfc": "ABCD010101AAAA" }, "expected": { "ok": false, "normalized": "ABCD010101AAAA", "error": "RFC must be 12 or 13 characters, got 14" } },
+  { "input": { "rfc": "12-010101-AA" }, "expected": { "ok": false, "normalized": "12010101AA", "error": "RFC must be 12 or 13 characters, got 10" } },
+  { "input": { "rfc": "ABCDEFGHIJAA" }, "expected": { "ok": false, "normalized": "ABCDEFGHIJAA", "error": "RFC must have 4 letters followed by 6 digits" } },
+  { "input": { "rfc": "ABCD010101!" }, "expected": { "ok": false, "normalized": "ABCD010101!", "error": "RFC must be alphanumeric" } },
+  { "input": { "rfc": "AAAAAAAAAAAA" }, "expected": { "ok": false, "normalized": "AAAAAAAAAAAA", "error": "RFC is invalid (all characters are the same)" } }
+]

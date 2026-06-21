@@ -15,7 +15,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 AUTORESEARCH = REPO_ROOT.parent / "autoresearch-sboss"
 VENDORED_DIR = REPO_ROOT / "src" / "a1_validator" / "_vendored"
-SOURCE_COMMIT = "0a7949309c0380e921977f006689bab85ee2e9f8"
+SOURCE_COMMIT = "7a4bb9a5bed9669801070b9c022d27b7d7b625e7"
 
 # (example_name, source_path_relative_to_autoresearch)
 EXAMPLES = [
@@ -52,7 +52,12 @@ EXAMPLES = [
     ("au_abn",              "examples/au-abn/workflow.py"),
     ("mx_rfc",              "examples/mx-rfc/workflow.py"),
     ("jp_mynumber",         "examples/jp-mynumber/workflow.py"),
+    ("ar_cuit",             "examples/ar-cuit/workflow.py"),
+    ("cl_rut",              "examples/cl-rut/workflow.py"),
+    ("sg_uen",              "examples/sg-uen/workflow.py"),
+    ("kr_brn",              "examples/kr-brn/workflow.py"),
 ]
+
 
 
 
@@ -140,6 +145,9 @@ def main() -> int:
     VENDORED_DIR.mkdir(parents=True, exist_ok=True)
 
     for name, rel in EXAMPLES:
+        if name in SKIP_VENDOR:
+            print(f"skipping {rel} (pinned in {name}.py)")
+            continue
         src_path = AUTORESEARCH / rel
         if not src_path.exists():
             print(f"missing: {src_path}", file=sys.stderr)
@@ -176,9 +184,14 @@ def main() -> int:
     eval_dir.mkdir(parents=True, exist_ok=True)
     for name, rel in EXAMPLES:
         # The eval_set path is parallel to the workflow path: strip the
-        # trailing workflow.py and append eval_set.json.
-        example_dir = rel.rsplit("/", 1)[0]
-        src = AUTORESEARCH / example_dir / "eval_set.json"
+        # trailing workflow.py and append eval_set.json. The "invoice"
+        # example lives at the repo root (not in examples/) — special-case
+        # it to use the top-level eval_set.json.
+        if name == "invoice":
+            src = AUTORESEARCH / "eval_set.json"
+        else:
+            example_dir = rel.rsplit("/", 1)[0]
+            src = AUTORESEARCH / example_dir / "eval_set.json"
         if not src.exists():
             print(f"missing eval_set: {src}", file=sys.stderr)
             return 1

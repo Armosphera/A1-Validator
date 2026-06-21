@@ -232,6 +232,76 @@ def test_invoice(input_data, expected):
     assert _matches(a1_validator.invoice(input_data), expected)
 
 
+@pytest.mark.parametrize("input_data, expected", _make_cases("eu_vat"))
+def test_eu_vat(input_data, expected):
+    assert _matches(a1_validator.eu_vat(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("cnpj"))
+def test_cnpj(input_data, expected):
+    assert _matches(a1_validator.cnpj(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("cpf"))
+def test_cpf(input_data, expected):
+    assert _matches(a1_validator.cpf(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("uk_company"))
+def test_uk_company(input_data, expected):
+    assert _matches(a1_validator.uk_company(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("us_ein"))
+def test_us_ein(input_data, expected):
+    assert _matches(a1_validator.us_ein(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("gstin"))
+def test_gstin(input_data, expected):
+    assert _matches(a1_validator.gstin(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("swiss_uid"))
+def test_swiss_uid(input_data, expected):
+    assert _matches(a1_validator.swiss_uid(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("au_abn"))
+def test_au_abn(input_data, expected):
+    assert _matches(a1_validator.au_abn(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("mx_rfc"))
+def test_mx_rfc(input_data, expected):
+    assert _matches(a1_validator.mx_rfc(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("jp_mynumber"))
+def test_jp_mynumber(input_data, expected):
+    assert _matches(a1_validator.jp_mynumber(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("ar_cuit"))
+def test_ar_cuit(input_data, expected):
+    assert _matches(a1_validator.ar_cuit(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("cl_rut"))
+def test_cl_rut(input_data, expected):
+    assert _matches(a1_validator.cl_rut(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("sg_uen"))
+def test_sg_uen(input_data, expected):
+    assert _matches(a1_validator.sg_uen(input_data), expected)
+
+
+@pytest.mark.parametrize("input_data, expected", _make_cases("kr_brn"))
+def test_kr_brn(input_data, expected):
+    assert _matches(a1_validator.kr_brn(input_data), expected)
+
+
 # ---------------------------------------------------------------------------
 # Meta-tests: dispatcher + canonical-name enumeration + model_for() path.
 # ---------------------------------------------------------------------------
@@ -239,9 +309,9 @@ def test_invoice(input_data, expected):
 
 def test_list_kinds_returns_23_canonical_names():
     kinds = a1_validator.list_kinds()
-    assert len(kinds) == 33
+    assert len(kinds) == 37
     assert kinds[0] == "hhvh"
-    assert kinds[-1] == "jp_mynumber"
+    assert kinds[-1] == "kr_brn"
     # No alias leakage into the canonical list.
     assert "identifier" not in kinds
     assert "ru_identifiers" not in kinds

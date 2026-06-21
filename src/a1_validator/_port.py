@@ -58,6 +58,11 @@ _VALIDATORS: list[tuple[str, str, tuple[str, ...]]] = [
     ("au_abn",               "au_abn",               ()),
     ("mx_rfc",               "mx_rfc",               ()),
     ("jp_mynumber",          "jp_mynumber",          ()),
+    # 4 more international business ID validators (added in v0.4.0)
+    ("ar_cuit",              "ar_cuit",              ()),
+    ("cl_rut",               "cl_rut",               ()),
+    ("sg_uen",               "sg_uen",               ()),
+    ("kr_brn",               "kr_brn",               ()),
 ]
 
 

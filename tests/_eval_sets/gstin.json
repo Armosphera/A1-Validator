@@ -1,0 +1,14 @@
+[
+  { "input": { "gstin": "22AAAAA0000A1Z5" }, "expected": { "ok": true,  "normalized": "22AAAAA0000A1Z5", "error": null } },
+  { "input": { "gstin": "27AAACI9466C1Z5" }, "expected": { "ok": true,  "normalized": "27AAACI9466C1Z5", "error": null } },
+  { "input": { "gstin": "22 aaaaa 0000 a1z5" }, "expected": { "ok": true, "normalized": "22AAAAA0000A1Z5", "error": null } },
+  { "input": { "gstin": "" }, "expected": { "ok": false, "normalized": "", "error": "GSTIN is required" } },
+  { "input": { "gstin": "   " }, "expected": { "ok": false, "normalized": "", "error": "GSTIN is required" } },
+  { "input": { "gstin": null }, "expected": { "ok": false, "normalized": "", "error": "GSTIN is required" } },
+  { "input": { "gstin": "22AAAAA0000A1Z" }, "expected": { "ok": false, "normalized": "22AAAAA0000A1Z", "error": "GSTIN must be 15 characters, got 14" } },
+  { "input": { "gstin": "22AAAAA0000A1Z55" }, "expected": { "ok": false, "normalized": "22AAAAA0000A1Z55", "error": "GSTIN must be 15 characters, got 16" } },
+  { "input": { "gstin": "22-AAAAA-0000-A1Z5" }, "expected": { "ok": true, "normalized": "22AAAAA0000A1Z5", "error": null } },
+  { "input": { "gstin": "22AAAAA0000A1Z!" }, "expected": { "ok": false, "normalized": "22AAAAA0000A1Z!", "error": "GSTIN must be alphanumeric" } },
+  { "input": { "gstin": "000000000000000" }, "expected": { "ok": false, "normalized": "000000000000000", "error": "GSTIN is invalid (all characters are the same)" } },
+  { "input": { "gstin": "AAAAAAAAAAAAAAA" }, "expected": { "ok": false, "normalized": "AAAAAAAAAAAAAAA", "error": "GSTIN is invalid (all characters are the same)" } }
+]

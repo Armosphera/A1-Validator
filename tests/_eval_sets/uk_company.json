@@ -1,0 +1,15 @@
+[
+  { "input": { "uk_company": "12345678" }, "expected": { "ok": true,  "normalized": "12345678", "error": null } },
+  { "input": { "uk_company": "SC123456" }, "expected": { "ok": true,  "normalized": "SC123456", "error": null } },
+  { "input": { "uk_company": "NI123456" }, "expected": { "ok": true,  "normalized": "NI123456", "error": null } },
+  { "input": { "uk_company": "OC123456" }, "expected": { "ok": true,  "normalized": "OC123456", "error": null } },
+  { "input": { "uk_company": "sc123456" }, "expected": { "ok": true, "normalized": "SC123456", "error": null } },
+  { "input": { "uk_company": "  12345678  " }, "expected": { "ok": true, "normalized": "12345678", "error": null } },
+  { "input": { "uk_company": "" }, "expected": { "ok": false, "normalized": "", "error": "UK Company Number is required" } },
+  { "input": { "uk_company": "   " }, "expected": { "ok": false, "normalized": "", "error": "UK Company Number is required" } },
+  { "input": { "uk_company": null }, "expected": { "ok": false, "normalized": "", "error": "UK Company Number is required" } },
+  { "input": { "uk_company": "1234567" }, "expected": { "ok": false, "normalized": "1234567", "error": "UK Company Number must be 8 characters, got 7" } },
+  { "input": { "uk_company": "123456789" }, "expected": { "ok": false, "normalized": "123456789", "error": "UK Company Number must be 8 characters, got 9" } },
+  { "input": { "uk_company": "AB123456" }, "expected": { "ok": false, "normalized": "AB123456", "error": "UK Company Number has an invalid format (must be 8 digits or SC/NI/OC/SO/NC/FC/SF/NF + 6 digits)" } },
+  { "input": { "uk_company": "12A45678" }, "expected": { "ok": false, "normalized": "12A45678", "error": "UK Company Number has an invalid format (must be 8 digits or SC/NI/OC/SO/NC/FC/SF/NF + 6 digits)" } }
+]

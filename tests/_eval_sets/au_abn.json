@@ -1,0 +1,15 @@
+[
+  { "input": { "abn": "33 102 417 032" }, "expected": { "ok": true,  "normalized": "33102417032", "error": null } },
+  { "input": { "abn": "51 824 753 556" }, "expected": { "ok": true,  "normalized": "51824753556", "error": null } },
+  { "input": { "abn": "83 914 571 673" }, "expected": { "ok": true,  "normalized": "83914571673", "error": null } },
+  { "input": { "abn": "33102417032" }, "expected": { "ok": true, "normalized": "33102417032", "error": null } },
+  { "input": { "abn": "" }, "expected": { "ok": false, "normalized": "", "error": "ABN is required" } },
+  { "input": { "abn": "   " }, "expected": { "ok": false, "normalized": "", "error": "ABN is required" } },
+  { "input": { "abn": null }, "expected": { "ok": false, "normalized": "", "error": "ABN is required" } },
+  { "input": { "abn": "33 102 417 03" }, "expected": { "ok": false, "normalized": "3310241703", "error": "ABN must be 11 digits, got 10" } },
+  { "input": { "abn": "33 102 417 0321" }, "expected": { "ok": false, "normalized": "331024170321", "error": "ABN must be 11 digits, got 12" } },
+  { "input": { "abn": "33 102 417 03A" }, "expected": { "ok": false, "normalized": "3310241703A", "error": "ABN must contain only digits" } },
+  { "input": { "abn": "01 234 567 890" }, "expected": { "ok": false, "normalized": "01234567890", "error": "ABN cannot start with 0 (leading-zero is reserved for ACN)" } },
+  { "input": { "abn": "00000000000" }, "expected": { "ok": false, "normalized": "00000000000", "error": "ABN is invalid (all digits are the same)" } },
+  { "input": { "abn": "11111111111" }, "expected": { "ok": false, "normalized": "11111111111", "error": "ABN is invalid (all digits are the same)" } }
+]

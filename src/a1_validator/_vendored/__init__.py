@@ -15,10 +15,12 @@ License: MIT
 from __future__ import annotations
 
 from . import (
+    ar_cuit,
     au_abn,
     chart_of_accounts_am,
     chart_of_accounts_ru,
     chat_client,
+    cl_rut,
     cnpj,
     cpf,
     einvoice_am,
@@ -27,6 +29,7 @@ from . import (
     hhvh,
     invoice,
     jp_mynumber,
+    kr_brn,
     model_catalog,
     model_policy,
     mx_rfc,
@@ -41,6 +44,7 @@ from . import (
     ru_einvoice,
     ru_identifiers,
     settings_store,
+    sg_uen,
     supplemental_sources,
     swiss_uid,
     uk_company,
@@ -51,10 +55,12 @@ from . import (
 )
 
 __all__ = [
+    "ar_cuit",
     "au_abn",
     "chart_of_accounts_am",
     "chart_of_accounts_ru",
     "chat_client",
+    "cl_rut",
     "cnpj",
     "cpf",
     "einvoice_am",
@@ -63,6 +69,7 @@ __all__ = [
     "hhvh",
     "invoice",
     "jp_mynumber",
+    "kr_brn",
     "model_catalog",
     "model_policy",
     "mx_rfc",
@@ -77,6 +84,7 @@ __all__ = [
     "ru_einvoice",
     "ru_identifiers",
     "settings_store",
+    "sg_uen",
     "supplemental_sources",
     "swiss_uid",
     "uk_company",

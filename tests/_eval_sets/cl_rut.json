@@ -1,0 +1,14 @@
+[
+  { "input": { "rut": "18550123-K" }, "expected": { "ok": true,  "normalized": "18550123K", "error": null } },
+  { "input": { "rut": "12345678-5" }, "expected": { "ok": true,  "normalized": "123456785", "error": null } },
+  { "input": { "rut": "18.550.123-K" }, "expected": { "ok": true, "normalized": "18550123K", "error": null } },
+  { "input": { "rut": "18550123K" }, "expected": { "ok": true, "normalized": "18550123K", "error": null } },
+  { "input": { "rut": "" }, "expected": { "ok": false, "normalized": "", "error": "RUT is required" } },
+  { "input": { "rut": "   " }, "expected": { "ok": false, "normalized": "", "error": "RUT is required" } },
+  { "input": { "rut": null }, "expected": { "ok": false, "normalized": "", "error": "RUT is required" } },
+  { "input": { "rut": "1234567" }, "expected": { "ok": false, "normalized": "1234567", "error": "RUT must be 7-8 digits followed by a check digit (0-9 or K)" } },
+  { "input": { "rut": "1234567890" }, "expected": { "ok": false, "normalized": "1234567890", "error": "RUT must be 7-8 digits followed by a check digit (0-9 or K)" } },
+  { "input": { "rut": "18550123-A" }, "expected": { "ok": false, "normalized": "18550123A", "error": "RUT must be 7-8 digits followed by a check digit (0-9 or K)" } },
+  { "input": { "rut": "0000000-0" }, "expected": { "ok": false, "normalized": "00000000", "error": "RUT is invalid (all digits in the body are the same)" } },
+  { "input": { "rut": "11111111-1" }, "expected": { "ok": false, "normalized": "111111111", "error": "RUT is invalid (all digits in the body are the same)" } }
+]

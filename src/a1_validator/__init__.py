@@ -125,6 +125,8 @@ __all__ = [
     # 10 international business ID validators (added in v0.3.0)
     "eu_vat", "cnpj", "cpf", "uk_company", "us_ein", "gstin",
     "swiss_uid", "au_abn", "mx_rfc", "jp_mynumber",
+    # 4 more international business ID validators (added in v0.4.0)
+    "ar_cuit", "cl_rut", "sg_uen", "kr_brn",
     # Dispatcher + helpers
     "validate", "model_for", "list_kinds", "get_validator",
     "RESULTS", "RESULT_MODELS",
@@ -136,10 +138,12 @@ __all__ = [
     "RegionsRuResult", "ChartOfAccountsRuResult", "VatRuResult",
     "SettingsStoreResult", "ModelCatalogResult", "SupplementalSourcesResult",
     "OpenNotebookResult", "ProductResearchResult", "InvoiceResult",
-    # 10 Pydantic models for international business ID validators
+    # 10 Pydantic models for international business ID validators (v0.3.0)
     "EuVatResult", "CnpjResult", "CpfResult", "UkCompanyResult",
     "UsEinResult", "GstinResult", "SwissUidResult", "AuAbnResult",
     "MxRfcResult", "JpMynumberResult",
+    # 4 Pydantic models for international business ID validators (v0.4.0)
+    "ArCuitResult", "ClRutResult", "SgUenResult", "KrBrnResult",
     "__version__",
 ]
 

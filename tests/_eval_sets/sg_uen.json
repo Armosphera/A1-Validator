@@ -1,0 +1,16 @@
+[
+  { "input": { "uen": "201912345A" }, "expected": { "ok": true,  "normalized": "201912345A", "error": null } },
+  { "input": { "uen": "201912345B" }, "expected": { "ok": true,  "normalized": "201912345B", "error": null } },
+  { "input": { "uen": "2019 12345 A" }, "expected": { "ok": true, "normalized": "201912345A", "error": null } },
+  { "input": { "uen": "2019-12345-A" }, "expected": { "ok": true, "normalized": "201912345A", "error": null } },
+  { "input": { "uen": "2019123456" }, "expected": { "ok": true,  "normalized": "2019123456", "error": null } },
+  { "input": { "uen": "" }, "expected": { "ok": false, "normalized": "", "error": "UEN is required" } },
+  { "input": { "uen": "   " }, "expected": { "ok": false, "normalized": "", "error": "UEN is required" } },
+  { "input": { "uen": null }, "expected": { "ok": false, "normalized": "", "error": "UEN is required" } },
+  { "input": { "uen": "2019123A" }, "expected": { "ok": false, "normalized": "2019123A", "error": "UEN must be 9 or 10 characters, got 8" } },
+  { "input": { "uen": "2019123456X" }, "expected": { "ok": false, "normalized": "2019123456X", "error": "UEN must be 9 or 10 characters, got 11" } },
+  { "input": { "uen": "2019123456A" }, "expected": { "ok": false, "normalized": "2019123456A", "error": "UEN must be 9 or 10 characters, got 11" } },
+  { "input": { "uen": "2019123-5" }, "expected": { "ok": false, "normalized": "20191235", "error": "UEN must be 9 or 10 characters, got 8" } },
+  { "input": { "uen": "AAAAAAAAA" }, "expected": { "ok": false, "normalized": "AAAAAAAAA", "error": "UEN is invalid (all characters are the same)" } },
+  { "input": { "uen": "201912345!" }, "expected": { "ok": false, "normalized": "201912345!", "error": "UEN must be alphanumeric" } }
+]

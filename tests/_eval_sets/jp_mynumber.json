@@ -1,0 +1,14 @@
+[
+  { "input": { "mynumber": "123456 789 014" }, "expected": { "ok": true,  "normalized": "123456789014", "error": null } },
+  { "input": { "mynumber": "123-456-789-014" }, "expected": { "ok": true,  "normalized": "123456789014", "error": null } },
+  { "input": { "mynumber": "123456789014" }, "expected": { "ok": true,  "normalized": "123456789014", "error": null } },
+  { "input": { "mynumber": "" }, "expected": { "ok": false, "normalized": "", "error": "My Number is required" } },
+  { "input": { "mynumber": "   " }, "expected": { "ok": false, "normalized": "", "error": "My Number is required" } },
+  { "input": { "mynumber": null }, "expected": { "ok": false, "normalized": "", "error": "My Number is required" } },
+  { "input": { "mynumber": "12345678901" }, "expected": { "ok": false, "normalized": "12345678901", "error": "My Number must be 12 digits, got 11" } },
+  { "input": { "mynumber": "1234567890123" }, "expected": { "ok": false, "normalized": "1234567890123", "error": "My Number must be 12 digits, got 13" } },
+  { "input": { "mynumber": "12345A789014" }, "expected": { "ok": false, "normalized": "12345A789014", "error": "My Number must contain only digits" } },
+  { "input": { "mynumber": "023456789014" }, "expected": { "ok": false, "normalized": "023456789014", "error": "My Number cannot start with 0" } },
+  { "input": { "mynumber": "000000000000" }, "expected": { "ok": false, "normalized": "000000000000", "error": "My Number is invalid (all digits are the same)" } },
+  { "input": { "mynumber": "111111111111" }, "expected": { "ok": false, "normalized": "111111111111", "error": "My Number is invalid (all digits are the same)" } }
+]

@@ -1,0 +1,14 @@
+[
+  { "input": { "cnpj": "11222333000181" }, "expected": { "ok": true,  "normalized": "11222333000181", "error": null } },
+  { "input": { "cnpj": "00000000000191" }, "expected": { "ok": true,  "normalized": "00000000000191", "error": null } },
+  { "input": { "cnpj": "11.222.333/0001-81" }, "expected": { "ok": true, "normalized": "11222333000181", "error": null } },
+  { "input": { "cnpj": "11 222 333 0001 81" }, "expected": { "ok": true, "normalized": "11222333000181", "error": null } },
+  { "input": { "cnpj": "" }, "expected": { "ok": false, "normalized": "", "error": "CNPJ is required" } },
+  { "input": { "cnpj": "   " }, "expected": { "ok": false, "normalized": "", "error": "CNPJ is required" } },
+  { "input": { "cnpj": null }, "expected": { "ok": false, "normalized": "", "error": "CNPJ is required" } },
+  { "input": { "cnpj": "1122233300018" }, "expected": { "ok": false, "normalized": "1122233300018", "error": "CNPJ must be 14 digits, got 13" } },
+  { "input": { "cnpj": "112223330001811" }, "expected": { "ok": false, "normalized": "112223330001811", "error": "CNPJ must be 14 digits, got 15" } },
+  { "input": { "cnpj": "11A22333000181" }, "expected": { "ok": false, "normalized": "11A22333000181", "error": "CNPJ must contain only digits" } },
+  { "input": { "cnpj": "00000000000000" }, "expected": { "ok": false, "normalized": "00000000000000", "error": "CNPJ is invalid (all digits are the same)" } },
+  { "input": { "cnpj": "11111111111111" }, "expected": { "ok": false, "normalized": "11111111111111", "error": "CNPJ is invalid (all digits are the same)" } }
+]

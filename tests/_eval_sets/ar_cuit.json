@@ -1,0 +1,14 @@
+[
+  { "input": { "cuit": "20-12345678-6" }, "expected": { "ok": true,  "normalized": "20123456786", "error": null } },
+  { "input": { "cuit": "30-12345678-1" }, "expected": { "ok": true,  "normalized": "30123456781", "error": null } },
+  { "input": { "cuit": "23 12345678 5" }, "expected": { "ok": true,  "normalized": "23123456785", "error": null } },
+  { "input": { "cuit": "20123456786" }, "expected": { "ok": true, "normalized": "20123456786", "error": null } },
+  { "input": { "cuit": "" }, "expected": { "ok": false, "normalized": "", "error": "CUIT is required" } },
+  { "input": { "cuit": "   " }, "expected": { "ok": false, "normalized": "", "error": "CUIT is required" } },
+  { "input": { "cuit": null }, "expected": { "ok": false, "normalized": "", "error": "CUIT is required" } },
+  { "input": { "cuit": "20-12345678" }, "expected": { "ok": false, "normalized": "2012345678", "error": "CUIT must be 11 digits, got 10" } },
+  { "input": { "cuit": "20-12345678-67" }, "expected": { "ok": false, "normalized": "201234567867", "error": "CUIT must be 11 digits, got 12" } },
+  { "input": { "cuit": "20-1234567A-6" }, "expected": { "ok": false, "normalized": "201234567A6", "error": "CUIT must contain only digits" } },
+  { "input": { "cuit": "00000000000" }, "expected": { "ok": false, "normalized": "00000000000", "error": "CUIT is invalid (all digits are the same)" } },
+  { "input": { "cuit": "11111111111" }, "expected": { "ok": false, "normalized": "11111111111", "error": "CUIT is invalid (all digits are the same)" } }
+]

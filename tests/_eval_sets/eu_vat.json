@@ -1,0 +1,16 @@
+[
+  { "input": { "vat": "DE123456789" }, "expected": { "ok": true,  "normalized": "DE123456789", "error": null } },
+  { "input": { "vat": "FR12345678901" }, "expected": { "ok": true, "normalized": "FR12345678901", "error": null } },
+  { "input": { "vat": "IT12345678901" }, "expected": { "ok": true, "normalized": "IT12345678901", "error": null } },
+  { "input": { "vat": "NL123456789B01" }, "expected": { "ok": true, "normalized": "NL123456789B01", "error": null } },
+  { "input": { "vat": "ES12345678Z" }, "expected": { "ok": true, "normalized": "ES12345678Z", "error": null } },
+  { "input": { "vat": "DE 123 456 789" }, "expected": { "ok": true, "normalized": "DE123456789", "error": null } },
+  { "input": { "vat": "de123.456.789" }, "expected": { "ok": true, "normalized": "DE123456789", "error": null } },
+  { "input": { "vat": "" }, "expected": { "ok": false, "normalized": "", "error": "VAT number is required" } },
+  { "input": { "vat": "   " }, "expected": { "ok": false, "normalized": "", "error": "VAT number is required" } },
+  { "input": { "vat": "123456789" }, "expected": { "ok": false, "normalized": "123456789", "error": "VAT must start with a 2-letter country code" } },
+  { "input": { "vat": "XX123456789" }, "expected": { "ok": false, "normalized": "XX123456789", "error": "Unknown EU country code: XX" } },
+  { "input": { "vat": "DE12345" }, "expected": { "ok": false, "normalized": "DE12345", "error": "VAT body must be 8-12 chars, got 5" } },
+  { "input": { "vat": "DE12345ABCDE" }, "expected": { "ok": false, "normalized": "DE12345ABCDE", "error": "VAT body must contain only digits (per country)" } },
+  { "input": { "vat": null }, "expected": { "ok": false, "normalized": "", "error": "VAT number is required" } }
+]

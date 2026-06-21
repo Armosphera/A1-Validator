@@ -1,0 +1,14 @@
+[
+  { "input": { "cpf": "52998224725" }, "expected": { "ok": true,  "normalized": "52998224725", "error": null } },
+  { "input": { "cpf": "11144477735" }, "expected": { "ok": true,  "normalized": "11144477735", "error": null } },
+  { "input": { "cpf": "529.982.247-25" }, "expected": { "ok": true, "normalized": "52998224725", "error": null } },
+  { "input": { "cpf": "111 444 777 35" }, "expected": { "ok": true, "normalized": "11144477735", "error": null } },
+  { "input": { "cpf": "" }, "expected": { "ok": false, "normalized": "", "error": "CPF is required" } },
+  { "input": { "cpf": "   " }, "expected": { "ok": false, "normalized": "", "error": "CPF is required" } },
+  { "input": { "cpf": null }, "expected": { "ok": false, "normalized": "", "error": "CPF is required" } },
+  { "input": { "cpf": "5299822472" }, "expected": { "ok": false, "normalized": "5299822472", "error": "CPF must be 11 digits, got 10" } },
+  { "input": { "cpf": "529982247251" }, "expected": { "ok": false, "normalized": "529982247251", "error": "CPF must be 11 digits, got 12" } },
+  { "input": { "cpf": "52A98224725" }, "expected": { "ok": false, "normalized": "52A98224725", "error": "CPF must contain only digits" } },
+  { "input": { "cpf": "00000000000" }, "expected": { "ok": false, "normalized": "00000000000", "error": "CPF is invalid (all digits are the same)" } },
+  { "input": { "cpf": "11111111111" }, "expected": { "ok": false, "normalized": "11111111111", "error": "CPF is invalid (all digits are the same)" } }
+]

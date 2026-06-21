@@ -349,6 +349,43 @@ class JpMynumberResult(_BaseResult):
     error: str | None = None
 
 
+# ---------------------------------------------------------------------------
+# 4 more international business ID validators (added in v0.4.0).
+# ---------------------------------------------------------------------------
+
+
+class ArCuitResult(_BaseResult):
+    """Output of `a1_validator.ar_cuit()` — Argentina CUIT/CUIL (AFIP)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class ClRutResult(_BaseResult):
+    """Output of `a1_validator.cl_rut()` — Chile RUT (SII)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class SgUenResult(_BaseResult):
+    """Output of `a1_validator.sg_uen()` — Singapore UEN (ACRA)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
+class KrBrnResult(_BaseResult):
+    """Output of `a1_validator.kr_brn()` — Korea Business Registration Number (NTS)."""
+
+    ok: bool | None = None
+    normalized: str | None = None
+    error: str | None = None
+
+
 # Mapping: public validator name -> Pydantic result model.
 # Used by `a1_validator.validate(kind, value)` to coerce the dict result into
 # the matching typed model.
@@ -387,6 +424,11 @@ RESULT_MODELS: dict[str, type[_BaseResult]] = {
     "au_abn":               AuAbnResult,
     "mx_rfc":               MxRfcResult,
     "jp_mynumber":          JpMynumberResult,
+    # 4 more international business ID validators (v0.4.0)
+    "ar_cuit":              ArCuitResult,
+    "cl_rut":               ClRutResult,
+    "sg_uen":               SgUenResult,
+    "kr_brn":               KrBrnResult,
 }
 
 
@@ -425,5 +467,9 @@ __all__ = [
     "AuAbnResult",
     "MxRfcResult",
     "JpMynumberResult",
+    "ArCuitResult",
+    "ClRutResult",
+    "SgUenResult",
+    "KrBrnResult",
     "RESULT_MODELS",
 ]

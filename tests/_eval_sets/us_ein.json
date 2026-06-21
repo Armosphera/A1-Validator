@@ -1,0 +1,15 @@
+[
+  { "input": { "ein": "12-3456789" }, "expected": { "ok": true,  "normalized": "123456789", "error": null } },
+  { "input": { "ein": "123456789" }, "expected": { "ok": true,  "normalized": "123456789", "error": null } },
+  { "input": { "ein": "01-2345678" }, "expected": { "ok": true,  "normalized": "012345678", "error": null } },
+  { "input": { "ein": "99-1234567" }, "expected": { "ok": true,  "normalized": "991234567", "error": null } },
+  { "input": { "ein": "12 345 6789" }, "expected": { "ok": true, "normalized": "123456789", "error": null } },
+  { "input": { "ein": "" }, "expected": { "ok": false, "normalized": "", "error": "EIN is required" } },
+  { "input": { "ein": "   " }, "expected": { "ok": false, "normalized": "", "error": "EIN is required" } },
+  { "input": { "ein": null }, "expected": { "ok": false, "normalized": "", "error": "EIN is required" } },
+  { "input": { "ein": "12345678" }, "expected": { "ok": false, "normalized": "12345678", "error": "EIN must be 9 digits, got 8" } },
+  { "input": { "ein": "1234567890" }, "expected": { "ok": false, "normalized": "1234567890", "error": "EIN must be 9 digits, got 10" } },
+  { "input": { "ein": "12A456789" }, "expected": { "ok": false, "normalized": "12A456789", "error": "EIN must contain only digits" } },
+  { "input": { "ein": "000000000" }, "expected": { "ok": false, "normalized": "000000000", "error": "EIN is invalid (all digits are the same)" } },
+  { "input": { "ein": "111111111" }, "expected": { "ok": false, "normalized": "111111111", "error": "EIN is invalid (all digits are the same)" } }
+]

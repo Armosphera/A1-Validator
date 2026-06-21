@@ -1,0 +1,14 @@
+[
+  { "input": { "brn": "123-45-67890" }, "expected": { "ok": true,  "normalized": "1234567890", "error": null } },
+  { "input": { "brn": "1234567890" }, "expected": { "ok": true,  "normalized": "1234567890", "error": null } },
+  { "input": { "brn": "123 45 67890" }, "expected": { "ok": true, "normalized": "1234567890", "error": null } },
+  { "input": { "brn": "098-76-54321" }, "expected": { "ok": true, "normalized": "0987654321", "error": null } },
+  { "input": { "brn": "" }, "expected": { "ok": false, "normalized": "", "error": "BRN is required" } },
+  { "input": { "brn": "   " }, "expected": { "ok": false, "normalized": "", "error": "BRN is required" } },
+  { "input": { "brn": null }, "expected": { "ok": false, "normalized": "", "error": "BRN is required" } },
+  { "input": { "brn": "123-45-6789" }, "expected": { "ok": false, "normalized": "123456789", "error": "BRN must be 10 digits, got 9" } },
+  { "input": { "brn": "123-45-678901" }, "expected": { "ok": false, "normalized": "12345678901", "error": "BRN must be 10 digits, got 11" } },
+  { "input": { "brn": "123-4A-67890" }, "expected": { "ok": false, "normalized": "1234A67890", "error": "BRN must contain only digits" } },
+  { "input": { "brn": "000-00-00000" }, "expected": { "ok": false, "normalized": "0000000000", "error": "BRN is invalid (all digits are the same)" } },
+  { "input": { "brn": "1111111111" }, "expected": { "ok": false, "normalized": "1111111111", "error": "BRN is invalid (all digits are the same)" } }
+]

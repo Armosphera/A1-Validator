@@ -4,6 +4,38 @@ All notable changes to A1 Validator are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versioning: [SemVer](https://semver.org/).
 
+## [0.4.0] - 2026-06-21
+
+### Added
+
+**4 more international business ID validators** (v0.3.0 → v0.4.0, 33 → 37 total):
+
+| Kind | Country / region | Format | Check |
+|------|------------------|--------|-------|
+| `ar_cuit` | Argentina (AFIP) | 11 digits, XX-XXXXXXXX-X | mod-11 weights [5,4,3,2,7,6,5,4,3,2] |
+| `cl_rut`  | Chile (SII) | 7-8 digits + check (0-9 or K) | mod-11 weights [2,3,4,5,6,7,2,3] right-to-left |
+| `sg_uen`  | Singapore (ACRA) | 9-10 alphanumeric | structural (no public check) |
+| `kr_brn`  | Korea (NTS) | 10 digits, XXX-XX-XXXXX | structural (no public check) |
+
+**Test coverage:** 648/648 tests passing (was 471). The 177 new tests
+pull from the freshly-vendored `tests/_eval_sets/` corpus for each
+new validator (12-14 cases per validator × 14 new = ~177 new tests).
+
+**Re-vendored from autoresearch-sboss@7a4bb9a** (was 0a79493).
+
+### Fixed
+
+- **`scripts/_vendor.py` eval_set vendoring bug**: the `("invoice", "workflow.py")`
+  entry has `rel = "workflow.py"` (no slash), so `rel.rsplit("/", 1)[0]`
+  returned "workflow.py" itself. The script then looked for
+  `workflow.py/eval_set.json` which doesn't exist. Special-cased the
+  `invoice` example to use the top-level `eval_set.json`.
+- **`scripts/_vendor.py` SKIP_VENDOR list**: added to pin `chat_client` to
+  its v0.3.0 working version (the upstream example has a regression
+  where the `last_request` snapshot is captured at dict-construction
+  time when `call_log` is still empty). Future re-vendors skip
+  `chat_client` and keep the local pin.
+
 ## [0.3.0] - 2026-06-21
 
 ### Added

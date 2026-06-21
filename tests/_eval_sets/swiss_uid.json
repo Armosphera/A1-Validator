@@ -1,0 +1,14 @@
+[
+  { "input": { "swiss_uid": "CHE-123.456.789" }, "expected": { "ok": true,  "normalized": "CHE123456789", "error": null } },
+  { "input": { "swiss_uid": "CHE123456789" }, "expected": { "ok": true,  "normalized": "CHE123456789", "error": null } },
+  { "input": { "swiss_uid": "che-123.456.789" }, "expected": { "ok": true, "normalized": "CHE123456789", "error": null } },
+  { "input": { "swiss_uid": "CHE 123 456 789" }, "expected": { "ok": true, "normalized": "CHE123456789", "error": null } },
+  { "input": { "swiss_uid": "" }, "expected": { "ok": false, "normalized": "", "error": "Swiss UID is required" } },
+  { "input": { "swiss_uid": "   " }, "expected": { "ok": false, "normalized": "", "error": "Swiss UID is required" } },
+  { "input": { "swiss_uid": null }, "expected": { "ok": false, "normalized": "", "error": "Swiss UID is required" } },
+  { "input": { "swiss_uid": "CHE-12.345.678" }, "expected": { "ok": false, "normalized": "CHE12345678", "error": "Swiss UID must be 12 characters, got 11" } },
+  { "input": { "swiss_uid": "CHE-1234.567.890" }, "expected": { "ok": false, "normalized": "CHE1234567890", "error": "Swiss UID must be 12 characters, got 13" } },
+  { "input": { "swiss_uid": "CHE-123.456.78!A" }, "expected": { "ok": false, "normalized": "CHE12345678!A", "error": "Swiss UID must be alphanumeric" } },
+  { "input": { "swiss_uid": "ABC-123.456.789" }, "expected": { "ok": false, "normalized": "ABC123456789", "error": "Swiss UID has an unrecognized prefix (expected CHE, CH, or CDF)" } },
+  { "input": { "swiss_uid": "111111111111" }, "expected": { "ok": false, "normalized": "111111111111", "error": "Swiss UID is invalid (all characters are the same)" } }
+]

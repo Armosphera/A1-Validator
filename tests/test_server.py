@@ -9,8 +9,8 @@ field". These tests pin that contract end-to-end via FastAPI's
 
 What's covered:
 
-* `GET /` discovery: 200, name + version + 33-name validator list.
-* `GET /validators`: 200, 33 entries.
+* `GET /` discovery: 200, name + version + 37-name validator list.
+* `GET /validators`: 200, 37 entries.
 * `POST /validate/hhvh` with `{"value": "00123456"}` → 200 + ok=true.
 * `POST /validate/hhvh` with `{"value": "99999999"}` (all-same-digit HHVH)
   → 200 + ok=false. This catches the most common "the validator ran but
@@ -66,8 +66,8 @@ def test_root_returns_200_with_name_version_and_23_validators(client: TestClient
     assert body["name"] == "a1-validator"
     assert isinstance(body["version"], str) and body["version"]  # non-empty
     assert isinstance(body["validators"], list)
-    assert len(body["validators"]) == 33
-    # The 33 names match the canonical _port._VALIDATORS list (defensive
+    assert len(body["validators"]) == 37
+    # The 37 names match the canonical _port._VALIDATORS list (defensive
     # against accidental reordering or removal of a kind in __init__.py).
     assert sorted(body["validators"]) == sorted(list_kinds())
 
@@ -77,7 +77,7 @@ def test_validators_returns_200_with_23_names(client: TestClient) -> None:
     assert resp.status_code == 200
     body = resp.json()
     assert "validators" in body
-    assert len(body["validators"]) == 33
+    assert len(body["validators"]) == 37
     assert "hhvh" in body["validators"]
     assert "invoice" in body["validators"]
 
@@ -207,7 +207,7 @@ def test_openapi_json_returns_200_with_all_23_validators_as_paths(client: TestCl
     # The HTTP service exposes one /validate/<kind> + one /batch/<kind>
     # pair per validator — 46 paths minimum, plus the 5 FastAPI built-ins
     # (/, /validators, /docs, /openapi.json, /redoc) = 51+ total.
-    assert len(paths) >= 33, f"expected >= 33 paths, got {len(paths)}"
+    assert len(paths) >= 37, f"expected >= 37 paths, got {len(paths)}"
 
     # Every canonical validator name has both a /validate/<kind> and a
     # /batch/<kind> route.
