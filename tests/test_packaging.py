@@ -409,8 +409,9 @@ class TestPackageRuntime:
             f"hhvh call failed:\n{result.stdout}\n{result.stderr}"
         )
         payload = json.loads(result.stdout.strip().splitlines()[-1])
+        hvhh_input = {"hvhh": "00123456"}
         assert payload.get("ok") is True, (
-            f"hhvh({ {'hvhh': '00123456'}!r }) returned ok={payload.get('ok')!r}: "
+            f"hhvh({hvhh_input!r}) returned ok={payload.get('ok')!r}: "
             f"{payload}"
         )
         assert payload.get("normalized") == "00123456", (
