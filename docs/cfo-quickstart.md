@@ -11,7 +11,7 @@ ID formats** from 15+ countries — Armenian (HHVH), Russian (INN / OGRN
 / SNILS), Brazilian (CNPJ / CPF), EU VAT, US EIN, UK Company, Indian
 GSTIN, Australian ABN, Swiss UID, Mexican RFC, Japan My Number,
 Argentine CUIT, Chilean RUT, Singapore UEN, Korean BRN, and more.
-100% offline. No network calls. No LLM. 648/648 tests passing.
+100% offline. No network calls. No LLM. 709/709 tests passing.
 
 | | |
 |---|---|
@@ -52,7 +52,7 @@ a1_validator.cnpj({"cnpj": "11.222.333/0001-81"})
 # → {"ok": True, "normalized": "11222333000181", "error": null}
 
 # Validate a Mexico RFC, Japan My Number, EU VAT, US EIN, India GSTIN, ...
-# All 37 follow the same pattern. See `a1_validator.list_kinds()` for the full list.
+# All 41 follow the same pattern. See `a1_validator.list_kinds()` for the full list.
 ```
 
 The full validator list and live example outputs for every one of
@@ -143,3 +143,27 @@ workflows like these.
   systemd unit, pm2 config
 - **CHANGELOG**: [CHANGELOG.md](CHANGELOG.md) — what's in v0.4.0
 - **Source**: [github.com/Armosphera/A1-Validator](https://github.com/Armosphera/A1-Validator)
+
+## Used by
+
+- **[SBOS-A1-ERP](https://github.com/Armosphera/SBOS-A1-ERP)** — Armenian
+  SME ERP foundation. v1.0.0+ uses A1-Validator as the source of
+  truth for HVVH (Armenian TIN) validation on customer / vendor /
+  invoice / vendor-bill / CRM contact / CRM lead / POS sale writes,
+  plus an on-demand `/validate-hvhh` endpoint for drift detection
+  (run after a year of edits, see if the customer's TIN is still
+  valid). The Node 20+ HTTP client is at
+  `lib/a1-validator-client.js` and the on-demand wrapper is at
+  `server/finance/validate-hvhh.js`.
+
+## v0.5.0 changes (since v0.4.0)
+
+- 4 more international business IDs (37 → 41): added Argentine CUIT
+  (already present but now in CSV), Chilean RUT, Singapore UEN,
+  Korean BRN.
+- New `a1-validate validate-csv` CLI for batch validation (the
+  import-time check that a CSV of new suppliers is clean before
+  you write it to the DB).
+- New live-server integration tests that catch the `_VALUE_KEY`
+  class of bugs (a real HTTP server can return JSON with keys that
+  the in-process TestClient can't simulate).
