@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.5.1] - 2026-06-22
+
+### Added
+
+**HHVH-specific test suite** (tests/test_hhvh.py, 26 new tests):
+
+| Source | Count | Notes |
+|--------|-------|-------|
+| Upstream eval_set.json (autoresearch-sboss/examples/hhvh) | 20 | Canonical ground-truth corpus |
+| Custom: canonical 3-3-2 grouping | 1 | Tests 001-234-56, 001.234.56, 001 234 56 |
+| Custom: typo rejection (5+3 split) | 1 | Tests 00123-456 caught by pre-norm fix |
+| Custom: degenerate rejection | 1 | All-same-digit (00000000, 11111111, 99999999) |
+| Custom: non-digit rejection | 1 | 0012345A, ABCDEFGH |
+| Custom: empty / whitespace / None | 1 | Rejected per НК РФ rule |
+| Custom: well-known fixtures | 1 | 00123456, 12345678, 00000001, 99999998 |
+
+**Verification:** vendored hhvh.py is at 100% score against upstream
+ground truth. Pre-norm fix (commit f893bfd) is present in both vendor
+and upstream.
+
+**Related:** A1-Validator Issue #1 closed as not_planned (work was
+already shipped in commit bb8ab65 — bootstrap a1-validator package).
+
 ## [0.5.0] - 2026-06-21
 
 ### Added
